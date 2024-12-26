@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/splash/presentation/views/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -6,7 +7,7 @@ void main() {
 }
 
 class BooklyApp extends StatelessWidget {
-  const BooklyApp({Key? key}) : super(key: key);
+  const BooklyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
