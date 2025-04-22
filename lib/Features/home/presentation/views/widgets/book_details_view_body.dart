@@ -12,63 +12,81 @@ class BookDetailsViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Column(
-        children: [
-          CusomAppBar(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.2),
-            child: CustomBookImage(),
-          ),
-          const SizedBox(
-            height: 43,
-          ),
-          Text(
-            'Fortress Blood',
-            style: Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          Opacity(
-            opacity: 0.7,
-            child: Text(
-              'L.D. GOFFIGAN',
-              style: Styles.textStyle18.copyWith(
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.italic,
-              ),
+    //to use Expanded widget in the column, we need to wrap the column with a sliver widget
+    //and use SliverFillRemaining to make the column take all the available space
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          //beccause customscroolview has a scroll body, we don't need to use true
+          hasScrollBody: false,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              children: [
+                CusomAppBar(),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.2),
+                  child: CustomBookImage(),
+                ),
+                const SizedBox(
+                  height: 43,
+                ),
+                Text(
+                  'Fortress Blood',
+                  style:
+                      Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 6,
+                ),
+                Opacity(
+                  opacity: 0.7,
+                  child: Text(
+                    'L.D. GOFFIGAN',
+                    style: Styles.textStyle18.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                BookRating(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                const SizedBox(
+                  height: 37,
+                ),
+                BookAction(),
+                Expanded(
+                  //to make the description take all the available space (Responsive)
+                  child: const SizedBox(
+                    height:
+                        50, ////minimum height between the book action and the description
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'You can also like ',
+                    style: Styles.textStyle14.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SimilarBooksListView(),
+                const SizedBox(
+                  height: 40,
+                ),
+              ],
             ),
           ),
-          const SizedBox(
-            height: 18,
-          ),
-          BookRating(
-            mainAxisAlignment: MainAxisAlignment.center,
-          ),
-          const SizedBox(
-            height: 37,
-          ),
-          BookAction(),
-          const SizedBox(
-            height: 50,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'You can also like ',
-              style: Styles.textStyle14.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          SimilarBooksListView(),
-        ],
-      ),
+        )
+      ],
     );
   }
 }
