@@ -9,7 +9,8 @@ class SearchResultListView extends StatelessWidget {
     return ListView.separated(
       separatorBuilder: (context, index) => SizedBox(height: 20),
       itemCount: 5,
-      itemBuilder: (context, index) => BookListViewItem(),
+      itemBuilder: (context, index) => SizedBox(),
+      //  BookListViewItem(),
     );
   }
 }
