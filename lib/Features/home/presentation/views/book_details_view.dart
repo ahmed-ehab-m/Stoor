@@ -16,14 +16,16 @@ class _BookDetailsViewState extends State<BookDetailsView> {
   void initState() {
     BlocProvider.of<SimilarBooksCubit>(context).fetchSimilarBooks(
         category: widget.bookModel!.volumeInfo.categories![0]);
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: BookDetailsViewBody()),
+      body: SafeArea(
+          child: BookDetailsViewBody(
+        bookModel: widget.bookModel,
+      )),
     );
   }
 }

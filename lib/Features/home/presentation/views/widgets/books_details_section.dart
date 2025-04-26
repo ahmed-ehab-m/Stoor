@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_action.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
@@ -5,8 +6,8 @@ import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsSection extends StatelessWidget {
-  const BookDetailsSection({super.key});
-
+  const BookDetailsSection({super.key, required this.bookModel});
+  final BookModel? bookModel;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -16,14 +17,16 @@ class BookDetailsSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.2),
           child: CustomBookImage(
-            imageUrl: 'sd',
+            imageUrl: bookModel?.volumeInfo?.imageLinks?.thumbnail ??
+                'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
           ),
         ),
         const SizedBox(
           height: 43,
         ),
         Text(
-          'Fortress Blood',
+          textAlign: TextAlign.center,
+          bookModel?.volumeInfo?.title ?? 'Book Title',
           style: Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(
@@ -32,7 +35,7 @@ class BookDetailsSection extends StatelessWidget {
         Opacity(
           opacity: 0.7,
           child: Text(
-            'L.D. GOFFIGAN',
+            bookModel?.volumeInfo?.authors?.first ?? 'Author Name',
             style: Styles.textStyle18.copyWith(
               fontWeight: FontWeight.w500,
               fontStyle: FontStyle.italic,
@@ -50,7 +53,9 @@ class BookDetailsSection extends StatelessWidget {
         const SizedBox(
           height: 37,
         ),
-        BookAction(),
+        BookAction(
+          bookModel: bookModel,
+        ),
       ],
     );
   }

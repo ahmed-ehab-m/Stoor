@@ -18,10 +18,12 @@ class SimilarBooksListView extends StatelessWidget {
           child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(width: 10),
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: state.books.length,
               itemBuilder: (context, index) {
                 return CustomBookImage(
-                  imageUrl: 'sd',
+                  imageUrl: state
+                          .books[index].volumeInfo?.imageLinks?.thumbnail ??
+                      'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
                 );
               }),
         );

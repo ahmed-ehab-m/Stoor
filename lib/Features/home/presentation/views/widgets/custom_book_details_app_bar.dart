@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CusomAppBar extends StatelessWidget {
   const CusomAppBar({super.key});
@@ -8,7 +9,11 @@ class CusomAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios_new)),
+        IconButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            icon: Icon(Icons.arrow_back_ios_new)),
         IconButton(
           onPressed: () {},
           icon: Icon(Icons.shopping_cart_checkout_outlined),
