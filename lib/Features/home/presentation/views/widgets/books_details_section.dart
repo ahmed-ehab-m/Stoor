@@ -17,7 +17,7 @@ class BookDetailsSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.2),
           child: CustomBookImage(
-            imageUrl: bookModel?.volumeInfo?.imageLinks?.thumbnail ??
+            imageUrl: bookModel?.volumeInfo.imageLinks.thumbnail ??
                 'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
           ),
         ),
@@ -26,7 +26,7 @@ class BookDetailsSection extends StatelessWidget {
         ),
         Text(
           textAlign: TextAlign.center,
-          bookModel?.volumeInfo?.title ?? 'Book Title',
+          bookModel?.volumeInfo.title ?? 'Book Title',
           style: Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(
@@ -35,7 +35,7 @@ class BookDetailsSection extends StatelessWidget {
         Opacity(
           opacity: 0.7,
           child: Text(
-            bookModel?.volumeInfo?.authors?.first ?? 'Author Name',
+            bookModel?.volumeInfo.authors?.first ?? 'Author Name',
             style: Styles.textStyle18.copyWith(
               fontWeight: FontWeight.w500,
               fontStyle: FontStyle.italic,
@@ -51,10 +51,27 @@ class BookDetailsSection extends StatelessWidget {
           reviewsCount: 100,
         ),
         const SizedBox(
-          height: 37,
+          height: 18,
+        ),
+        Text(
+          bookModel?.volumeInfo.description ??
+              'No description available for this book',
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 6,
+          style: Styles.textStyle14.copyWith(
+            height: 1.5,
+            color: Colors.grey,
+          ),
+        ),
+        const SizedBox(
+          height: 30,
         ),
         BookAction(
           bookModel: bookModel,
+        ),
+        const SizedBox(
+          height: 30,
         ),
       ],
     );

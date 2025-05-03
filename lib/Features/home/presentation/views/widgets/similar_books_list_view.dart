@@ -22,7 +22,7 @@ class SimilarBooksListView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return CustomBookImage(
                   imageUrl: state
-                          .books[index].volumeInfo?.imageLinks?.thumbnail ??
+                          .books[index].volumeInfo.imageLinks.thumbnail ??
                       'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
                 );
               }),

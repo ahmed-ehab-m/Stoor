@@ -1,7 +1,6 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/books_details_section.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/similar_books_section.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
@@ -18,10 +17,10 @@ class BookDetailsViewBody extends StatelessWidget {
           //beccause customscroolview has a scroll body, we don't need to use true
           hasScrollBody: false,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                CusomAppBar(),
+                CusomBookDetailsAppBar(),
                 BookDetailsSection(
                   bookModel: bookModel,
                 ),
@@ -32,7 +31,7 @@ class BookDetailsViewBody extends StatelessWidget {
                         50, ////minimum height between the book action and the description
                   ),
                 ),
-                SimilarBooksSection(),
+                // SimilarBooksSection(),
               ],
             ),
           ),

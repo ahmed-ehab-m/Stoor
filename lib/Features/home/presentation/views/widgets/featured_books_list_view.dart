@@ -6,6 +6,7 @@ import 'package:bookly_app/core/widgets/custom_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class FeaturedBooksListView extends StatelessWidget {
   const FeaturedBooksListView({super.key});
@@ -40,7 +41,22 @@ class FeaturedBooksListView extends StatelessWidget {
         } else if (state is FeaturedBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         } else {
-          return CustomLoadingIndicator();
+          return Skeletonizer(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 10),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      child: CustomBookImage(imageUrl: ''),
+                    );
+                  }),
+            ),
+          );
         }
       },
     );

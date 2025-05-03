@@ -24,7 +24,7 @@ class HomeRepoImpl implements HomeRepo {
       //dio error happen if status code is not 200
       // dio error holds status code and response data
       // dio error => server failure
-      if (e is DioError) {
+      if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));
@@ -40,13 +40,13 @@ class HomeRepoImpl implements HomeRepo {
       for (var item in data['items']) {
         try {
           books.add(BookModel.fromJson(item));
-        } on Exception catch (e) {
+        } on Exception {
           // TODO
         }
       }
       return right(books);
     } on Exception catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));
@@ -64,13 +64,13 @@ class HomeRepoImpl implements HomeRepo {
       for (var item in data['items']) {
         try {
           books.add(BookModel.fromJson(item));
-        } on Exception catch (e) {
+        } on Exception {
           // TODO
         }
       }
       return right(books);
     } on Exception catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));

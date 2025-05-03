@@ -1,8 +1,12 @@
+import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/Features/home/data/models/book_model/image_links.dart';
+import 'package:bookly_app/Features/home/data/models/book_model/volume_info.dart';
 import 'package:bookly_app/Features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_list_view_item.dart';
 import 'package:bookly_app/core/widgets/custom_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class NewestListView extends StatelessWidget {
   const NewestListView({super.key});
@@ -13,25 +17,58 @@ class NewestListView extends StatelessWidget {
       builder: (context, state) {
         if (state is NewestBooksSuccess) {
           print(state.books.length);
-          return ListView.separated(
-            // physics: NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => SizedBox(height: 20),
-            itemCount: state.books.length,
-            itemBuilder: (context, index) => BookListViewItem(
-              bookModel: state.books[index],
-            ),
-          );
+          return SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: BookListViewItem(
+                  bookModel: state.books[index],
+                ),
+              );
+            },
+            childCount: state.books.length,
+          ));
         } else if (state is NewestBooksFailure) {
-          return Center(
-            child: Text(
-              state.errorMessage,
-              style: TextStyle(color: Colors.red),
+          return SliverToBoxAdapter(
+            child: Center(
+              child: Text(
+                state.errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
             ),
           );
         } else {
-          return CustomLoadingIndicator();
+          return Skeletonizer.sliver(
+            // effect:ShimmerEffect() ,
+            enabled: true,
+            child: SliverList(
+                delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: BookListViewItem(
+                    bookModel: mockupBookModel,
+                  ),
+                );
+              },
+              childCount: 5,
+            )),
+          );
         }
       },
     );
   }
 }
+
+BookModel mockupBookModel = BookModel(
+  id: '1',
+  volumeInfo: VolumeInfo(
+    title: 'Sample Book Title',
+    authors: ['Author Name'],
+    imageLinks: ImageLinks(
+      thumbnail: 'https://example.com/sample-book-cover.jpg',
+      smallThumbnail: '',
+    ),
+  ),
+);
