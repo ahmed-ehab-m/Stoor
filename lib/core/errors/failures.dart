@@ -6,8 +6,31 @@ abstract class Failure {
   const Failure(this.errMessage);
 }
 
+///////////////////////////////////////////
+class CacheFailure extends Failure {
+  CacheFailure(super.errMessage);
+}
+
+////////////////////////////////////
 class ServerFailure extends Failure {
   ServerFailure(super.errMessage);
+
+  factory ServerFailure.fromFirebaseAuthError(
+    String errorCode,
+  ) {
+    switch (errorCode) {
+      case 'user-not-found':
+        return ServerFailure('User not found');
+      case 'wrong-password':
+        return ServerFailure('Wrong password');
+      case 'email-already-in-use':
+        return ServerFailure('Email already in use');
+      case 'invalid-email':
+        return ServerFailure('Invalid email address');
+      default:
+        return ServerFailure('Opps there was an error , Please try again');
+    }
+  }
   //dio error is enum data type
   factory ServerFailure.fromDioError(DioException dioError) {
     switch (dioError.type) {
