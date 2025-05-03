@@ -2,7 +2,6 @@ import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
 import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/settings/presentation/views/settings_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -86,7 +85,7 @@ class _MainViewState extends State<MainView> {
                 icon: Icon(
                   HugeIcons.strokeRoundedGoogleGemini,
                   color: _currentIndex == 2
-                      ? const Color.fromARGB(255, 79, 22, 177)
+                      ? const Color.fromARGB(255, 39, 1, 255)
                       : Colors.grey,
                   size: 35,
                 ),
@@ -103,75 +102,6 @@ class _MainViewState extends State<MainView> {
           ),
         ),
       ),
-
-      // bottomNavigationBar: BlocBuilder<ChangeThemeCubit, ChangeThemeState>(
-      //   builder: (context, state) {
-      //     return Container(
-      //       decoration: BoxDecoration(
-      //         borderRadius: BorderRadius.circular(50),
-      //         color: BlocProvider.of<ChangeThemeCubit>(context).backgroundColor,
-      //         boxShadow: [
-      //           BoxShadow(
-      //             color: Colors.grey.withOpacity(0.5),
-      //             blurRadius: 5,
-      //             offset: Offset(0, 0),
-      //           ),
-      //         ],
-      //       ),
-      //       margin: const EdgeInsets.only(
-      //         left: 20,
-      //         right: 20,
-      //         bottom: 10,
-      //       ),
-      //       child: SalomonBottomBar(
-      //         itemPadding:
-      //             const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      //         currentIndex: _currentIndex,
-      //         onTap: (i) => {
-      //           setState(() => _currentIndex = i),
-      //           // print("Current index: $_currentIndex"),
-      //           // GoRouter.of(context).push(AppRouter.KHomeView),
-      //         },
-      //         items: [
-      //           /// Home
-      //           SalomonBottomBarItem(
-      //               icon: Icon(CupertinoIcons.home, size: 30),
-      //               title: Text(""),
-      //               selectedColor: BlocProvider.of<ChangeThemeCubit>(context)
-      //                           .backgroundColor ==
-      //                       Colors.black
-      //                   ? Colors.white
-      //                   : Colors.black,
-      //               unselectedColor: Colors.grey),
-
-      //           /// Likes
-      //           SalomonBottomBarItem(
-      //               icon: Icon(FontAwesomeIcons.bookBookmark),
-      //               title: Text(""),
-      //               selectedColor: Colors.amber,
-      //               unselectedColor: Colors.grey),
-
-      //           /// Search
-      //           SalomonBottomBarItem(
-      //               icon: Image.asset(
-      //                 'assets/images/google-gemini-icon.png',
-      //                 scale: 20,
-      //               ),
-      //               title: Text(""),
-      //               selectedColor: Colors.blue,
-      //               unselectedColor: Colors.grey),
-
-      //           /// Profile
-      //           SalomonBottomBarItem(
-      //               icon: Icon(FontAwesomeIcons.gear),
-      //               title: Text(''),
-      //               selectedColor: Colors.teal,
-      //               unselectedColor: Colors.grey),
-      //         ],
-      //       ),
-      //     );
-      //   },
-      // ),
     );
   }
 }

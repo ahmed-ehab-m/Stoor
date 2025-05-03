@@ -3,7 +3,6 @@ import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart'
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_list_view_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 
 class GeminiViewBody extends StatefulWidget {
   const GeminiViewBody({super.key});

@@ -45,10 +45,19 @@ class NewestListView extends StatelessWidget {
             child: SliverList(
                 delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: BookListViewItem(
-                    bookModel: mockupBookModel,
+                return Skeleton.shade(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Container(
+                      width: 50, // نفس عرض CustomBookImage
+                      height: 140, // نفس الارتفاع
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300], // لون الـ skeleton
+                        borderRadius:
+                            BorderRadius.circular(8), // نفس الـ borderRadius
+                      ),
+                      child: const Text(''),
+                    ),
                   ),
                 );
               },

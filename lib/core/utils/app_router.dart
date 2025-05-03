@@ -1,3 +1,5 @@
+import 'package:bookly_app/Features/auth/presentation/views/login_view.dart';
+import 'package:bookly_app/Features/auth/presentation/views/signup_view.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
@@ -15,6 +17,8 @@ import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
   static const KOnboardingView = '/onboardingview';
+  static const KLoginView = '/loginview';
+  static const KSignupView = '/signupview';
   static const KMainView = '/mainview';
   static const KHomeView = '/homeview';
   static const KSettingsView = '/settingsview';
@@ -30,6 +34,14 @@ abstract class AppRouter {
       GoRoute(
         path: KOnboardingView,
         builder: (context, state) => const OnboardingView(),
+      ),
+      GoRoute(
+        path: KLoginView,
+        builder: (context, state) => const LoginView(),
+      ),
+      GoRoute(
+        path: KSignupView,
+        builder: (context, state) => const SignupView(),
       ),
       GoRoute(
         path: KMainView,

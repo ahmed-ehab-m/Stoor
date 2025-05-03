@@ -2,7 +2,6 @@ import 'package:bookly_app/Features/home/presentation/manager/featured_books_cub
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
-import 'package:bookly_app/core/widgets/custom_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -42,6 +41,7 @@ class FeaturedBooksListView extends StatelessWidget {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         } else {
           return Skeletonizer(
+            enabled: true,
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
               child: ListView.separated(
@@ -51,8 +51,18 @@ class FeaturedBooksListView extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      child: CustomBookImage(imageUrl: ''),
+                    return Skeleton.leaf(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width *
+                            0.4, // نفس عرض CustomBookImage
+                        height: MediaQuery.of(context).size.height *
+                            0.3, // نفس الارتفاع
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300], // لون الـ skeleton
+                          borderRadius:
+                              BorderRadius.circular(8), // نفس الـ borderRadius
+                        ),
+                      ),
                     );
                   }),
             ),

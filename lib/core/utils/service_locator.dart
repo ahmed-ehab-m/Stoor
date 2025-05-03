@@ -1,4 +1,3 @@
-import 'package:bookly_app/Features/gemini/data/repos/gemini_repo.dart';
 import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly_app/core/utils/api_service.dart';

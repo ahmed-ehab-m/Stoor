@@ -49,7 +49,7 @@ class OnboardingViewBody extends StatelessWidget {
       },
       onSkip: () {
         GoRouter.of(context)
-            .push(AppRouter.KMainView); // Navigate to the home screen
+            .push(AppRouter.KSignupView); // Navigate to the home screen
 
         // Navigate to the next screen
       },
