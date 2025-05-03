@@ -1,5 +1,6 @@
 import 'package:bookly_app/Features/auth/data/models/user_model.dart';
 import 'package:bookly_app/Features/auth/data/repos/auth_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'auth_state.dart';
@@ -38,5 +39,14 @@ class AuthCubit extends Cubit<AuthState> {
       (failure) => emit(LoginFailure(message: failure.errMessage!)),
       (userModel) => emit(LoginSuccess(userModel: userModel)),
     );
+  }
+
+  ////////////////////
+  bool isVisible = true;
+  IconData suffixIcon = Icons.visibility_off;
+  void togglePassword() {
+    isVisible = !isVisible;
+    suffixIcon = isVisible ? Icons.visibility_off : Icons.visibility;
+    emit(TogglePassword());
   }
 }

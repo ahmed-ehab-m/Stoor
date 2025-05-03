@@ -1,3 +1,5 @@
+import 'package:bookly_app/Features/auth/data/repos/auth_repo_impl.dart';
+import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
 import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
@@ -32,6 +34,10 @@ class BooklyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+            create: (context) => AuthCubit(
+                  getIt.get<AuthRepoImpl>(),
+                )),
         BlocProvider<ChangeThemeCubit>(
           create: (context) => ChangeThemeCubit()..loadTheme(),
         ),
