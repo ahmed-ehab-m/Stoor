@@ -4,6 +4,7 @@ import 'package:bookly_app/Features/auth/presentation/views/widgets/custom_text_
 import 'package:bookly_app/Features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/utils/validation.dart';
@@ -30,7 +31,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+        padding: EdgeInsets.symmetric(
+            vertical: screenSizeHelper.authVerticalPadding,
+            horizontal: screenSizeHelper.horizontalPadding),
         child: Form(
           key: formkey,
           child: BlocConsumer<AuthCubit, AuthState>(
@@ -47,9 +50,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     message: state.message, color: Colors.red);
               }
               if (state is LoginSuccess) {
-                buttonChild = const Text('Login');
-                showSnackBar(context,
-                    message: 'Login Success', color: Colors.green);
                 GoRouter.of(context).push(AppRouter.KMainView);
               }
             },
@@ -59,7 +59,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(
-                    child: Text('Welcome Back', style: Styles.textStyle30),
+                    child: Text('Welcome Back !', style: Styles.textStyle40),
                   ),
                   CustomTextFormField(
                     onSaved: (value) {

@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,9 @@ class AccountCheckRow extends StatelessWidget {
             onPressed: onPressed,
             child: Text(
               type == 'Sign Up' ? 'Sign Up' : 'Login',
-              style: Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
+              style: Styles.textStyle18.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 225, 129, 241)),
             )),
       ],
     );

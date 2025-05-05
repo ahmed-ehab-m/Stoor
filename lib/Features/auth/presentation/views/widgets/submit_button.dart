@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +12,8 @@ class SubmitButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 50),
-        textStyle: Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
-        backgroundColor: Colors.red,
+        textStyle: Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
+        backgroundColor: kPrimaryColor,
         foregroundColor: Colors.white,
       ),
       onPressed: onPressed,

@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/launch_url.dart';
 import 'package:bookly_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +32,8 @@ class BookAction extends StatelessWidget {
               },
               fontSize: 16,
               text: getText(bookModel),
-              backGroundColor: Colors.white,
-              textColor: Colors.black,
+              backGroundColor: kPrimaryColor,
+              textColor: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
           ),

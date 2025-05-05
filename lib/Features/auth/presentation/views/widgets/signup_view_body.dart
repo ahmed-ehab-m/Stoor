@@ -47,9 +47,6 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                     message: state.message, color: Colors.red);
               }
               if (state is SignUpSuccess) {
-                buttonChild = const Text('Sign Up');
-                showSnackBar(context,
-                    message: 'Sign Up Success', color: Colors.green);
                 GoRouter.of(context).push(AppRouter.KLoginView);
               }
             },
@@ -59,7 +56,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(
-                    child: Text('Sign Up', style: Styles.textStyle30),
+                    child: Text('Create an Account', style: Styles.textStyle40),
                   ),
                   CustomTextFormField(
                     onSaved: (value) {

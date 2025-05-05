@@ -32,18 +32,18 @@ class CustomButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
-            FontAwesomeIcons.readme,
-            color: Colors.grey,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
+          // const Icon(
+          //   FontAwesomeIcons.readme,
+          //   color: Colors.grey,
+          // ),
+          // const SizedBox(
+          //   width: 10,
+          // ),
           Text(
             text,
             style: Styles.textStyle18.copyWith(
                 color: textColor,
-                fontWeight: FontWeight.normal,
+                fontWeight: FontWeight.bold,
                 fontSize: fontSize),
           ),
         ],

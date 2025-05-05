@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color kPrimaryColor = Color(0xff100B20);
+const Color kPrimaryColor = Colors.purple;
 const KTransationDuration = Duration(milliseconds: 300);
 const KGTSectraFine = 'GT Sectra Fine Black Trial';
 const KThemeyKey = 'theme';

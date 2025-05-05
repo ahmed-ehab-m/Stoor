@@ -1,8 +1,8 @@
 import 'package:bookly_app/Features/splash/presentation/views/widgets/sliding_text.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
-import 'package:bookly_app/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -37,8 +37,16 @@ class _SplashViewBodyState extends State<SplashViewBody>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Image.asset(AssetsData.logo),
-        const SizedBox(height: 20),
+        ShaderMask(
+          shaderCallback: (bounds) {
+            return LinearGradient(
+              colors: [Colors.pink, Colors.indigo],
+              tileMode: TileMode.repeated,
+            ).createShader(bounds);
+          },
+          child: Icon(HugeIcons.strokeRoundedBookOpen02, size: 150),
+        ),
+        // const SizedBox(height: 10),
         SlidingText(slidingAnimation: slidingAnimation),
       ],
     );

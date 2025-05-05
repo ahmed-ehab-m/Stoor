@@ -2,6 +2,7 @@ import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
 import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/settings/presentation/views/settings_view.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -94,7 +95,7 @@ class _MainViewState extends State<MainView> {
               IconButton(
                 icon: Icon(
                   FontAwesomeIcons.gear,
-                  color: _currentIndex == 3 ? Colors.pinkAccent : Colors.grey,
+                  color: _currentIndex == 3 ? kPrimaryColor : Colors.grey,
                 ),
                 onPressed: () => _onItemTapped(3),
               ),

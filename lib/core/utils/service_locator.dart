@@ -3,6 +3,7 @@ import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly_app/core/helper/cache_helper.dart';
 import 'package:bookly_app/core/utils/api_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -22,6 +23,7 @@ void setupServiceLocator() async {
         SharedPreferences>(), // get the instance of SharedPreferences from the locator
   ));
   getIt.registerLazySingleton(() => FirebaseAuth.instance);
+  getIt.registerLazySingleton(() => FirebaseFirestore.instance);
 
   getIt.registerSingleton<GeminiRepoImpl>(GeminiRepoImpl(
       Gemini.init(apiKey: 'AIzaSyCfLCKPziTSPaMPQAEyjP6INBHZlBUE47A')));
@@ -35,10 +37,11 @@ void setupServiceLocator() async {
 
   getIt.registerSingleton<AuthRepoImpl>(
     AuthRepoImpl(
-      getIt.get<
-          FirebaseAuth>(), // get the instance of FirebaseAuth from the locator
-      getIt.get<
-          CacheHelper>(), // get the instance of CacheHelper from the locator
-    ),
+        getIt.get<
+            FirebaseAuth>(), // get the instance of FirebaseAuth from the locator
+        getIt.get<CacheHelper>(),
+        getIt.get<
+            FirebaseFirestore>() // get the instance of CacheHelper from the locator
+        ),
   );
 }
