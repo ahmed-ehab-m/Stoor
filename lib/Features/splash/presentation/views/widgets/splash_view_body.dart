@@ -1,5 +1,6 @@
 import 'package:bookly_app/Features/splash/presentation/views/widgets/sliding_text.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -33,22 +34,44 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        ShaderMask(
-          shaderCallback: (bounds) {
-            return LinearGradient(
-              colors: [Colors.pink, Colors.indigo],
-              tileMode: TileMode.repeated,
-            ).createShader(bounds);
-          },
-          child: Icon(HugeIcons.strokeRoundedBookOpen02, size: 150),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.black, Colors.black],
         ),
-        // const SizedBox(height: 10),
-        SlidingText(slidingAnimation: slidingAnimation),
-      ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 80),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ShaderMask(
+                shaderCallback: (bounds) {
+                  return LinearGradient(
+                    colors: [kPrimaryColor, Colors.white],
+                    tileMode: TileMode.repeated,
+                  ).createShader(bounds);
+                },
+                child: Icon(HugeIcons.strokeRoundedBookOpen02,
+                    color: Colors.white, size: 200),
+              ),
+            ),
+            Text('Stoor',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'DancingScript-VariableFont_wght',
+                  fontSize: 50,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center),
+            // SlidingText(slidingAnimation: slidingAnimation),
+          ],
+        ),
+      ),
     );
   }
 

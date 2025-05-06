@@ -10,12 +10,12 @@ class GeminiCubit extends Cubit<GeminiState> {
   final GeminiRepo _geminiRepo;
   Future<void> getRecommendedBook({
     required String userDescription,
-    required String contextDescription,
+    required List<BookModel> books,
   }) async {
     emit(GeminiLoadingState());
     var result = await _geminiRepo.getRecommendedBook(
       userDescription: userDescription,
-      contextDescription: contextDescription,
+      books: books,
     );
     result.fold(
       (failure) => emit(

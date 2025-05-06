@@ -4,12 +4,14 @@ import 'package:bookly_app/Features/auth/presentation/views/widgets/custom_text_
 import 'package:bookly_app/Features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class SignupViewBody extends StatefulWidget {
   const SignupViewBody({super.key});
@@ -55,8 +57,26 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 spacing: screenSizeHelper.screenHeight * 0.03,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  ShaderMask(
+                    shaderCallback: (bounds) {
+                      return LinearGradient(
+                        colors: [kPrimaryColor, Colors.grey],
+                        tileMode: TileMode.repeated,
+                      ).createShader(bounds);
+                    },
+                    child: Icon(HugeIcons.strokeRoundedBookOpen02,
+                        color: Colors.white, size: 100),
+                  ),
                   Center(
-                    child: Text('Create an Account', style: Styles.textStyle40),
+                    child: Column(
+                      children: [
+                        Text('Create an Account', style: Styles.textStyle40),
+                        Text('Start Your Reading Journey',
+                            style: Styles.textStyle24.copyWith(
+                              fontFamily: 'DancingScript-VariableFont_wght',
+                            )),
+                      ],
+                    ),
                   ),
                   CustomTextFormField(
                     onSaved: (value) {
@@ -90,7 +110,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                           BlocProvider.of<AuthCubit>(context).togglePassword,
                       icon: Icon(
                         BlocProvider.of<AuthCubit>(context).suffixIcon,
-                        color: Colors.grey,
+                        color: kPrimaryColor,
                       ),
                     ),
                   ),

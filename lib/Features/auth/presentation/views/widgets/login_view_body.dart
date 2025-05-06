@@ -11,6 +11,7 @@ import 'package:bookly_app/core/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -50,7 +51,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     message: state.message, color: Colors.red);
               }
               if (state is LoginSuccess) {
-                GoRouter.of(context).push(AppRouter.KMainView);
+                GoRouter.of(context).pushReplacement(AppRouter.KMainView);
               }
             },
             builder: (context, state) {
@@ -58,8 +59,26 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 spacing: screenSizeHelper.screenHeight * 0.03,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  ShaderMask(
+                    shaderCallback: (bounds) {
+                      return LinearGradient(
+                        colors: [kPrimaryColor, Colors.grey],
+                        tileMode: TileMode.repeated,
+                      ).createShader(bounds);
+                    },
+                    child: Icon(HugeIcons.strokeRoundedBookOpen02,
+                        color: Colors.white, size: 100),
+                  ),
                   Center(
-                    child: Text('Welcome Back !', style: Styles.textStyle40),
+                    child: Column(
+                      children: [
+                        Text('Welcome Back !', style: Styles.textStyle40),
+                        Text('Dive Into Your Books Again',
+                            style: Styles.textStyle24.copyWith(
+                              fontFamily: 'DancingScript-VariableFont_wght',
+                            )),
+                      ],
+                    ),
                   ),
                   CustomTextFormField(
                     onSaved: (value) {
@@ -84,19 +103,20 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           BlocProvider.of<AuthCubit>(context).togglePassword,
                       icon: Icon(
                         BlocProvider.of<AuthCubit>(context).suffixIcon,
-                        color: Colors.grey,
+                        color: kPrimaryColor,
                       ),
                     ),
                   ),
                   SubmitButton(
-                      onPressed: () {
+                      onPressed: () async {
                         formkey.currentState!.save();
                         if (formkey.currentState!.validate()) {
-                          BlocProvider.of<AuthCubit>(context)
+                          await BlocProvider.of<AuthCubit>(context)
                               .logIn(email: email, password: password);
                         }
                       },
                       buttonChild: buttonChild),
+                  // Spacer(),
                   AccountCheckRow(
                     type: 'Sign Up',
                     onPressed: () {

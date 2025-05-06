@@ -30,7 +30,7 @@ class OnboardingViewBody extends StatelessWidget {
             style: TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              // color: textColor,
             ),
           ),
           Text(
@@ -38,7 +38,7 @@ class OnboardingViewBody extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              // color: textColor,
             ),
           ),
           const Spacer(),

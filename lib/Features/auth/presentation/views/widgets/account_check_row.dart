@@ -22,8 +22,8 @@ class AccountCheckRow extends StatelessWidget {
             child: Text(
               type == 'Sign Up' ? 'Sign Up' : 'Login',
               style: Styles.textStyle18.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 225, 129, 241)),
+                  fontWeight: FontWeight.w900,
+                  color: const Color.fromARGB(255, 228, 76, 255)),
             )),
       ],
     );

@@ -1,6 +1,9 @@
 import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
+import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
+import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_state.dart';
 import 'package:bookly_app/Features/settings/presentation/views/settings_view.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,7 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   var _currentIndex = 0;
+  List<BookModel> books = [];
   List<Widget> screens = [
     // Add your screen widgets here
     HomeView(),
@@ -35,13 +39,18 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
+    books = BlocProvider.of<FeaturedBooksCubit>(context).featuredBooks;
     Color? iconColor = BlocProvider.of<ChangeThemeCubit>(context).iconColor;
     Color? backgroundColor =
         BlocProvider.of<ChangeThemeCubit>(context).backgroundColor;
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: screens,
+      body: BlocBuilder<ChangeThemeCubit, ChangeThemeState>(
+        builder: (context, state) {
+          return IndexedStack(
+            index: _currentIndex,
+            children: screens,
+          );
+        },
       ),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
@@ -83,13 +92,37 @@ class _MainViewState extends State<MainView> {
                 //   scale: 20,
                 // ),
 
-                icon: Icon(
-                  HugeIcons.strokeRoundedGoogleGemini,
-                  color: _currentIndex == 2
-                      ? const Color.fromARGB(255, 39, 1, 255)
-                      : Colors.grey,
-                  size: 35,
-                ),
+                icon: _currentIndex == 2
+                    ? ShaderMask(
+                        shaderCallback: (bounds) {
+                          return LinearGradient(
+                            // colors: [kPrimaryColor, Colors.blue],
+                            colors: [
+                              Color(0xFFEC4899), // Pink
+                              Color(0xFFA855F7), // Purple
+                              Color(0xFF3B82F6), // Blue
+                            ],
+                            tileMode: TileMode.repeated,
+                          ).createShader(bounds);
+                        },
+                        child: Icon(
+                          HugeIcons.strokeRoundedGoogleGemini,
+                          // color: Colors.white,
+                          size: 35,
+                        ),
+                      )
+                    : Icon(
+                        HugeIcons.strokeRoundedGoogleGemini,
+                        // color: Colors.white,
+                        size: 35,
+                      ),
+                // Icon(
+                //   HugeIcons.strokeRoundedGoogleGemini,
+                //   color: _currentIndex == 2
+                //       ? const Color.fromARGB(255, 39, 1, 255)
+                //       : Colors.grey,
+                //   size: 35,
+                // ),
                 onPressed: () => _onItemTapped(2),
               ),
               IconButton(

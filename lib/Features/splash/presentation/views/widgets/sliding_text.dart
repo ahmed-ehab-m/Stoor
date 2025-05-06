@@ -1,5 +1,6 @@
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class SlidingText extends StatelessWidget {
   const SlidingText({
@@ -15,14 +16,31 @@ class SlidingText extends StatelessWidget {
         animation: slidingAnimation,
         builder: (context, child) {
           return SlideTransition(
-              position: slidingAnimation,
-              child: Text('Stoor',
-                  style: TextStyle(
-                    fontFamily: 'DancingScript-VariableFont_wght',
-                    fontSize: 80,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  textAlign: TextAlign.center));
+            position: slidingAnimation,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ShaderMask(
+                  shaderCallback: (bounds) {
+                    return LinearGradient(
+                      colors: [Colors.pink, Colors.indigo],
+                      tileMode: TileMode.repeated,
+                    ).createShader(bounds);
+                  },
+                  child: Icon(HugeIcons.strokeRoundedBookOpen02,
+                      color: Colors.white, size: 100),
+                ),
+                Text('Stoor',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'DancingScript-VariableFont_wght',
+                      fontSize: 80,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center),
+              ],
+            ),
+          );
         });
   }
 }

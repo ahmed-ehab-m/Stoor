@@ -1,5 +1,6 @@
 import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_drop_menu.dart';
+import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,9 +40,12 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSizeHelper = ScreenSizeHelper(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: screenSizeHelper.horizontalPadding,
+        // vertical: screenSizeHelper.homeVerticalPadding,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
