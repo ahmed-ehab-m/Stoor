@@ -12,7 +12,7 @@ final class GeminiInitial extends GeminiState {}
 final class GeminiLoadingState extends GeminiState {}
 
 final class GeminiLoadedState extends GeminiState {
-  final BookModel recommendedBook;
+  final List<BookModel?> recommendedBook;
   const GeminiLoadedState(this.recommendedBook);
   @override
   List<Object> get props => [recommendedBook];

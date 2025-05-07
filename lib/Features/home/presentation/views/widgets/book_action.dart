@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/launch_url.dart';
 import 'package:bookly_app/core/widgets/custom_button.dart';
@@ -14,9 +15,9 @@ class BookAction extends StatelessWidget {
       child: Row(
         spacing: 10,
         children: [
-          const Expanded(
+          Expanded(
               child: CustomButton(
-            fontSize: 16,
+            fontSize: FontSizeHelper.descriptionFontSize,
             text: '19.99\$',
             backGroundColor: Colors.white,
             textColor: Colors.black,
@@ -30,7 +31,7 @@ class BookAction extends StatelessWidget {
                   bookModel?.volumeInfo.previewLink,
                 );
               },
-              fontSize: 16,
+              fontSize: FontSizeHelper.descriptionFontSize,
               text: getText(bookModel),
               backGroundColor: kPrimaryColor,
               textColor: Colors.white,

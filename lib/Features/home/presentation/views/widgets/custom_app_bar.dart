@@ -20,7 +20,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   void initState() {
     getUserName();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -34,36 +33,29 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 40,
-        bottom: 10,
-      ),
-      child: Row(
-        children: [
-          Text('Hi,${userName![0].toUpperCase() + userName!.substring(1)}',
-              style: Styles.textStyle18),
-          Spacer(),
-          BlocListener<FeaturedBooksCubit, FeaturedBooksState>(
-            listener: (context, state) {
-              if (state is FeaturedBooksSuccess) {
-                searchResult.addAll(state.books);
-              }
-              // TODO: implement listener
-            },
-            child: IconButton(
-                onPressed: () {
-                  print(searchResult.length);
-                  GoRouter.of(context)
-                      .push(AppRouter.KSearchView, extra: searchResult);
-                },
-                icon: Icon(
-                  HugeIcons.strokeRoundedSearch01,
-                  size: 20,
-                )),
-          )
-        ],
-      ),
+    return Row(
+      children: [
+        Text('Hi,${userName![0].toUpperCase() + userName!.substring(1)}',
+            style: Styles.textStyle18),
+        Spacer(),
+        BlocListener<FeaturedBooksCubit, FeaturedBooksState>(
+          listener: (context, state) {
+            if (state is FeaturedBooksSuccess) {
+              searchResult.addAll(state.books);
+            }
+          },
+          child: IconButton(
+              onPressed: () {
+                print(searchResult.length);
+                GoRouter.of(context)
+                    .push(AppRouter.KSearchView, extra: searchResult);
+              },
+              icon: Icon(
+                HugeIcons.strokeRoundedSearch01,
+                size: 20,
+              )),
+        )
+      ],
     );
   }
 }

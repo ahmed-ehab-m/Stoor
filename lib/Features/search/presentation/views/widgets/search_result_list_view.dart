@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 
 class SearchResultListView extends StatelessWidget {
   const SearchResultListView({super.key, required this.books});
-  final List<BookModel> books;
+  final List<BookModel?>? books;
 
   @override
   Widget build(BuildContext context) {
     print('books.length');
-    print(books.length);
+    print(books!.length);
     return ListView.separated(
       separatorBuilder: (context, index) => SizedBox(height: 20),
-      itemCount: books.length,
+      itemCount: books!.length,
       itemBuilder: (context, index) => BookListViewItem(
-        bookModel: books[index],
+        bookModel: books![index],
       ),
       //  BookListViewItem(),
     );

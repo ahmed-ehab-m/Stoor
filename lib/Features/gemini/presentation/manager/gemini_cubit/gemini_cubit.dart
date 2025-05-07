@@ -22,7 +22,7 @@ class GeminiCubit extends Cubit<GeminiState> {
         GeminiErrorState(failure.errMessage!),
       ),
       (bookModel) => emit(
-        GeminiLoadedState(bookModel!),
+        GeminiLoadedState(bookModel),
       ),
     );
   }

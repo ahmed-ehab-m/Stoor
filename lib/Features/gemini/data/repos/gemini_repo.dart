@@ -3,6 +3,6 @@ import 'package:bookly_app/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class GeminiRepo {
-  Future<Either<Failure, BookModel?>> getRecommendedBook(
+  Future<Either<Failure, List<BookModel?>>> getRecommendedBook(
       {required String userDescription, required List<BookModel> books});
 }

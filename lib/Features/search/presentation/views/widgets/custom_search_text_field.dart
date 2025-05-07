@@ -1,5 +1,6 @@
+import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class CustomSearchTextField extends StatelessWidget {
   const CustomSearchTextField({super.key, this.onPressed, this.onCHanged});
@@ -8,6 +9,7 @@ class CustomSearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: Styles.textStyle18,
       onChanged: onCHanged,
       decoration: InputDecoration(
         ////normal state
@@ -19,7 +21,10 @@ class CustomSearchTextField extends StatelessWidget {
           opacity: 0.8,
           child: IconButton(
             onPressed: onPressed,
-            icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+            icon: const Icon(
+              HugeIcons.strokeRoundedSearch01,
+              size: 20,
+            ),
           ),
         ),
       ),

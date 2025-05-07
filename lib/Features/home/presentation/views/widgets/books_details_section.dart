@@ -2,6 +2,7 @@ import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart'
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_action.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
+import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,8 @@ class BookDetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-
+    print('Font Size');
+    print(FontSizeHelper.descriptionFontSize);
     return Column(
       children: [
         Padding(
@@ -22,12 +24,15 @@ class BookDetailsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 43,
+          height: 20,
         ),
         Text(
           textAlign: TextAlign.center,
           bookModel?.volumeInfo.title ?? 'Book Title',
-          style: Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: FontSizeHelper.titleFontSize,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(
           height: 6,
@@ -56,11 +61,11 @@ class BookDetailsSection extends StatelessWidget {
         Text(
           bookModel?.volumeInfo.description ??
               'No description available for this book',
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.start,
           overflow: TextOverflow.ellipsis,
           maxLines: 6,
-          style: Styles.textStyle14.copyWith(
-            height: 1.5,
+          style: TextStyle(
+            fontSize: FontSizeHelper.descriptionFontSize,
             color: Colors.grey,
           ),
         ),

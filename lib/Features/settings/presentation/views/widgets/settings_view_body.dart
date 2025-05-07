@@ -1,9 +1,14 @@
+import 'package:bookly_app/Features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_drop_menu.dart';
+import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/constants.dart';
+import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsViewBody extends StatefulWidget {
@@ -25,14 +30,10 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   Future<void> loadInitialIndex() async {
     final prefs = await SharedPreferences.getInstance();
     indexTheme = prefs.getInt(KThemeyKey) ?? 3;
-    // indexFont = await SharedPreferencesHelper.getInt(KFontKey) ?? 2;
+    indexFont = prefs.getInt(KFontKeySize) ?? 2;
     // indexLayout = await SharedPreferencesHelper.getInt(KLayoutKey) ?? 1;
     setState(() {});
   }
-
-  // Future<void> saveFontIndex(int value) async {
-  //   await SharedPreferencesHelper.setInt(KFontKey, value);
-  // }
 
   // Future<void> saveLayoutIndex(int value) async {
   //   await SharedPreferencesHelper.setInt(KLayoutKey, value);
@@ -45,19 +46,14 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: screenSizeHelper.horizontalPadding,
+
         // vertical: screenSizeHelper.homeVerticalPadding,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10),
-          Text(
-            'Settings',
-            style: TextStyle(
-              fontSize: 30,
-            ),
-          ),
+          Text('Settings', style: Styles.textStyle30),
           SizedBox(
             height: 40,
           ),
@@ -94,40 +90,64 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                   thridption: 'Default'),
             ],
           ),
-          // SizedBox(
-          //   height: ResponsiveSpacing.horizontal(20),
-          // ),
-          // if (indexTheme !=
-          //     null) /////////to return to index value to see it again /////////////
-          //   Row(
-          //     children: [
-          //       Text(
-          //         'Theme',
-          //         style: TextStyle(
-          //             fontSize: ResponsiveSpacing.fontSize(18),
-          //             fontWeight: FontWeight.bold),
-          //       ),
-          //       const Spacer(),
-          //       CustomDropdownMenu(
-          //           onSelected: (value) {
-          //             BlocProvider.of<ChangeThemeCubit>(context)
-          //                 .changeTheme(value);
+          SizedBox(
+            height: 20,
+          ),
+          if (indexTheme !=
+              null) /////////to return to index value to see it again /////////////
+            Row(
+              children: [
+                Text(
+                  'Font Size',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                CustomDropdownMenu(
+                    onSelected: (value) {
+                      setState(() {
+                        indexFont = value;
+                        FontSizeHelper.changeFontSize(value);
+                        print(FontSizeHelper.descriptionFontSize);
+                      });
+                    },
+                    initialSelection: indexFont!,
+                    firstOption: 'Small',
+                    secondOption: 'Medium',
+                    thridption: 'Large'),
+              ],
+            ),
+          SizedBox(
+            height: 20,
+          ),
+          // Spacer(),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(double.infinity, 40),
+              textStyle:
+                  Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
+              backgroundColor: Colors.grey.withOpacity(0.2),
+            ),
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(HugeIcons.strokeRoundedLogout02),
+                Text(
+                  ' Logout',
+                ),
+              ],
+            ),
+          ),
 
-          //             setState(() {
-          //               indexTheme = value;
-          //               saveThemeIndex(value);
-          //             });
-          //           },
-          //           initialSelection: indexTheme!,
-          //           firstOption: 'Light',
-          //           secondOption: 'Dark',
-          //           thridption: 'Default'),
-          //     ],
-          //   ),
-          // SizedBox(
-          //   height: ResponsiveSpacing.horizontal(20),
-          // ),
-          // if (indexLayout != null)
+          // CustomButton(
+          //     backGroundColor: Colors.grey.withOpacity(0.2),
+          //     textColor: Colors.redAccent,
+          //     icon: HugeIcons.strokeRoundedLogout02,
+          //     text: 'Logout'),
+          SizedBox(
+            height: 20,
+          ),
+          // if (indexLayout != null
           //   Row(
           //     children: [
           //       Text(

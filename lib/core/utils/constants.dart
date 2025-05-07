@@ -4,6 +4,7 @@ const Color kPrimaryColor = Colors.purple;
 const KTransationDuration = Duration(milliseconds: 300);
 const KGTSectraFine = 'GT Sectra Fine Black Trial';
 const KThemeyKey = 'theme';
+const KFontKeySize = 'fontSize';
 const String kUserId = 'uid';
 const String kUserName = 'name';
 const String kPattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"

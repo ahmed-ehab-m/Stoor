@@ -1,6 +1,5 @@
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
@@ -10,13 +9,15 @@ class CustomButton extends StatelessWidget {
       this.borderRadius,
       required this.text,
       this.fontSize,
-      this.onPressed});
+      this.onPressed,
+      this.icon});
   final Color backGroundColor;
   final Color textColor;
   final BorderRadius? borderRadius;
   final String text;
   final double? fontSize;
   final void Function()? onPressed;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +33,16 @@ class CustomButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // const Icon(
-          //   FontAwesomeIcons.readme,
-          //   color: Colors.grey,
-          // ),
-          // const SizedBox(
-          //   width: 10,
-          // ),
+          if (icon != null)
+            Icon(
+              icon,
+              color: Colors.red,
+              size: 25,
+            ),
+          if (icon != null)
+            const SizedBox(
+              width: 10,
+            ),
           Text(
             text,
             style: Styles.textStyle18.copyWith(

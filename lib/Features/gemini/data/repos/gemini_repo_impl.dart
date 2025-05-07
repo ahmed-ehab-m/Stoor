@@ -11,7 +11,7 @@ class GeminiRepoImpl implements GeminiRepo {
   final Gemini gemini;
   GeminiRepoImpl(this.gemini);
   @override
-  Future<Either<Failure, BookModel?>> getRecommendedBook({
+  Future<Either<Failure, List<BookModel?>>> getRecommendedBook({
     required String userDescription,
     required List<BookModel> books,
   }) async {
@@ -27,15 +27,19 @@ class GeminiRepoImpl implements GeminiRepo {
       cleanedResponse =
           cleanedResponse.replaceAll('```json', '').replaceAll('```', '');
       cleanedResponse = cleanedResponse.trim();
+
       print('cleanedResponse: $cleanedResponse');
       final jsonData = jsonDecode(cleanedResponse ?? '');
-      final selectedId = jsonData['id'] as String;
-      final selectedBook = books.firstWhere((book) => book.id == selectedId,
-          orElse: () => books.first);
+      final selectedIds = jsonData.map((item) => item['id'] as String).toList();
+      // final selectedBook = books.firstWhere((book) => book.id == selectedId,
+      //     orElse: () => books.first);
+
+      final selectedBooks =
+          books.where((book) => selectedIds.contains(book.id)).toList();
       if (cleanedResponse.isEmpty) {
         return left(ServerFailure('Empty response from Gemini'));
       }
-      return right(selectedBook);
+      return right(selectedBooks);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
@@ -69,10 +73,10 @@ class GeminiRepoImpl implements GeminiRepo {
     buffer.write(
         'Choose the most relevant book from the list above based on the user description. ');
     buffer.write(
-        'Return only a JSON object with the "id" of the selected book, like this:\n');
-    buffer.write('{"id": "book_id"}\n');
+        'Return a JSON array of objects, each containing the "id" of a selected book, like this:\n');
+    buffer.write('[{"id": "book_id1"}, {"id": "book_id2"}]\n');
     buffer.write(
-        'Ensure the response contains only the JSON object and no additional text.');
+        'If no books are relevant, return an empty array []. Ensure the response contains only the JSON array and no additional text.');
     // buffer.write('''
     //             {
     //         "kind": ",

@@ -1,4 +1,4 @@
-import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,19 +24,19 @@ class BookRating extends StatelessWidget {
         SizedBox(
           width: 6.3,
         ),
-        Text(
-          rating.toString(),
-          style: Styles.textStyle16,
-        ),
+        Text(rating.toString(),
+            style: TextStyle(
+              fontSize: FontSizeHelper.descriptionFontSize,
+            )),
         SizedBox(
           width: 5,
         ),
         Opacity(
           opacity: 0.7,
-          child: Text(
-            '($reviewsCount)',
-            style: Styles.textStyle14,
-          ),
+          child: Text('($reviewsCount)',
+              style: TextStyle(
+                fontSize: FontSizeHelper.descriptionFontSize,
+              )),
         )
       ],
     );

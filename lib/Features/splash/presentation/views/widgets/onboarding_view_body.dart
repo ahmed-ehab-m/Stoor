@@ -9,6 +9,60 @@ class OnboardingViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return Padding(
+    //   padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
+    //   child: Column(
+    //     spacing: 20,
+    //     children: [
+    //       Stack(
+    //         children: [
+    //           Container(
+    //             height: MediaQuery.of(context).size.height * 0.8,
+    //             decoration: BoxDecoration(
+    //               borderRadius: BorderRadius.circular(50),
+    //               image: const DecorationImage(
+    //                 image: AssetImage('assets/images/image 1777.png'),
+    //                 fit: BoxFit.fitWidth,
+    //               ),
+    //             ),
+    //             // child: Image.asset('assets/images/633.jpg')
+    //           ),
+    //           Positioned(
+    //               child: Column(
+    //             children: [
+    //               Text(
+    //                 "Explore a World of Books",
+    //                 style: TextStyle(
+    //                   fontSize: 50,
+    //                   fontWeight: FontWeight.bold,
+    //                   // color: textColor,
+    //                 ),
+    //               ),
+    //               Text(
+    //                 "Discover your next favorite book and Find books from various genres and authors",
+    //                 style: TextStyle(
+    //                   fontSize: 20,
+    //                   fontWeight: FontWeight.bold,
+    //                   // color: textColor,
+    //                 ),
+    //               ),
+    //               const Spacer(),
+    //               CustomButton(
+    //                 borderRadius: BorderRadius.circular(10),
+    //                 backGroundColor: kPrimaryColor,
+    //                 textColor: Colors.white,
+    //                 text: 'Get Started',
+    //                 onPressed: () {
+    //                   GoRouter.of(context).push(AppRouter.KSignupView);
+    //                 },
+    //               ),
+    //             ],
+    //           ))
+    //         ],
+    //       ),
+    //     ],
+    //   ),
+    // );
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
       child: Column(
