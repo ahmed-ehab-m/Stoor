@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final FirebaseAuth firebaseAuth;
@@ -94,6 +95,46 @@ class AuthRepoImpl implements AuthRepo {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> loginWithGoogle() async {
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+
+      final googleAuth = await googleUser?.authentication;
+      final credintial = GoogleAuthProvider.credential(
+          idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
+
+      await firebaseAuth.signInWithCredential(credintial);
+      await firestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser?.uid)
+          .set({
+        'name': googleUser?.displayName,
+        'email': googleUser?.email,
+        'uid': firebaseAuth.currentUser?.uid
+      });
+      final userDoc = await firestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser?.uid)
+          .get();
+      await prefsHelper.cacheUserData(
+          userModel: UserModel.fromJson(userDoc.data()!));
+      final cacheResult = prefsHelper.getUserData();
+      return cacheResult.fold(
+        (failure) => Left(failure),
+        (user) async {
+          return Right(user);
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      return Left(ServerFailure.fromFirebaseAuthError(e.code));
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure('error'));
     }
   }
 }

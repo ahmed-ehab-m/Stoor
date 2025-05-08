@@ -23,7 +23,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     super.initState();
   }
 
-  final List<BookModel> searchResult = [];
+  List<BookModel> searchResult = [];
   String? userName = 'gg';
   void getUserName() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -36,25 +36,20 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return Row(
       children: [
         Text('Hi,${userName![0].toUpperCase() + userName!.substring(1)}',
-            style: Styles.textStyle18),
+            style: Styles.textStyle18.copyWith(fontWeight: FontWeight.w900)),
         Spacer(),
-        BlocListener<FeaturedBooksCubit, FeaturedBooksState>(
-          listener: (context, state) {
-            if (state is FeaturedBooksSuccess) {
-              searchResult.addAll(state.books);
-            }
-          },
-          child: IconButton(
-              onPressed: () {
-                print(searchResult.length);
-                GoRouter.of(context)
-                    .push(AppRouter.KSearchView, extra: searchResult);
-              },
-              icon: Icon(
-                HugeIcons.strokeRoundedSearch01,
-                size: 20,
-              )),
-        )
+        IconButton(
+            onPressed: () {
+              searchResult =
+                  BlocProvider.of<FeaturedBooksCubit>(context).featuredBooks;
+              print(searchResult.length);
+              GoRouter.of(context)
+                  .push(AppRouter.KSearchView, extra: searchResult);
+            },
+            icon: Icon(
+              HugeIcons.strokeRoundedSearch01,
+              size: 20,
+            ))
       ],
     );
   }

@@ -14,6 +14,8 @@ abstract class AuthRepo {
     required String name,
   });
 
+  Future<Either<Failure, void>> loginWithGoogle();
+
   Future<Either<Failure, void>> signOut();
 
   Future<bool> isSignedIn();

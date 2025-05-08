@@ -1,5 +1,3 @@
-import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
-import 'package:bookly_app/Features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_drop_menu.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/logout_button.dart';
@@ -7,10 +5,8 @@ import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
-import 'package:bookly_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsViewBody extends StatefulWidget {

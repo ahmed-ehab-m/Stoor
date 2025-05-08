@@ -1,6 +1,7 @@
 import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
 import 'package:bookly_app/Features/auth/presentation/views/widgets/account_check_row.dart';
 import 'package:bookly_app/Features/auth/presentation/views/widgets/custom_text_form_field.dart';
+import 'package:bookly_app/Features/auth/presentation/views/widgets/google_button.dart';
 import 'package:bookly_app/Features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
@@ -54,7 +55,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             },
             builder: (context, state) {
               return Column(
-                spacing: screenSizeHelper.screenHeight * 0.03,
+                spacing: screenSizeHelper.screenHeight * 0.02,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ShaderMask(
@@ -123,6 +124,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         }
                       },
                       buttonChild: buttonChild),
+                  Text('Or', style: Styles.textStyle20),
+                  GoogleButton(),
                   AccountCheckRow(
                     type: 'Login',
                     onPressed: () {

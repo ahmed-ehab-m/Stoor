@@ -45,3 +45,14 @@ final class SignOutFailure extends AuthState {
 
 /////////////////////////////////////
 final class TogglePassword extends AuthState {}
+
+///////////////////////////////////////////////
+final class LoginWithGoogleLoading extends AuthState {}
+
+final class LoginWithGoogleSuccess extends AuthState {}
+
+final class LoginWithGoogleFailure extends AuthState {
+  final String message;
+
+  LoginWithGoogleFailure({required this.message});
+}

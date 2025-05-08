@@ -36,8 +36,9 @@ class LogoutButton extends StatelessWidget {
             minimumSize: const Size(double.infinity, 40),
             textStyle: Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
             backgroundColor: Colors.grey.withOpacity(0.1),
-            foregroundColor:
-                BlocProvider.of<ChangeThemeCubit>(context).iconColor,
+            foregroundColor: BlocProvider.of<ChangeThemeCubit>(context)
+                .iconColor!
+                .withOpacity(0.9),
           ),
           onPressed: () async {
             await BlocProvider.of<AuthCubit>(context).signOut();

@@ -12,7 +12,20 @@
           "package_name": "com.example.bookly_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "73540728416-t99heoukmo4rqucl9rfiu2nmgvmhhoi2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookly_app",
+            "certificate_hash": "9b974956dd9c516613b342298a409eff712e94d7"
+          }
+        },
+        {
+          "client_id": "73540728416-23rm0d26b9h48jc5hvcotol9na20s7tj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB2BhCdUwXXOXZKgw-TCcobeVmLGhDbu-A"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73540728416-23rm0d26b9h48jc5hvcotol9na20s7tj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "73540728416-dvbjumqbfgnj23deec0u00t5k4eplujr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.booklyApp"
+              }
+            }
+          ]
         }
       }
     }

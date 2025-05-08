@@ -17,15 +17,17 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   @override
   void initState() {
     searchResult = widget.books;
-    // TODO: implement initState
+    print('Seachhhhh result ${searchResult.length}');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
