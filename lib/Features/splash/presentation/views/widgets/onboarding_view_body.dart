@@ -1,5 +1,6 @@
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/constants.dart';
+import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -96,15 +97,30 @@ class OnboardingViewBody extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          CustomButton(
-            borderRadius: BorderRadius.circular(10),
-            backGroundColor: kPrimaryColor,
-            textColor: Colors.white,
-            text: 'Get Started',
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                minimumSize: const Size(double.infinity, 60),
+                textStyle:
+                    Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
+                backgroundColor: kPrimaryColor,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                )),
             onPressed: () {
               GoRouter.of(context).push(AppRouter.KSignupView);
             },
+            child: Text('Get Started'),
           ),
+          // CustomButton(
+          //   borderRadius: BorderRadius.circular(10),
+          //   backGroundColor: kPrimaryColor,
+          //   textColor: Colors.white,
+          //   text: 'Get Started',
+          //   onPressed: () {
+          //     GoRouter.of(context).push(AppRouter.KSignupView);
+          //   },
+          // ),
         ],
       ),
     );

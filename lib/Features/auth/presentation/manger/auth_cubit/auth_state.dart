@@ -32,4 +32,16 @@ final class LoginFailure extends AuthState {
 }
 
 ///////////////////////////
+
+final class SignOutLoading extends AuthState {}
+
+final class SignOutSuccess extends AuthState {}
+
+final class SignOutFailure extends AuthState {
+  final String message;
+
+  SignOutFailure({required this.message});
+}
+
+/////////////////////////////////////
 final class TogglePassword extends AuthState {}

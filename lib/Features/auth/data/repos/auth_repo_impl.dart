@@ -4,6 +4,7 @@ import 'package:bookly_app/core/errors/failures.dart';
 import 'package:bookly_app/core/helper/cache_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepoImpl implements AuthRepo {
@@ -36,6 +37,8 @@ class AuthRepoImpl implements AuthRepo {
       print('hhhhhhhhhhhhhhhhhhhhhh');
       print(e.code);
       return Left(ServerFailure.fromFirebaseAuthError(e.code));
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
@@ -61,6 +64,8 @@ class AuthRepoImpl implements AuthRepo {
       return Right(user);
     } on FirebaseAuthException catch (e) {
       return Left(ServerFailure.fromFirebaseAuthError(e.code));
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
@@ -75,8 +80,20 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      if (FirebaseAuth.instance.currentUser == null) {
+        return const Right(null);
+      } else {
+        return Left(ServerFailure('error'));
+      }
+    } on FirebaseAuthException catch (e) {
+      return Left(ServerFailure.fromFirebaseAuthError(e.code));
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 }

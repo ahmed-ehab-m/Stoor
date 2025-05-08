@@ -1,6 +1,8 @@
+import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
 import 'package:bookly_app/Features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_drop_menu.dart';
+import 'package:bookly_app/Features/settings/presentation/views/widgets/logout_button.dart';
 import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/constants.dart';
@@ -120,24 +122,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
             height: 20,
           ),
           // Spacer(),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(double.infinity, 40),
-              textStyle:
-                  Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
-              backgroundColor: Colors.grey.withOpacity(0.2),
-            ),
-            onPressed: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(HugeIcons.strokeRoundedLogout02),
-                Text(
-                  ' Logout',
-                ),
-              ],
-            ),
-          ),
+          LogoutButton(),
 
           // CustomButton(
           //     backGroundColor: Colors.grey.withOpacity(0.2),

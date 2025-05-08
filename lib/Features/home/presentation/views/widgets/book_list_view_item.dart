@@ -26,80 +26,90 @@ class _BookListViewItemState extends State<BookListViewItem> {
         GoRouter.of(context)
             .push(AppRouter.KBookDetailsView, extra: widget.bookModel);
       },
-      child: Stack(
-        children: [
-          SizedBox(
-            height: 140,
-            child: Row(
-              children: [
-                CustomBookImage(
-                    imageUrl:
-                        widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
-                            ''),
-                SizedBox(width: 30),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Text(
-                          widget.bookModel?.volumeInfo.title ?? 'No title',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Styles.textStyle20
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        widget.bookModel?.volumeInfo.authors![0] ?? 'No author',
-                        style: Styles.textStyle14,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        child: Row(children: [
-                          Text(
-                            'Free',
-                            style: Styles.textStyle20,
+      child: Container(
+        // margin: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.grey.withOpacity(0.1),
+        ),
+        child: Stack(
+          children: [
+            SizedBox(
+              height: 140,
+              child: Row(
+                children: [
+                  CustomBookImage(
+                      imageUrl:
+                          widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
+                              ''),
+                  SizedBox(width: 30),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            widget.bookModel?.volumeInfo.title ?? 'No title',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.textStyle20
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
-                        ]),
-                      ),
-                      Spacer(),
-                      BookRating(
-                        rating: '0.0',
-                        reviewsCount: 0,
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Positioned(
-            right: -1,
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  isBookmarked = !isBookmarked;
-                });
-              },
-              icon: Icon(
-                isBookmarked
-                    ? FontAwesomeIcons.solidBookmark
-                    : FontAwesomeIcons.bookmark,
-                color: isBookmarked
-                    ? Colors.amber
-                    : BlocProvider.of<ChangeThemeCubit>(context).iconColor,
-                size: 20,
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          widget.bookModel?.volumeInfo.authors![0] ??
+                              'No author',
+                          style: Styles.textStyle14,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          child: Row(children: [
+                            Text(
+                              'Free',
+                              style: Styles.textStyle20,
+                            ),
+                          ]),
+                        ),
+                        Spacer(),
+                        BookRating(
+                          rating: '0.0',
+                          reviewsCount: 0,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
-          ),
-        ],
+            Positioned(
+              right: -1,
+              bottom: -1,
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    isBookmarked = !isBookmarked;
+                  });
+                },
+                icon: Icon(
+                  isBookmarked
+                      ? FontAwesomeIcons.solidBookmark
+                      : FontAwesomeIcons.bookmark,
+                  color: isBookmarked
+                      ? Colors.amber
+                      : BlocProvider.of<ChangeThemeCubit>(context).iconColor,
+                  size: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

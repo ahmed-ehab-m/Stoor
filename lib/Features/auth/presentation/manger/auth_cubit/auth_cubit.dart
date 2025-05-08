@@ -41,7 +41,17 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  ////////////////////
+  ///////////////////////////////////////////
+  Future<void> signOut() async {
+    emit(SignOutLoading());
+    final result = await authRepo.signOut();
+    result.fold(
+      (failure) => emit(SignOutFailure(message: failure.errMessage!)),
+      (userModel) => emit(SignOutSuccess()),
+    );
+  }
+
+  ////////////////////////////////
   bool isVisible = true;
   IconData suffixIcon = Icons.visibility_off;
   void togglePassword() {

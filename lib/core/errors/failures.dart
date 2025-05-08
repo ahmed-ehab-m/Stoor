@@ -29,6 +29,9 @@ class ServerFailure extends Failure {
         return ServerFailure('Invalid email address');
       case 'invalid-credential':
         return ServerFailure('Email or Password is Invalid ');
+      case 'network-request-failed':
+        return ServerFailure('No Internet Connection');
+
       default:
         return ServerFailure('Opps there was an error , Please try again');
     }

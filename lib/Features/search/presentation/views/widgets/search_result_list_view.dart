@@ -16,7 +16,6 @@ class SearchResultListView extends StatelessWidget {
       itemBuilder: (context, index) => BookListViewItem(
         bookModel: books![index],
       ),
-      //  BookListViewItem(),
     );
   }
 }

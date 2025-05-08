@@ -107,8 +107,7 @@ class _MainViewState extends State<MainView> {
                     icon: Icon(
                       HugeIcons.strokeRoundedSettings02,
                       size: 30,
-                      color:
-                          _currentIndex == 3 ? Colors.blueAccent : Colors.grey,
+                      color: _currentIndex == 3 ? iconColor : Colors.grey,
                     ),
                     onPressed: () => _onItemTapped(3),
                   ),

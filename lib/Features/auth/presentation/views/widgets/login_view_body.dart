@@ -45,7 +45,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 );
               }
               if (state is LoginFailure) {
-                buttonChild = const Text('login');
+                buttonChild = const Text('Login');
 
                 showSnackBar(context,
                     message: state.message, color: Colors.red);

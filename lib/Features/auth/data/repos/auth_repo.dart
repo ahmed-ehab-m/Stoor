@@ -14,7 +14,7 @@ abstract class AuthRepo {
     required String name,
   });
 
-  Future<void> signOut();
+  Future<Either<Failure, void>> signOut();
 
   Future<bool> isSignedIn();
 }
