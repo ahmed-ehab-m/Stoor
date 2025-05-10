@@ -35,7 +35,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text('Hi,${userName![0].toUpperCase() + userName!.substring(1)}',
+        Text('Hi,${userName![0].toUpperCase() + userName!.substring(1)}!',
             style: Styles.textStyle18.copyWith(fontWeight: FontWeight.w900)),
         Spacer(),
         IconButton(

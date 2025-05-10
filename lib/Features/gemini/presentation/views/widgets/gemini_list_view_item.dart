@@ -1,7 +1,8 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
-import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/featured_book_list_item.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _GeminiListViewItemState extends State<GeminiListViewItem> {
               height: 140,
               child: Row(
                 children: [
-                  CustomBookImage(
+                  NewestBookImage(
                       imageUrl:
                           widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
                               ''),

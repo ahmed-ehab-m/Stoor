@@ -1,0 +1,45 @@
+import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class NewestBookImage extends StatelessWidget {
+  const NewestBookImage({
+    super.key,
+    required this.imageUrl,
+  });
+  final String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.3,
+      child: Card(
+        shadowColor:
+            BlocProvider.of<ChangeThemeCubit>(context).backgroundColor ==
+                    Colors.black
+                ? Colors.grey
+                : Colors.black,
+        elevation: 10,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),
+          child: AspectRatio(
+            aspectRatio: 2.6 / 4,
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: imageUrl,
+              errorWidget: (context, url, error) => const Icon(
+                FontAwesomeIcons.solidImage,
+                size: 40,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

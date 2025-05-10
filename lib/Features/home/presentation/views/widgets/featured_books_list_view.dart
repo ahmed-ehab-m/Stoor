@@ -1,5 +1,5 @@
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/featured_book_list_item.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class FeaturedBooksListView extends StatelessWidget {
       builder: (context, state) {
         if (state is FeaturedBooksSuccess) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.34,
             child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) => const SizedBox(width: 10),
@@ -30,7 +30,9 @@ class FeaturedBooksListView extends StatelessWidget {
                         extra: state.books[index],
                       );
                     },
-                    child: CustomBookImage(
+                    child: FeaturedBookListItem(
+                      author: state.books[index].volumeInfo.authors?[0] ?? '',
+                      bookTitle: state.books[index].volumeInfo.title ?? '',
                       imageUrl:
                           state.books[index].volumeInfo.imageLinks.thumbnail,
                     ),

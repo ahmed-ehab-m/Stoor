@@ -39,7 +39,11 @@ class _SplashViewBodyState extends State<SplashViewBody>
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Colors.black, Colors.black],
+          colors: [
+            kPrimaryColor, Color(0xFFA855F7), // kPrimaryColor
+            Color(0xFF6B46C1), // kPrimaryColor (Purple)
+          ],
+          // colors: [kPrimaryColor, Colors.black],
         ),
       ),
       child: Padding(

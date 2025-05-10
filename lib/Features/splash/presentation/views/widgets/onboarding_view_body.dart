@@ -102,7 +102,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                                   ).createShader(bounds);
                                 },
                                 child: Icon(
-                                  HugeIcons.strokeRoundedGoogleGemini,
+                                  HugeIcons.strokeRoundedStars,
                                   color: Colors.white,
                                   size: 70,
                                 ),
@@ -153,6 +153,22 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SmoothPageIndicator(
+                controller: _pageController,
+                count: _pages.length,
+                effect: ExpandingDotsEffect(
+                  activeDotColor: kPrimaryColor,
+                  dotColor: Colors.grey.withOpacity(0.5),
+                  dotHeight: 8,
+                  dotWidth: 8,
+                  expansionFactor: 3,
+                ),
+              ),
+            ],
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _currentPage == 0
@@ -167,28 +183,12 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                             'Skip',
                             style: Styles.textStyle20.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: kPrimaryColor),
+                                color: Color(0xFFA855F7)),
                           ),
                         ),
                       ),
                     )
                   : Expanded(child: SizedBox()),
-
-              Flexible(
-                child: SmoothPageIndicator(
-                  controller: _pageController,
-                  count: _pages.length,
-                  effect: ExpandingDotsEffect(
-                    activeDotColor: kPrimaryColor,
-                    dotColor: Colors.grey.withOpacity(0.5),
-                    dotHeight: 8,
-                    dotWidth: 8,
-                    expansionFactor: 3,
-                  ),
-                ),
-              ),
-
-              // if (_currentPage == 1)
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
@@ -204,7 +204,8 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                     child: Text(
                       _currentPage == 1 ? 'Get Started' : 'Next',
                       style: Styles.textStyle20.copyWith(
-                          fontWeight: FontWeight.bold, color: kPrimaryColor),
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFA855F7)),
                     ),
                   ),
                 ),
@@ -214,56 +215,5 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
         ],
       ),
     );
-    // return Padding(
-    //   padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
-    //   child: Column(
-    //     spacing: 20,
-    //     children: [
-    //       Container(
-    //         height: MediaQuery.of(context).size.height * 0.5,
-    //         decoration: BoxDecoration(
-    //           borderRadius: BorderRadius.circular(50),
-    //           image: const DecorationImage(
-    //             image: AssetImage('assets/images/Frame 1000000941.png'),
-    //             fit: BoxFit.cover,
-    //           ),
-    //         ),
-    //         // child: Image.asset('assets/images/633.jpg')
-    //       ),
-    //       Text(
-    //         "Explore a World of Books",
-    //         style: TextStyle(
-    //           fontSize: 50,
-    //           fontWeight: FontWeight.bold,
-    //           // color: textColor,
-    //         ),
-    //       ),
-    //       Text(
-    //         "Discover your next favorite book and Find books from various genres and authors",
-    //         style: TextStyle(
-    //           fontSize: 20,
-    //           fontWeight: FontWeight.bold,
-    //           // color: textColor,
-    //         ),
-    //       ),
-    //       const Spacer(),
-    //       ElevatedButton(
-    //         style: ElevatedButton.styleFrom(
-    //             minimumSize: const Size(double.infinity, 60),
-    //             textStyle:
-    //                 Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
-    //             backgroundColor: kPrimaryColor,
-    //             foregroundColor: Colors.white,
-    //             shape: RoundedRectangleBorder(
-    //               borderRadius: BorderRadius.circular(10),
-    //             )),
-    //         onPressed: () {
-    //           GoRouter.of(context).push(AppRouter.KSignupView);
-    //         },
-    //         child: Text('Get Started'),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }

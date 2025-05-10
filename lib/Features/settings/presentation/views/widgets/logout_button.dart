@@ -1,6 +1,7 @@
 import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
-import 'package:bookly_app/Features/settings/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class LogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget buttonChild = const Text(' Logout');
+    Widget buttonChild = const Text(' Log out');
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SignOutSuccess) {
@@ -28,25 +29,28 @@ class LogoutButton extends StatelessWidget {
         }
         if (state is SignOutFailure) {
           print('sign out failure');
-          buttonChild = Text('Logout');
+          buttonChild = Text('Log out');
           showSnackBar(context, message: state.message, color: Colors.red);
         }
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 40),
-            textStyle: Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
-            backgroundColor: Colors.grey.withOpacity(0.1),
-            foregroundColor: BlocProvider.of<ChangeThemeCubit>(context)
-                .iconColor!
-                .withOpacity(0.9),
-          ),
+              minimumSize: const Size(double.infinity, 50),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              textStyle:
+                  Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
+              backgroundColor: kPrimaryColor,
+              foregroundColor: Colors.white),
           onPressed: () async {
             await BlocProvider.of<AuthCubit>(context).signOut();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(HugeIcons.strokeRoundedLogout02),
+              Icon(
+                HugeIcons.strokeRoundedLogout02,
+                size: 25,
+              ),
               buttonChild,
             ],
           ),
