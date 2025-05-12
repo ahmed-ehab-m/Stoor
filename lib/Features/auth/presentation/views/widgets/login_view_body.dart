@@ -31,6 +31,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     final screenSizeHelper = ScreenSizeHelper(context);
 
     return SingleChildScrollView(
+      reverse: true,
       child: Padding(
         padding: EdgeInsets.symmetric(
             vertical: screenSizeHelper.authVerticalPadding,

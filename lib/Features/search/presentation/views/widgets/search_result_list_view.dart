@@ -1,6 +1,5 @@
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_list_view_item.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/book_list_view_item.dart';
 import 'package:flutter/material.dart';
 
 class SearchResultListView extends StatelessWidget {
@@ -12,8 +11,12 @@ class SearchResultListView extends StatelessWidget {
     print('books.length');
     print(books!.length);
     return ListView.separated(
-      separatorBuilder: (context, index) => SizedBox(height: 20),
+      separatorBuilder: (context, index) => Divider(
+        thickness: 1,
+      ),
       itemCount: books!.length,
+      // physics: const NeverScrollableScrollPhysics(),
+      // shrinkWrap: true,
       itemBuilder: (context, index) => GeminiListViewItem(
         bookModel: books![index],
       ),

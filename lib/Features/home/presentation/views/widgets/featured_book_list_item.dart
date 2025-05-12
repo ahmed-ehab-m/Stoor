@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/core/utils/functions/get_short_title.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -14,18 +15,6 @@ class FeaturedBookListItem extends StatelessWidget {
   final String imageUrl;
   final String bookTitle;
   final String author;
-  String getShortTitle(String title) {
-    print('in title function');
-    final words = title.trim().split(' ');
-    print(words);
-    if (words.length < 2) {
-      print(title);
-      return title;
-    } else {
-      print(words.take(2).join(' '));
-      return words.take(2).join(' ');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

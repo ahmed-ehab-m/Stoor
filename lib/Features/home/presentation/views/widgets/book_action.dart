@@ -1,10 +1,7 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
-import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:bookly_app/core/utils/constants.dart';
-import 'package:bookly_app/core/utils/functions/launch_url.dart';
 import 'package:bookly_app/core/utils/styles.dart';
-import 'package:bookly_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -22,7 +19,7 @@ class BookAction extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  shape: BeveledRectangleBorder(
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   minimumSize: const Size(double.infinity, 60),
@@ -41,7 +38,7 @@ class BookAction extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  shape: BeveledRectangleBorder(
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   minimumSize: const Size(double.infinity, 60),
@@ -60,7 +57,7 @@ class BookAction extends StatelessWidget {
                       size: 25,
                     ),
                     Text(
-                      'Start Reading',
+                      'Read ',
                       textAlign: TextAlign.center,
                     ),
                   ],

@@ -1,6 +1,8 @@
 import 'package:bookly_app/Features/auth/data/repos/auth_repo_impl.dart';
 import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
+import 'package:bookly_app/Features/settings/data/repos/settings_repo_impl.dart';
+import 'package:bookly_app/core/data/data_sources/local_datasource.dart';
 import 'package:bookly_app/core/helper/cache_helper.dart';
 import 'package:bookly_app/core/utils/api_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,10 +20,10 @@ void setupServiceLocator() async {
       () async => await SharedPreferences.getInstance());
   await getIt.isReady<SharedPreferences>();
 
-  getIt.registerSingleton<CacheHelper>(CacheHelper(
-    getIt.get<
-        SharedPreferences>(), // get the instance of SharedPreferences from the locator
-  ));
+  // getIt.registerSingleton<CacheHelper>(CacheHelper(
+  //   getIt.get<
+  //       SharedPreferences>(), // get the instance of SharedPreferences from the locator
+  // ));
   getIt.registerLazySingleton(() => FirebaseAuth.instance);
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);
 
@@ -34,14 +36,22 @@ void setupServiceLocator() async {
           .get<ApiService>(), // get the instance of ApiService from the locator
     ),
   );
+  getIt.registerSingleton<LocalDatasourceImpl>(LocalDatasourceImpl(
+    getIt.get<
+        SharedPreferences>(), // get the instance of SharedPreferences from the locator
+  ));
+  getIt.registerSingleton<SettingsRepoImpl>(SettingsRepoImpl(
+    getIt.get<LocalDatasourceImpl>(),
+  ));
 
   getIt.registerSingleton<AuthRepoImpl>(
     AuthRepoImpl(
         getIt.get<
             FirebaseAuth>(), // get the instance of FirebaseAuth from the locator
-        getIt.get<CacheHelper>(),
+        // getIt.get<CacheHelper>(),
+        getIt.get<FirebaseFirestore>(),
         getIt.get<
-            FirebaseFirestore>() // get the instance of CacheHelper from the locator
+            LocalDatasourceImpl>() // get the instance of CacheHelper from the locator
         ),
   );
 }

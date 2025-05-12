@@ -9,6 +9,12 @@ abstract class Failure {
 ///////////////////////////////////////////
 class CacheFailure extends Failure {
   CacheFailure(super.errMessage);
+  factory CacheFailure.fromCahceError(String error) {
+    if (error.toString().contains('Format Exception')) {
+      return CacheFailure('Invalid data format in cache.');
+    }
+    return CacheFailure('Failed to get data from cache $error.');
+  }
 }
 
 ////////////////////////////////////

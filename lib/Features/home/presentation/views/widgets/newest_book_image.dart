@@ -13,29 +13,25 @@ class NewestBookImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.3,
-      child: Card(
-        shadowColor:
-            BlocProvider.of<ChangeThemeCubit>(context).backgroundColor ==
-                    Colors.black
-                ? Colors.grey
-                : Colors.black,
-        elevation: 10,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),
-          child: AspectRatio(
-            aspectRatio: 2.6 / 4,
-            child: CachedNetworkImage(
-              fit: BoxFit.fill,
-              imageUrl: imageUrl,
-              errorWidget: (context, url, error) => const Icon(
-                FontAwesomeIcons.solidImage,
-                size: 40,
-              ),
+    return Card(
+      shadowColor: BlocProvider.of<ChangeThemeCubit>(context).backgroundColor ==
+              Colors.black
+          ? Colors.grey
+          : Colors.black,
+      elevation: 10,
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
+        child: AspectRatio(
+          aspectRatio: 2.8 / 4,
+          child: CachedNetworkImage(
+            fit: BoxFit.fill,
+            imageUrl: imageUrl,
+            errorWidget: (context, url, error) => const Icon(
+              FontAwesomeIcons.solidImage,
+              size: 40,
             ),
           ),
         ),

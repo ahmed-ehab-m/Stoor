@@ -1,7 +1,6 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_action.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/featured_book_list_item.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
 import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:bookly_app/core/utils/styles.dart';
@@ -13,12 +12,14 @@ class BookDetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    print('Font Size');
-    print(FontSizeHelper.descriptionFontSize);
+
     return Column(
       children: [
+        const SizedBox(
+          height: 38,
+        ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 70),
+          padding: EdgeInsets.symmetric(horizontal: 60),
           child: NewestBookImage(
             imageUrl: bookModel?.volumeInfo.imageLinks.thumbnail ??
                 'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',

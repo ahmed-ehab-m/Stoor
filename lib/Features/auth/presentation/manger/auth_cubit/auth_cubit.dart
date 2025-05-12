@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/auth/data/models/user_model.dart';
+import 'package:bookly_app/core/models/user_model.dart';
 import 'package:bookly_app/Features/auth/data/repos/auth_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

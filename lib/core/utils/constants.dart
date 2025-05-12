@@ -4,9 +4,11 @@ const Color kPrimaryColor = Colors.purple;
 const KTransationDuration = Duration(milliseconds: 300);
 const KGTSectraFine = 'GT Sectra Fine Black Trial';
 const KThemeyKey = 'theme';
-const KFontKeySize = 'fontSize';
+const KFontKey = 'fontSize';
 const String kUserId = 'uid';
 const String kUserName = 'name';
+const String kUserEmail = 'email';
+const String kUserData = 'user_data';
 const String kProfileImage = 'profileImage';
 const String kPattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
     r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'

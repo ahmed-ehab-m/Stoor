@@ -1,29 +1,73 @@
-// import 'dart:io';
+import 'dart:io';
 
-// import 'package:bookly_app/Features/settings/data/repos/settings_repo.dart';
-// import 'package:bookly_app/core/errors/failures.dart';
-// import 'package:dartz/dartz.dart';
-// import 'package:image_picker/image_picker.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bookly_app/Features/settings/data/repos/settings_repo.dart';
+import 'package:bookly_app/core/data/data_sources/local_datasource.dart';
+import 'package:bookly_app/core/errors/failures.dart';
+import 'package:bookly_app/core/utils/constants.dart';
+import 'package:dartz/dartz.dart';
+import 'package:image_picker/image_picker.dart';
 
-// class SettingsRepoImpl implements SettingsRepo {
-//   final ImagePicker _picker;
-//   final SharedPreferences prefs;
+class SettingsRepoImpl implements SettingsRepo {
+  final ImagePicker _picker = ImagePicker();
+  final LocalDatasource localDatasource;
 
-//   SettingsRepoImpl(this._picker, this.prefs);
+  SettingsRepoImpl(this.localDatasource);
 
-//   @override
-//   Future<Either<Failure, String>> pickProfileImage() async {
-//     File? imageFile;
-//     final XFile? pickedFile =
-//         await _picker.pickImage(source: ImageSource.gallery);
-//     imageFile = File(pickedFile!.path);
-//     prefs.setString(kProfileImage, imageFile!.path);
-//   }
+  @override
+  Future<Either<Failure, String>> pickProfileImage() async {
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile == null) {
+      return Left(CacheFailure('No image selected'));
+    }
+    try {
+      final cacheResult =
+          await localDatasource.saveImage(File(pickedFile.path));
+      return cacheResult.fold(
+        (failure) => Left(failure),
+        (path) => Right(path),
+      );
+    } catch (e) {
+      return Left(CacheFailure(e.toString()));
+    }
+  }
 
-//   @override
-//   Future<Either<Failure, String>> getProfileImagePath() {
-//     // TODO: implement getProfileImagePath
-//     throw UnimplementedError();
-//   }
-// }
+  ////////////////////////////////////////////
+  @override
+  Future<Either<Failure, String>> getProfileImagePath() async {
+    try {
+      final cacheResult = await localDatasource.getProfileImagePath();
+      return cacheResult.fold(
+        (failure) => Left(failure),
+        (path) => Right(path),
+      );
+    } catch (e) {
+      return Left(CacheFailure(e.toString()));
+    }
+  }
+
+  ///////////////////////////
+  @override
+  Future<int> getFontIndex() async {
+    return await localDatasource.getInt(KFontKey);
+  }
+  //////////////////////////////
+
+  @override
+  Future<int> getThemeIndex() async {
+    return await localDatasource.getInt(KThemeyKey);
+  }
+
+  /////////////////////////////////
+  @override
+  Future<void> saveFontIndex(int index) async {
+    await localDatasource.saveInt(KFontKey, index);
+  }
+
+  ///////////////////////////////////
+  @override
+  Future<void> saveThemeIndex(int index) async {
+    await localDatasource.saveInt(KThemeyKey, index);
+    ;
+  }
+}

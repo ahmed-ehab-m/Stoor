@@ -7,7 +7,7 @@ class FontSizeHelper {
 
   static Future<void> defaultFontSize() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedFontSize = prefs.getInt(KFontKeySize) ?? 2;
+    final savedFontSize = prefs.getInt(KFontKey) ?? 2;
     await changeFontSize(savedFontSize);
   }
 
@@ -27,6 +27,6 @@ class FontSizeHelper {
         break;
     }
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(KFontKeySize, fontNumber);
+    await prefs.setInt(KFontKey, fontNumber);
   }
 }

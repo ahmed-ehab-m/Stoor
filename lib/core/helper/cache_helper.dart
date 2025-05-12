@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/auth/data/models/user_model.dart';
+import 'package:bookly_app/core/models/user_model.dart';
 import 'package:bookly_app/core/errors/failures.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:dartz/dartz.dart';
