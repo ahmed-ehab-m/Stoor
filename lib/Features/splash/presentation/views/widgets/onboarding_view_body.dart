@@ -177,7 +177,8 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                         alignment: Alignment.centerLeft,
                         child: TextButton(
                           onPressed: () {
-                            GoRouter.of(context).push(AppRouter.KSignupView);
+                            GoRouter.of(context)
+                                .pushReplacement(AppRouter.KSignupView);
                           },
                           child: Text(
                             'Skip',
@@ -195,7 +196,8 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                   child: TextButton(
                     onPressed: () {
                       _currentPage == 1
-                          ? GoRouter.of(context).push(AppRouter.KSignupView)
+                          ? GoRouter.of(context)
+                              .pushReplacement(AppRouter.KSignupView)
                           : _pageController.nextPage(
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.easeIn,

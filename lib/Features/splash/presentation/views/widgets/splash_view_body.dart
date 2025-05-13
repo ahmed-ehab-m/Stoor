@@ -1,6 +1,9 @@
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 
@@ -18,6 +21,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   @override
   void initState() {
     initSlidingAnimation();
+
     navigateToOnboarding();
     // slidingAnimation.addListener(() {
     //   setState(() {});
@@ -33,48 +37,62 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            kPrimaryColor, Color(0xFFA855F7), // kPrimaryColor
-            Color(0xFF6B46C1), // kPrimaryColor (Purple)
-          ],
-          // colors: [kPrimaryColor, Colors.black],
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 80),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: ShaderMask(
-                shaderCallback: (bounds) {
-                  return LinearGradient(
-                    colors: [kPrimaryColor, Colors.white],
-                    tileMode: TileMode.repeated,
-                  ).createShader(bounds);
-                },
-                child: Icon(HugeIcons.strokeRoundedBookOpen02,
-                    color: Colors.white, size: 200),
-              ),
+    return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
+      builder: (context, state) {
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              // colors: [
+              //   kPrimaryColor, // بنفسجي غامق جدًا
+              //   Color.fromRGBO(46, 26, 71, 1), // بنفسجي غامق
+              //   Color.fromRGBO(75, 46, 107, 1), // بنفسجي داكن متوسط
+              // ]
+              colors:
+                  BlocProvider.of<ChangeSettingsCubit>(context).gradientColors,
+              ////for Dark Theme
+              // Color.fromRGBO(134, 24, 157, 1),
+              // Color.fromRGBO(46, 26, 71, 1),
+              // Color.fromRGBO(75, 46, 107, 1),
+              ////for Light Theme
+              // Color.fromRGBO(156, 39, 176, 1),
+              // Color.fromRGBO(168, 85, 247, 1),
+              // Color.fromRGBO(107, 70, 193, 1),
             ),
-            Text('Stoor',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'DancingScript-VariableFont_wght',
-                  fontSize: 50,
-                  fontWeight: FontWeight.w700,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 80),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ShaderMask(
+                    shaderCallback: (bounds) {
+                      return LinearGradient(
+                        colors: [kPrimaryColor, Colors.white],
+                        tileMode: TileMode.repeated,
+                      ).createShader(bounds);
+                    },
+                    child: Icon(HugeIcons.strokeRoundedBookOpen02,
+                        color: Colors.white, size: 200),
+                  ),
                 ),
-                textAlign: TextAlign.center),
-            // SlidingText(slidingAnimation: slidingAnimation),
-          ],
-        ),
-      ),
+                Text('Stoor',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'DancingScript-VariableFont_wght',
+                      fontSize: 50,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center),
+                // SlidingText(slidingAnimation: slidingAnimation),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -95,7 +113,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   void navigateToOnboarding() {
     Future.delayed(const Duration(seconds: 2), () {
-      GoRouter.of(context).push(AppRouter.KOnboardingView);
+      GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
       // Get.to(() => const HomeView(),
       //     transition: Transition.fadeIn, duration: KTransationDuration);
     });

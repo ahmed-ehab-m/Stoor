@@ -4,8 +4,8 @@ import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly_app/Features/settings/data/repos/settings_repo_impl.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_state.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
@@ -23,7 +23,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  setupServiceLocator(); // Initialize the service locator
+  await setupServiceLocator(); // Initialize the service locator
   // Gemini.init(
   //     apiKey:
   //         'AIzaSyCfLCKPziTSPaMPQAEyjP6INBHZlBUE47A'); // Initialize the Gemini API
@@ -51,7 +51,8 @@ class BooklyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) => ChangeThemeCubit(),
+          create: (context) =>
+              ChangeSettingsCubit(getIt.get<SettingsRepoImpl>()),
         ),
         BlocProvider<GeminiCubit>(
             create: (context) => GeminiCubit(getIt.get<GeminiRepoImpl>())),
@@ -68,15 +69,15 @@ class BooklyApp extends StatelessWidget {
           )..fetchNewestBooks(),
         ),
       ],
-      child: BlocBuilder<ChangeThemeCubit, ChangeThemeState>(
+      child: BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
         builder: (context, state) {
           return MaterialApp.router(
             routerConfig: AppRouter.router,
             title: 'Bookly App',
             theme: ThemeData(
-              brightness: BlocProvider.of<ChangeThemeCubit>(context).theme,
+              brightness: BlocProvider.of<ChangeSettingsCubit>(context).theme,
               scaffoldBackgroundColor:
-                  BlocProvider.of<ChangeThemeCubit>(context).backgroundColor,
+                  BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor,
             ),
             debugShowCheckedModeBanner: false,
           );

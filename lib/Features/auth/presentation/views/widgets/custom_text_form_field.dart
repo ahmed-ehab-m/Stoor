@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class CustomTextFormField extends StatelessWidget {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(18),
       borderSide: BorderSide(
-          color: BlocProvider.of<ChangeThemeCubit>(context).iconColor!),
+          color: BlocProvider.of<ChangeSettingsCubit>(context).iconColor!),
     );
   }
 }

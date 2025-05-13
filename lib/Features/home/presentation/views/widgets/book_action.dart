@@ -1,5 +1,5 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class BookAction extends StatelessWidget {
                   textStyle:
                       Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
                   foregroundColor:
-                      BlocProvider.of<ChangeThemeCubit>(context).iconColor,
+                      BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
                   backgroundColor: Colors.grey.withOpacity(0.1),
                 ),
                 onPressed: () {},

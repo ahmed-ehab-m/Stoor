@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:bookly_app/core/errors/failures.dart';
 import 'package:bookly_app/core/models/user_model.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,10 +12,21 @@ abstract class LocalDatasource {
   /////////////////////
   Future<void> saveInt(String key, int value);
   Future<int> getInt(String key);
+
+  /////////////Theme index/////////////
+  Future<void> saveThemeIndex(int value);
+  Future<int> getThemeIndex();
+
+  ///////////Font index///////////////
+  Future<void> saveFontIndex(int value);
+  Future<int> getFontIndex();
+
   //////////////////////////
+
   Future<void> saveString(String key, String value);
   Future<String?> getString(String key);
-  ///////////////////////////////////////////
+
+  /////////////////////User data//////////////////////
   Future<Either<Failure, void>> saveUserData(UserModel user);
   Future<Either<Failure, UserModel?>>
       getUserData(); //for reading user data from cache
@@ -28,12 +37,13 @@ class LocalDatasourceImpl implements LocalDatasource {
   final SharedPreferences prefs;
 
   LocalDatasourceImpl(this.prefs);
+  int i = 1;
 
   @override
   Future<Either<Failure, String>> saveImage(File image) async {
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final path = '${directory.path}/profile_image.jpg';
+      final path = '${directory.path}/profile_image${++i}.jpg';
       await image.copy(path);
       prefs.setString(kProfileImage, path);
       return Right(path);
@@ -119,5 +129,31 @@ class LocalDatasourceImpl implements LocalDatasource {
     } on Exception catch (e) {
       return Left(CacheFailure.fromCahceError(e.toString()));
     }
+  }
+
+////////////////////////////////////////
+  @override
+  Future<void> saveThemeIndex(int value) async {
+    await prefs.setInt(KThemeyKey, value);
+  }
+
+///////////////////////////////////////////////
+  @override
+  Future<int> getThemeIndex() async {
+    int themeIndex = await prefs.getInt(KThemeyKey) ?? 3;
+    return themeIndex;
+  }
+
+/////////////////////////////////////////////////
+  @override
+  Future<void> saveFontIndex(int value) async {
+    await prefs.setInt(KFontKey, value);
+  }
+
+//////////////////////////////////////////
+  @override
+  Future<int> getFontIndex() async {
+    int fontIndex = prefs.getInt(KFontKey) ?? 2;
+    return fontIndex;
   }
 }

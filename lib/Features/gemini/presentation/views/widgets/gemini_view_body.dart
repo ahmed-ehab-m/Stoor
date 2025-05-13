@@ -3,8 +3,8 @@ import 'package:bookly_app/Features/gemini/presentation/views/widgets/custom_cir
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_cutom_text_field.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_state.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +54,7 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
             print(state.errorMessage);
             isloading = false;
           }
-          return BlocBuilder<ChangeThemeCubit, ChangeThemeState>(
+          return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
             builder: (context, state) {
               return Container(
                 padding: const EdgeInsets.all(20),
@@ -63,7 +63,7 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: BlocProvider.of<ChangeThemeCubit>(context)
+                      colors: BlocProvider.of<ChangeSettingsCubit>(context)
                                   .backgroundColor ==
                               Colors.white
                           ? [

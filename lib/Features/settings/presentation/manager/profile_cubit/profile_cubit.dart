@@ -5,11 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this.authRepo) : super(ProfileInitial());
   final AuthRepo authRepo;
+  String userName = 'cubit user';
   Future<void> loadProfile() async {
     emit(ProfileLoading());
     final userResult = await authRepo.getUserData();
     userResult.fold((failure) => emit(ProfileFailure(failure.errMessage!)),
-        (user) => emit(ProfileLoaded(user: user!)));
+        (user) {
+      return emit(
+        ProfileLoaded(user: user!),
+      );
+    });
   }
   ////////////////////////////////////////////////////
 
@@ -25,9 +30,12 @@ class ProfileCubit extends Cubit<ProfileState> {
         final userResult = await authRepo.getUserData();
         userResult.fold(
           (failure) => emit(ProfileFailure(failure.errMessage!)),
-          (user) => emit(ProfileLoaded(user: user)),
+          (user) {
+            userName = user!.name!;
+            return emit(ProfileLoaded(user: user));
+          },
         );
-        emit(ProfileSuccess('Profile updated successfully'));
+        // emit(ProfileSuccess('Profile updated successfully'));
       },
     );
   }

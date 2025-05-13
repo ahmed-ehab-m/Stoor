@@ -1,18 +1,16 @@
 import 'dart:io';
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_state.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_drop_menu.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/logout_button.dart';
-import 'package:bookly_app/core/helper/font_size_helper.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsViewBody extends StatefulWidget {
   const SettingsViewBody({super.key});
@@ -22,33 +20,15 @@ class SettingsViewBody extends StatefulWidget {
 }
 
 class _SettingsViewBodyState extends State<SettingsViewBody> {
-  int? indexTheme, indexFont;
-  // String? userName;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<PickImageCubit>(context).getProfileImagePath();
-    BlocProvider.of<ProfileCubit>(context).loadProfile(); // جلب الإيميل والاسم
-    loadInitialIndex();
-    // BlocProvider.of<ChangeThemeCubit>(context).loadSettings();
-  }
-
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
     super.dispose();
-  }
-
-  Future<void> loadInitialIndex() async {
-    final prefs = await SharedPreferences.getInstance();
-    indexTheme = prefs.getInt(KThemeyKey) ?? 3;
-    indexFont = prefs.getInt(KFontKey) ?? 2;
-    // userName = prefs.getString(kUserName);
-    setState(() {});
   }
 
   @override
@@ -67,6 +47,9 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
       },
       builder: (context, state) {
         if (state is ProfileLoaded) {
+          print('ProfileLoaded in settings view body');
+
+          print(BlocProvider.of<ProfileCubit>(context).userName);
           _emailController.text = state.user?.email ?? '';
           _nameController.text = state.user?.name ?? 'User';
         }
@@ -81,6 +64,12 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
               ),
               BlocConsumer<PickImageCubit, PickImageState>(
                 listener: (context, state) {
+                  if (state is PickImageSuccess) {
+                    print(state.path);
+                    print('Profile image changed');
+                    showSnackBar(context,
+                        message: 'Profile image changed', color: Colors.green);
+                  }
                   if (state is PickImageFailure) {
                     print('Error: ${state.message}');
                     showSnackBar(context,
@@ -88,12 +77,10 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                   }
                 },
                 builder: (context, state) {
-                  String? imagePath;
+                  String? imagePath =
+                      (state is PickImageSuccess) ? state.path : null;
                   if (state is PickImageLoading) {
                     return const Center(child: CircularProgressIndicator());
-                  }
-                  if (state is PickImageSuccess) {
-                    imagePath = state.path;
                   }
                   return Center(
                     child: InkWell(
@@ -103,6 +90,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       },
                       child: imagePath == null || imagePath.isEmpty
                           ? const CircleAvatar(
+                              // key: ValueKey(imagePath),
                               radius: 60,
                               child: Icon(
                                 Icons.person,
@@ -110,8 +98,11 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                               ),
                             )
                           : CircleAvatar(
-                              backgroundImage: FileImage(File(imagePath)),
+                              backgroundImage:
+                                  FileImage(File(imagePath), scale: 1.0),
                               radius: 60,
+                              key: ValueKey(
+                                  imagePath), // Force rebuild with new image
                             ),
                     ),
                   );
@@ -221,73 +212,78 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: [
-                    if (indexTheme != null)
-                      Row(
-                        children: [
-                          Text(
-                            'Theme',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const Spacer(),
-                          CustomDropdownMenu(
-                              onSelected: (value) {
-                                BlocProvider.of<ChangeThemeCubit>(context)
-                                    .changeTheme(value);
-                                setState(() {
-                                  indexTheme = value;
-                                });
-                              },
-                              initialSelection: indexTheme!,
-                              firstOption: 'Light',
-                              secondOption: 'Dark',
-                              thridption: 'Default'),
-                        ],
-                      ),
-                    Divider(),
-                    if (indexTheme !=
-                        null) /////////to return to index value to see it again /////////////
-                      Row(
-                        children: [
-                          Text(
-                            'Font Size',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const Spacer(),
-                          CustomDropdownMenu(
-                              onSelected: (value) {
-                                setState(() {
-                                  indexFont = value;
-                                  FontSizeHelper.changeFontSize(indexFont!);
-                                });
-                              },
-                              initialSelection: indexFont!,
-                              firstOption: 'Small',
-                              secondOption: 'Medium',
-                              thridption: 'Large'),
-                        ],
-                      ),
-                  ],
-                ),
-              ),
+              BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
+                builder: (context, state) {
+                  int? indexFont =
+                      BlocProvider.of<ChangeSettingsCubit>(context).fontIndex;
 
+                  int indexTheme = context.read<ChangeSettingsCubit>().theme ==
+                          Brightness.light
+                      ? 1
+                      : context.read<ChangeSettingsCubit>().theme ==
+                              Brightness.dark
+                          ? 2
+                          : 3;
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Theme',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(),
+                            CustomDropdownMenu(
+                                onSelected: (value) {
+                                  BlocProvider.of<ChangeSettingsCubit>(context)
+                                      .changeTheme(value);
+                                },
+                                initialSelection: indexTheme!,
+                                firstOption: 'Light',
+                                secondOption: 'Dark',
+                                thridption: 'Default'),
+                          ],
+                        ),
+                        Divider(),
+                        Row(
+                          children: [
+                            Text(
+                              'Font Size',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(),
+                            CustomDropdownMenu(
+                                onSelected: (value) {
+                                  BlocProvider.of<ChangeSettingsCubit>(context)
+                                      .changeFontSize(value);
+                                },
+                                initialSelection: indexFont!,
+                                firstOption: 'Small',
+                                secondOption: 'Medium',
+                                thridption: 'Large'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
               const SizedBox(
                 height: 50,
               ),
               Spacer(),
               LogoutButton(),
-              // SizedBox(
-              //   height: 20,
-              // ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         );

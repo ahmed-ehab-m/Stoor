@@ -50,7 +50,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                     message: state.message, color: Colors.red);
               }
               if (state is SignUpSuccess) {
-                GoRouter.of(context).push(AppRouter.KLoginView);
+                GoRouter.of(context).pushReplacement(AppRouter.KLoginView);
               }
             },
             builder: (context, state) {

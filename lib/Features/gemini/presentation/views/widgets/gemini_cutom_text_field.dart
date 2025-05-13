@@ -1,6 +1,6 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +23,8 @@ class GeminiCustomTextField extends StatelessWidget {
         style: Styles.textStyle18, // Change the input text style here
         decoration: InputDecoration(
           filled: true,
-          fillColor: BlocProvider.of<ChangeThemeCubit>(context).backgroundColor,
+          fillColor:
+              BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor,
           hintText: '...',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

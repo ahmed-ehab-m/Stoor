@@ -1,5 +1,5 @@
 import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';

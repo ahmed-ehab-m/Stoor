@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/settings/presentation/manager/change_theme_cubit.dart/change_theme_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +20,7 @@ class CustomDropdownMenu extends StatelessWidget {
   final void Function(dynamic)? onSelected;
   @override
   Widget build(BuildContext context) {
-    Color? color = BlocProvider.of<ChangeThemeCubit>(context).iconColor;
+    Color? color = BlocProvider.of<ChangeSettingsCubit>(context).iconColor;
     return DropdownMenu(
       onSelected: onSelected,
       textAlign: TextAlign.end,

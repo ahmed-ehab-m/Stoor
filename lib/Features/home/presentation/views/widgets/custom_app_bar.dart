@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key});
@@ -35,26 +34,35 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        String displayName = 'user';
+        String displayName = BlocProvider.of<ProfileCubit>(context).userName;
+        print('user name in custom app bar  ${displayName}');
         if (state is ProfileLoaded) {
+          print('ProfileLoadedddddddddddddddddddddddddd');
+          print(state.user!.name);
           displayName = state.user!.name!;
         }
         return Row(
           children: [
             if (BlocProvider.of<PickImageCubit>(context).imagePath.isNotEmpty &&
                 BlocProvider.of<PickImageCubit>(context).imagePath != null)
-              Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    // color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: FileImage(File(
-                          BlocProvider.of<PickImageCubit>(context).imagePath)),
-                    )),
+              BlocBuilder<PickImageCubit, PickImageState>(
+                builder: (context, state) {
+                  String imagePath =
+                      BlocProvider.of<PickImageCubit>(context).imagePath;
+
+                  return Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        // color: Colors.white,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: FileImage(File(imagePath)),
+                        )),
+                  );
+                },
               ),
             SizedBox(
               width: 12,

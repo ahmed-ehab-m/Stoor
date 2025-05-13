@@ -13,17 +13,17 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
-void setupServiceLocator() async {
+Future<void> setupServiceLocator() async {
   // make a one time instance of the class
   getIt.registerSingleton<ApiService>(ApiService(Dio()));
-  getIt.registerSingletonAsync<SharedPreferences>(
-      () async => await SharedPreferences.getInstance());
-  await getIt.isReady<SharedPreferences>();
+  getIt.registerSingletonAsync<SharedPreferences>(() async {
+    print('SharedPreferences initialized');
+    return await SharedPreferences.getInstance();
+  });
 
-  // getIt.registerSingleton<CacheHelper>(CacheHelper(
-  //   getIt.get<
-  //       SharedPreferences>(), // get the instance of SharedPreferences from the locator
-  // ));
+  await getIt.isReady<SharedPreferences>();
+  print('SharedPreferences ready');
+
   getIt.registerLazySingleton(() => FirebaseAuth.instance);
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);
 

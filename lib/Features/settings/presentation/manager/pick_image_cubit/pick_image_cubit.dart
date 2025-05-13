@@ -13,6 +13,7 @@ class PickImageCubit extends Cubit<PickImageState> {
     final result = await settingsRepo.pickProfileImage();
     result.fold((failure) => emit(PickImageFailure(failure.errMessage!)),
         (path) {
+      imagePath = path;
       emit(PickImageSuccess(path));
     });
   }

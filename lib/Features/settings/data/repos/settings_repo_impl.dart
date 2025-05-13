@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:bookly_app/Features/settings/data/repos/settings_repo.dart';
 import 'package:bookly_app/core/data/data_sources/local_datasource.dart';
 import 'package:bookly_app/core/errors/failures.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -49,25 +48,25 @@ class SettingsRepoImpl implements SettingsRepo {
   ///////////////////////////
   @override
   Future<int> getFontIndex() async {
-    return await localDatasource.getInt(KFontKey);
+    return await localDatasource.getFontIndex();
   }
   //////////////////////////////
 
   @override
   Future<int> getThemeIndex() async {
-    return await localDatasource.getInt(KThemeyKey);
+    return await localDatasource.getThemeIndex();
   }
 
   /////////////////////////////////
   @override
   Future<void> saveFontIndex(int index) async {
-    await localDatasource.saveInt(KFontKey, index);
+    await localDatasource.saveFontIndex(index);
   }
 
   ///////////////////////////////////
   @override
   Future<void> saveThemeIndex(int index) async {
-    await localDatasource.saveInt(KThemeyKey, index);
+    await localDatasource.saveThemeIndex(index);
     ;
   }
 }
