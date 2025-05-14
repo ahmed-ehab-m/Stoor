@@ -19,11 +19,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   ////////////////////////////////////////////////////
 
   Future<void> updateEmail(
-      {String? newEmail, String? password, String? newName}) async {
+      {required String newEmail, required String password}) async {
     emit(ProfileLoading());
 
-    final updateResult = await authRepo.updateProfile(
-        newPassword: password, newEmail: newEmail, newName: newName ?? '');
+    final updateResult =
+        await authRepo.updateEmail(newPassword: password, newEmail: newEmail);
     updateResult.fold(
       (failure) => emit(ProfileFailure(failure.errMessage!)),
       (_) async {
@@ -31,11 +31,31 @@ class ProfileCubit extends Cubit<ProfileState> {
         userResult.fold(
           (failure) => emit(ProfileFailure(failure.errMessage!)),
           (user) {
-            userName = user!.name!;
+            userName = user!.name;
             return emit(ProfileLoaded(user: user));
           },
         );
-        // emit(ProfileSuccess('Profile updated successfully'));
+      },
+    );
+  }
+
+////////////////////////////////////////////////
+  Future<void> updateName({required String newName}) async {
+    emit(ProfileLoading());
+    print('newName in cubit: $newName');
+    final updateResult = await authRepo.updateName(newName: newName);
+    updateResult.fold(
+      (failure) => emit(ProfileFailure(failure.errMessage!)),
+      (_) async {
+        final userResult = await authRepo.getUserData();
+        userResult.fold(
+          (failure) => emit(ProfileFailure(failure.errMessage!)),
+          (user) {
+            userName = user!.name;
+            print('user.name in cubit: ${user.name}');
+            return emit(ProfileLoaded(user: user));
+          },
+        );
       },
     );
   }

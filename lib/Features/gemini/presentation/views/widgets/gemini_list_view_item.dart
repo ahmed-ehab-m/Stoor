@@ -62,14 +62,12 @@ class _GeminiListViewItemState extends State<GeminiListViewItem> {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      child: Row(children: [
-                        Text(
-                          'Free',
-                          style: Styles.textStyle20,
-                        ),
-                      ]),
-                    ),
+                    Row(children: [
+                      Text(
+                        'Free',
+                        style: Styles.textStyle20,
+                      ),
+                    ]),
                     Spacer(),
                     Row(
                       children: [

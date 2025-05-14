@@ -1,6 +1,7 @@
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/core/utils/assetsData.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,19 +21,37 @@ class _SplashViewBodyState extends State<SplashViewBody>
   late final Animation<Offset> slidingAnimation;
   @override
   void initState() {
-    initSlidingAnimation();
-
     navigateToOnboarding();
-    // slidingAnimation.addListener(() {
-    //   setState(() {});
-    // });
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    animationController.dispose();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _precacheImagesAndNavigate();
+  }
+
+  Future<void> _precacheImagesAndNavigate() async {
+    try {
+      // Precache images
+      final pages = [
+        AssetsData.onboardingImageOne,
+        AssetsData.onboardingImageTwo,
+      ];
+      for (var image in pages) {
+        await precacheImage(AssetImage(image), context);
+      }
+      // Navigate to OnboardingView after images are loaded
+      // if (mounted) {
+      //   GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
+      // }
+    } catch (e) {
+      // Handle any errors and navigate anyway
+      // if (mounted) {
+      //   GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
+      // }
+    }
   }
 
   @override
@@ -45,21 +64,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              // colors: [
-              //   kPrimaryColor, // بنفسجي غامق جدًا
-              //   Color.fromRGBO(46, 26, 71, 1), // بنفسجي غامق
-              //   Color.fromRGBO(75, 46, 107, 1), // بنفسجي داكن متوسط
-              // ]
               colors:
                   BlocProvider.of<ChangeSettingsCubit>(context).gradientColors,
-              ////for Dark Theme
-              // Color.fromRGBO(134, 24, 157, 1),
-              // Color.fromRGBO(46, 26, 71, 1),
-              // Color.fromRGBO(75, 46, 107, 1),
-              ////for Light Theme
-              // Color.fromRGBO(156, 39, 176, 1),
-              // Color.fromRGBO(168, 85, 247, 1),
-              // Color.fromRGBO(107, 70, 193, 1),
             ),
           ),
           child: Padding(

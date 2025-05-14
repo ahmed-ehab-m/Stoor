@@ -23,12 +23,10 @@ class GeminiRepoImpl implements GeminiRepo {
           _buildSystemPromt(books: books, userDescription: userDescription);
       final response = await gemini.prompt(parts: [Part.text(promt)]);
       String cleanedResponse = response?.output ?? '';
-      print('response: $cleanedResponse');
       cleanedResponse =
           cleanedResponse.replaceAll('```json', '').replaceAll('```', '');
       cleanedResponse = cleanedResponse.trim();
 
-      print('cleanedResponse: $cleanedResponse');
       final jsonData = jsonDecode(cleanedResponse ?? '');
       final selectedIds = jsonData.map((item) => item['id'] as String).toList();
       // final selectedBook = books.firstWhere((book) => book.id == selectedId,

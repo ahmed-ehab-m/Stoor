@@ -44,7 +44,7 @@ class BooklyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => PickImageCubit(
                   getIt.get<SettingsRepoImpl>(),
-                )),
+                )..getProfileImagePath()),
         BlocProvider(
           create: (context) => AuthCubit(
             getIt.get<AuthRepoImpl>(),

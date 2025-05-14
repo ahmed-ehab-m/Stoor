@@ -3,7 +3,6 @@ import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly_app/Features/settings/data/repos/settings_repo_impl.dart';
 import 'package:bookly_app/core/data/data_sources/local_datasource.dart';
-import 'package:bookly_app/core/helper/cache_helper.dart';
 import 'package:bookly_app/core/utils/api_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
@@ -17,12 +16,10 @@ Future<void> setupServiceLocator() async {
   // make a one time instance of the class
   getIt.registerSingleton<ApiService>(ApiService(Dio()));
   getIt.registerSingletonAsync<SharedPreferences>(() async {
-    print('SharedPreferences initialized');
     return await SharedPreferences.getInstance();
   });
 
   await getIt.isReady<SharedPreferences>();
-  print('SharedPreferences ready');
 
   getIt.registerLazySingleton(() => FirebaseAuth.instance);
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);

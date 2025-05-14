@@ -15,8 +15,10 @@ abstract class AuthRepo {
   });
 
   Future<Either<Failure, void>> loginWithGoogle();
-  Future<Either<Failure, void>> updateProfile(
-      {String? newPassword, String? newEmail, String? newName});
+  Future<Either<Failure, void>> updateEmail(
+      {required String newPassword, required String newEmail});
+
+  Future<Either<Failure, void>> updateName({required String newName});
 
   Future<Either<Failure, void>> signOut();
   Future<Either<Failure, UserModel?>> getUserData();

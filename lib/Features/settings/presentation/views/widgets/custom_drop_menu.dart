@@ -19,6 +19,21 @@ class CustomDropdownMenu extends StatelessWidget {
   final int initialSelection;
   final void Function(dynamic)? onSelected;
   @override
+/*************  ✨ Windsurf Command ⭐  *************/
+  /// Builds a custom dropdown menu with the given options.
+  ///
+  /// The [firstOption] and [secondOption] are always displayed,
+  /// and [thridption] and [fourthOption] are displayed if they are not null.
+  ///
+  /// The [initialSelection] is the initial selected value.
+  ///
+  /// The [onSelected] is the callback function that will be called when an item is selected.
+  ///
+  /// The color of the icon is determined by the state of the [ChangeSettingsCubit].
+  /// If the state is [ChangeSettingsStateThemeLight], the color is white,
+  /// otherwise it is black.
+  ///
+  /// *****  bba8c0f3-1ddc-4f89-8c96-18d0c6fda857  ******
   Widget build(BuildContext context) {
     Color? color = BlocProvider.of<ChangeSettingsCubit>(context).iconColor;
     return DropdownMenu(

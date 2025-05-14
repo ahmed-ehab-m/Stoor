@@ -2,6 +2,7 @@ import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gem
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,22 +31,9 @@ class GeminiCustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Colors.grey),
           ),
-          suffixIcon: ShaderMask(
-            shaderCallback: (bounds) {
-              return LinearGradient(
-                // colors: [kPrimaryColor, Colors.blue],
-                colors: [
-                  Color(0xFFEC4899), // Pink
-                  Color(0xFFA855F7), // Purple
-                  Color(0xFF3B82F6), // Blue
-                ],
-                tileMode: TileMode.repeated,
-              ).createShader(bounds);
-            },
+          suffixIcon: CustomShaderMask(
             child: IconButton(
               onPressed: () async {
-                print(controller.text);
-                print('submitted');
                 await BlocProvider.of<GeminiCubit>(context).getRecommendedBook(
                   books: BlocProvider.of<FeaturedBooksCubit>(context)
                       .featuredBooks,

@@ -4,11 +4,15 @@ import 'package:bookly_app/Features/settings/presentation/manager/change_setting
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_state.dart';
+import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_alert_dialog.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_drop_menu.dart';
+import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_section_title.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/logout_button.dart';
+import 'package:bookly_app/Features/settings/presentation/views/widgets/profile_text_field.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,12 +25,10 @@ class SettingsViewBody extends StatefulWidget {
 
 class _SettingsViewBodyState extends State<SettingsViewBody> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     _nameController.dispose();
     super.dispose();
   }
@@ -34,44 +36,24 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   @override
   Widget build(BuildContext context) {
     final screenSizeHelper = ScreenSizeHelper(context);
-
-    return BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (context, state) {
-        if (state is ProfileSuccess) {
-          showSnackBar(context, message: state.message, color: Colors.green);
-        }
-        if (state is ProfileFailure) {
-          showSnackBar(context,
-              message: state.message, color: Colors.redAccent);
-        }
-      },
+    return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         if (state is ProfileLoaded) {
-          print('ProfileLoaded in settings view body');
-
-          print(BlocProvider.of<ProfileCubit>(context).userName);
           _emailController.text = state.user?.email ?? '';
           _nameController.text = state.user?.name ?? 'User';
+          print('ProfileLoaded ');
         }
+        if (state is ProfileFailure) {}
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: screenSizeHelper.horizontalPadding,
+            vertical: screenSizeHelper.homeVerticalPadding,
           ),
           child: ListView(
             children: [
-              const SizedBox(
-                height: 20,
-              ),
               BlocConsumer<PickImageCubit, PickImageState>(
                 listener: (context, state) {
-                  if (state is PickImageSuccess) {
-                    print(state.path);
-                    print('Profile image changed');
-                    showSnackBar(context,
-                        message: 'Profile image changed', color: Colors.green);
-                  }
                   if (state is PickImageFailure) {
-                    print('Error: ${state.message}');
                     showSnackBar(context,
                         message: state.message, color: Colors.redAccent);
                   }
@@ -90,7 +72,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       },
                       child: imagePath == null || imagePath.isEmpty
                           ? const CircleAvatar(
-                              // key: ValueKey(imagePath),
                               radius: 60,
                               child: Icon(
                                 Icons.person,
@@ -113,27 +94,15 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
               ),
               Center(
                 child: Text(
-                  _nameController.text == null || _nameController.text!.isEmpty
+                  _nameController.text.isEmpty
                       ? 'User'
-                      : '${_nameController.text![0].toUpperCase() + _nameController.text!.substring(1)}',
+                      : _nameController.text[0].toUpperCase() +
+                          _nameController.text.substring(1),
                   style:
                       Styles.textStyle18.copyWith(fontWeight: FontWeight.w900),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  'Profile',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 20,
-              ),
+              CustomSectionTitle(title: 'Profile'),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.1),
@@ -143,75 +112,37 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Column(
                   children: [
-                    TextField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        hintText: 'name',
-                        hintStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900,
-                        ),
-                        border: InputBorder.none,
-                      ),
+                    ProfileTextField(
+                      validator: (value) {
+                        print('value: $value');
+                        return FormValidation.validateName(value!);
+                      },
+                      fieldController: _nameController,
+                      onPressed: () async {
+                        print('name Controller text: ${_nameController.text}');
+                        await BlocProvider.of<ProfileCubit>(context)
+                            .updateName(newName: _nameController.text);
+                      },
                     ),
                     Divider(),
-                    TextField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        hintText: 'email',
-                        hintStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                    const Divider(),
-                    TextField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Password (required to update email)',
-                        hintStyle: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w900),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: state is ProfileLoading
-                          ? null
-                          : () async {
-                              print('Email: ${_emailController.text}');
-                              print('Password: ${_passwordController.text}');
-                              await BlocProvider.of<ProfileCubit>(context)
-                                  .updateEmail(
-                                newName: _nameController.text,
-                                newEmail: _emailController.text.trim(),
-                                password: _passwordController.text.trim(),
-                              );
-                            },
-                      child: state is ProfileLoading
-                          ? CircularProgressIndicator()
-                          : Text('Update Email'),
+                    ProfileTextField(
+                      validator: (value) {
+                        print('value: $value');
+                        return FormValidation.validateEmail(value!);
+                      },
+                      fieldController: _emailController,
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) => CustomAlertDialog(
+                              emailController: _emailController),
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  'Style',
-                  style: TextStyle(
-                      fontSize: 16, color: Color.fromARGB(255, 137, 136, 150)),
-                ),
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 20,
-              ),
+              CustomSectionTitle(title: 'Style'),
               BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
                 builder: (context, state) {
                   int? indexFont =
@@ -245,7 +176,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                   BlocProvider.of<ChangeSettingsCubit>(context)
                                       .changeTheme(value);
                                 },
-                                initialSelection: indexTheme!,
+                                initialSelection: indexTheme,
                                 firstOption: 'Light',
                                 secondOption: 'Dark',
                                 thridption: 'Default'),
@@ -265,7 +196,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                   BlocProvider.of<ChangeSettingsCubit>(context)
                                       .changeFontSize(value);
                                 },
-                                initialSelection: indexFont!,
+                                initialSelection: indexFont,
                                 firstOption: 'Small',
                                 secondOption: 'Medium',
                                 thridption: 'Large'),
@@ -277,13 +208,9 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                 },
               ),
               const SizedBox(
-                height: 50,
-              ),
-              Spacer(),
-              LogoutButton(),
-              const SizedBox(
                 height: 20,
               ),
+              LogoutButton(),
             ],
           ),
         );

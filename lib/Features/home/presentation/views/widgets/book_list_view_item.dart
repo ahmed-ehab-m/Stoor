@@ -1,6 +1,5 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/featured_book_list_item.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
@@ -49,7 +48,7 @@ class _BookListViewItemState extends State<BookListViewItem> {
                           widget.bookModel?.volumeInfo.title ?? 'No title',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Styles.textStyle20
+                          style: Styles.textStyle18
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),

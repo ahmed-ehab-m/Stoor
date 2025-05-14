@@ -20,14 +20,6 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  @override
-  void initState() {
-    BlocProvider.of<PickImageCubit>(context).getProfileImagePath();
-    BlocProvider.of<ProfileCubit>(context).loadProfile();
-
-    super.initState();
-  }
-
   List<BookModel> searchResult = [];
 
   @override
@@ -35,22 +27,22 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         String displayName = BlocProvider.of<ProfileCubit>(context).userName;
-        print('user name in custom app bar  ${displayName}');
         if (state is ProfileLoaded) {
-          print('ProfileLoadedddddddddddddddddddddddddd');
-          print(state.user!.name);
-          displayName = state.user!.name!;
+          displayName = state.user?.name ?? 'User';
         }
-        return Row(
-          children: [
-            if (BlocProvider.of<PickImageCubit>(context).imagePath.isNotEmpty &&
-                BlocProvider.of<PickImageCubit>(context).imagePath != null)
-              BlocBuilder<PickImageCubit, PickImageState>(
-                builder: (context, state) {
-                  String imagePath =
-                      BlocProvider.of<PickImageCubit>(context).imagePath;
-
-                  return Container(
+        return BlocBuilder<PickImageCubit, PickImageState>(
+          builder: (context, state) {
+            String imagePath =
+                BlocProvider.of<PickImageCubit>(context).imagePath;
+            if (state is PickImageSuccess) {
+              imagePath = state.path;
+            }
+            return Row(
+              children: [
+                if (BlocProvider.of<PickImageCubit>(context)
+                    .imagePath
+                    .isNotEmpty)
+                  Container(
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
@@ -61,30 +53,30 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           fit: BoxFit.cover,
                           image: FileImage(File(imagePath)),
                         )),
-                  );
-                },
-              ),
-            SizedBox(
-              width: 12,
-            ),
-            Text(
-                'Hi,${displayName![0].toUpperCase() + displayName!.substring(1)}!',
-                style:
-                    Styles.textStyle18.copyWith(fontWeight: FontWeight.w900)),
-            Spacer(),
-            IconButton(
-                onPressed: () {
-                  searchResult = BlocProvider.of<FeaturedBooksCubit>(context)
-                      .featuredBooks;
-                  print(searchResult.length);
-                  GoRouter.of(context)
-                      .push(AppRouter.KSearchView, extra: searchResult);
-                },
-                icon: Icon(
-                  HugeIcons.strokeRoundedSearch01,
-                  size: 20,
-                ))
-          ],
+                  ),
+                SizedBox(
+                  width: 12,
+                ),
+                Text(
+                    'Hi,${displayName[0].toUpperCase() + displayName.substring(1)}',
+                    style: Styles.textStyle18
+                        .copyWith(fontWeight: FontWeight.w900)),
+                Spacer(),
+                IconButton(
+                    onPressed: () {
+                      searchResult =
+                          BlocProvider.of<FeaturedBooksCubit>(context)
+                              .featuredBooks;
+                      GoRouter.of(context)
+                          .push(AppRouter.KSearchView, extra: searchResult);
+                    },
+                    icon: Icon(
+                      HugeIcons.strokeRoundedSearch01,
+                      size: 20,
+                    ))
+              ],
+            );
+          },
         );
       },
     );

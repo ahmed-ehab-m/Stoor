@@ -8,8 +8,6 @@ class SearchResultListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('books.length');
-    print(books!.length);
     return ListView.separated(
       separatorBuilder: (context, index) => Divider(
         thickness: 1,

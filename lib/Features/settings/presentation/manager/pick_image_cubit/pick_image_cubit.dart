@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:bookly_app/Features/settings/data/repos/settings_repo.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'pick_image_state.dart';
 

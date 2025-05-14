@@ -1,5 +1,4 @@
 import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
@@ -18,17 +17,14 @@ class LogoutButton extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SignOutSuccess) {
-          print('Sign Out Success');
           GoRouter.of(context).pushReplacement(AppRouter.KLoginView);
         }
       },
       builder: (context, state) {
         if (state is SignOutLoading) {
-          print('sign out loading');
           buttonChild = const CircularProgressIndicator();
         }
         if (state is SignOutFailure) {
-          print('sign out failure');
           buttonChild = Text('Log out');
           showSnackBar(context, message: state.message, color: Colors.red);
         }

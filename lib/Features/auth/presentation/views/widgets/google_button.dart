@@ -1,6 +1,6 @@
 import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
+import 'package:bookly_app/Features/auth/presentation/views/widgets/button_child_intial.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
-import 'package:bookly_app/core/utils/assetsData.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +14,7 @@ class GoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is LoginWithGoogleLoading) {
-          print('loading');
-        }
+        if (state is LoginWithGoogleLoading) {}
         if (state is LoginWithGoogleSuccess) {
           GoRouter.of(context).pushReplacement(AppRouter.KMainView);
         }
@@ -25,12 +23,19 @@ class GoogleButton extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return ElevatedButton(
+        Widget buttonChild = ButtonChildIntial();
+        if (state is LoginWithGoogleLoading) {
+          buttonChild = CircularProgressIndicator();
+        }
+        if (state is LoginWithGoogleSuccess) {
+          buttonChild = ButtonChildIntial();
+        }
+        if (state is LoginWithGoogleFailure) {
+          buttonChild = ButtonChildIntial();
+        }
+
+        var elevatedButton = ElevatedButton(
           style: ElevatedButton.styleFrom(
-            // elevation: 5,
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.circular(10),
-            // ),
             side: BorderSide(color: Colors.black),
             minimumSize: const Size(double.infinity, 50),
             textStyle: Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
@@ -40,27 +45,9 @@ class GoogleButton extends StatelessWidget {
           onPressed: () async {
             await BlocProvider.of<AuthCubit>(context).loginWithGoogle();
           },
-          // child: Text(buttonChild, style: AppStyles.textStyle22),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Image.asset('assets/images/google.png'),
-              Text('Sign in with Google',
-                  style:
-                      Styles.textStyle20.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(width: 10),
-              Image.asset(
-                AssetsData.googleIcon,
-                scale: 3,
-              ),
-              // Icon(
-              //   HugeIcons.strokeRoundedGoogle,
-              //   size: 30,
-              //   color: Colors.blue,
-              // ),
-            ],
-          ),
+          child: buttonChild,
         );
+        return elevatedButton;
       },
     );
   }

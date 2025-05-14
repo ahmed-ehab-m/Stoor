@@ -17,7 +17,6 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   @override
   void initState() {
     searchResult = widget.books;
-    print('Seachhhhh result ${searchResult.length}');
     super.initState();
   }
 
@@ -56,7 +55,6 @@ class _SearchViewBodyState extends State<SearchViewBody> {
 
 List<BookModel> searchBooks(List<BookModel> books, String name) {
   if (name.isEmpty) {
-    print('books is empty');
     return books;
   } else {
     return books

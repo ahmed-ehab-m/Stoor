@@ -15,7 +15,6 @@ class NewestListView extends StatelessWidget {
     return BlocBuilder<NewestBooksCubit, NewestBooksState>(
       builder: (context, state) {
         if (state is NewestBooksSuccess) {
-          print(state.books.length);
           return SliverList(
               delegate: SliverChildBuilderDelegate(
             (context, index) {

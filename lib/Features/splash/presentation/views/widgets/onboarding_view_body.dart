@@ -2,6 +2,7 @@ import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/assetsData.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -18,32 +19,15 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  Future<void> _precacheImages() async {
-    final pages = [
-      AssetsData.onboardingImageOne,
-      AssetsData.onboardingImageTwo,
-    ];
-    for (var image in pages) {
-      await precacheImage(AssetImage(image), context);
-    }
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _precacheImages();
-  }
-
   @override
   void dispose() {
     _pageController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> _pages = [
+    final List<Map<String, String>> pages = [
       {
         'image': AssetsData.onboardingImageOne,
         'title': 'Explore a World of Books',
@@ -64,7 +48,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
           Expanded(
             child: PageView.builder(
               controller: _pageController,
-              itemCount: _pages.length,
+              itemCount: pages.length,
               onPageChanged: (index) {
                 _currentPage = index;
                 setState(() {});
@@ -75,32 +59,24 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                   children: [
                     Stack(
                       children: [
+                        // Image.asset('assets/images/onboardingImage1.png'),
                         Container(
+                          // margin: EdgeInsets.only(top: 50),
                           height: MediaQuery.of(context).size.height * 0.5,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             image: DecorationImage(
-                              image: AssetImage(_pages[index]['image']!),
+                              image: AssetImage(pages[index]['image']!),
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                        if (_pages[index]['image'] ==
+                        if (pages[index]['image'] ==
                             AssetsData.onboardingImageTwo)
                           Positioned(
                               right: -1,
                               bottom: -1,
-                              child: ShaderMask(
-                                shaderCallback: (bounds) {
-                                  return LinearGradient(
-                                    colors: [
-                                      Color(0xFFEC4899), // Pink
-                                      Color(0xFFA855F7), // Purple
-                                      Color(0xFF3B82F6), // Blue
-                                    ],
-                                    tileMode: TileMode.repeated,
-                                  ).createShader(bounds);
-                                },
+                              child: CustomShaderMask(
                                 child: Icon(
                                   HugeIcons.strokeRoundedStars,
                                   color: Colors.white,
@@ -109,20 +85,10 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                               ))
                       ],
                     ),
-                    _pages[index]['image'] == AssetsData.onboardingImageTwo
-                        ? ShaderMask(
-                            shaderCallback: (bounds) {
-                              return LinearGradient(
-                                colors: [
-                                  Color(0xFFEC4899), // Pink
-                                  Color(0xFFA855F7), // Purple
-                                  Color(0xFF3B82F6), // Blue
-                                ],
-                                tileMode: TileMode.repeated,
-                              ).createShader(bounds);
-                            },
+                    pages[index]['image'] == AssetsData.onboardingImageTwo
+                        ? CustomShaderMask(
                             child: Text(
-                              _pages[index]['title']!,
+                              pages[index]['title']!,
                               style: TextStyle(
                                 fontSize: 50,
                                 fontWeight: FontWeight.bold,
@@ -131,7 +97,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                             ),
                           )
                         : Text(
-                            _pages[index]['title']!,
+                            pages[index]['title']!,
                             style: TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.bold,
@@ -139,7 +105,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                             ),
                           ),
                     Text(
-                      _pages[index]['subtitle']!,
+                      pages[index]['subtitle']!,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -157,7 +123,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
             children: [
               SmoothPageIndicator(
                 controller: _pageController,
-                count: _pages.length,
+                count: pages.length,
                 effect: ExpandingDotsEffect(
                   activeDotColor: kPrimaryColor,
                   dotColor: Colors.grey.withOpacity(0.5),

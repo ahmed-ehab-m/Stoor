@@ -67,6 +67,5 @@ class SettingsRepoImpl implements SettingsRepo {
   @override
   Future<void> saveThemeIndex(int index) async {
     await localDatasource.saveThemeIndex(index);
-    ;
   }
 }

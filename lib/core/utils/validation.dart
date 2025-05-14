@@ -1,4 +1,5 @@
 import 'package:bookly_app/core/utils/constants.dart';
+import 'package:email_validator/email_validator.dart';
 
 class FormValidation {
   static String? validateName(String value) {
@@ -24,12 +25,10 @@ class FormValidation {
     if (value.isEmpty) {
       return 'Email is required';
     }
-
-    final regex = RegExp(kPattern);
-    if (!regex.hasMatch(value)) {
+    // final regex = RegExp(kPattern);
+    if (EmailValidator.validate(value) == false) {
       return 'Please enter a valid email address';
     }
-
     return null;
   }
 }

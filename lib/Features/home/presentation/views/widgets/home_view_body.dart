@@ -20,15 +20,35 @@ class HomeViewBody extends StatelessWidget {
               children: <Widget>[
                 CustomAppBar(),
                 SizedBox(height: 10),
+                // ShaderMask(
+                //   shaderCallback: (boudns) {
+                //     return const LinearGradient(
+                //       colors: [kPrimaryColor, Colors.white],
+                //       begin: Alignment.topCenter,
+                //       end: Alignment.bottomCenter,
+                //     ).createShader(boudns);
+                //   },
+                //   child:
                 Text('Popular Books',
                     style: Styles.textStyle30
                         .copyWith(fontWeight: FontWeight.w900)),
+                // ),
                 SizedBox(height: 15),
                 FeaturedBooksListView(),
                 SizedBox(height: 20),
-                Text('Newest',
+                // ShaderMask(
+                //   shaderCallback: (boudns) {
+                //     return const LinearGradient(
+                //       colors: [kPrimaryColor, Colors.white],
+                //       begin: Alignment.topCenter,
+                //       end: Alignment.bottomCenter,
+                //     ).createShader(boudns);
+                //   },
+                //   child:
+                Text('Newest ',
                     style: Styles.textStyle30
                         .copyWith(fontWeight: FontWeight.w900)),
+                // ),
                 // BestSellerListView(),
               ],
             ),

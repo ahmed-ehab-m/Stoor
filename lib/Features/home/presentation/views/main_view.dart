@@ -5,6 +5,7 @@ import 'package:bookly_app/Features/settings/presentation/manager/change_setting
 import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/Features/settings/presentation/views/settings_view.dart';
+import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,7 +66,7 @@ class _MainViewState extends State<MainView> {
                 BlocProvider.of<ChangeSettingsCubit>(context).iconColor;
             Color? backgroundColor =
                 BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor;
-            print('rebuild');
+            // print('rebuild');
             return Container(
               margin: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
               decoration: BoxDecoration(
@@ -102,17 +103,7 @@ class _MainViewState extends State<MainView> {
                     ),
                     IconButton(
                       icon: _currentIndex == 2
-                          ? ShaderMask(
-                              shaderCallback: (bounds) {
-                                return LinearGradient(
-                                  colors: [
-                                    Color(0xFFEC4899), // Pink
-                                    Color(0xFFA855F7), // Purple
-                                    Color(0xFF3B82F6), // Blue
-                                  ],
-                                  tileMode: TileMode.repeated,
-                                ).createShader(bounds);
-                              },
+                          ? CustomShaderMask(
                               child: Icon(
                                 HugeIcons.strokeRoundedGoogleGemini,
                                 color: Colors.white,

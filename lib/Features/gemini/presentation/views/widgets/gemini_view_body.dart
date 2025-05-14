@@ -5,10 +5,13 @@ import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart'
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
+import 'package:bookly_app/core/utils/assetsData.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:lottie/lottie.dart';
 
 class GeminiViewBody extends StatefulWidget {
   const GeminiViewBody({
@@ -31,12 +34,7 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-          // top: 50,
-          // bottom: 20,
-          // right: 20,
-          // left: 20,
-          ),
+      padding: const EdgeInsets.only(),
       child: BlocBuilder<GeminiCubit, GeminiState>(
         builder: (context, state) {
           if (state is GeminiLoadingState) {
@@ -45,13 +43,9 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
           }
           if (state is GeminiLoadedState) {
             books = state.recommendedBook;
-            print('loaded');
-            print(books);
             isloading = false;
           }
           if (state is GeminiErrorState) {
-            print('error State');
-            print(state.errorMessage);
             isloading = false;
           }
           return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
@@ -59,27 +53,14 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
               return Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: BlocProvider.of<ChangeSettingsCubit>(context)
-                                  .backgroundColor ==
-                              Colors.white
-                          ? [
-                              Color(0xFFF3E8FF), // Pastel Purple
-                              Color(0xFFFCE7F3), // Pastel Pink
-                              Color(0xFFE0F2FE), // Sky Blue
-                            ]
-                          : [
-                              Color(
-                                  0xFF1A0B2E), // Deep Purple (قريب من الأسود بس فيه لمسة أرجواني)
-                              Color(
-                                  0xFF2A1B3D), // Dark Indigo (مزيج من الأرجواني والأزرق الغامق)
-                              Color(
-                                  0xFF4A1A3F), // Dark Plum (لمسة Pink غامقة للحيوية)
-                            ],
-                    )),
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: BlocProvider.of<ChangeSettingsCubit>(context)
+                        .geminiColors,
+                  ),
+                ),
                 child: Stack(
                   children: [
                     Column(
@@ -88,17 +69,7 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                           'Dive into your book journey with ',
                           style: Styles.textStyle30,
                         ),
-                        ShaderMask(
-                          shaderCallback: (bounds) {
-                            return LinearGradient(
-                              colors: [
-                                Color(0xFFEC4899), // Pink
-                                Color(0xFFA855F7), // Purple
-                                Color(0xFF3B82F6), // Blue
-                              ],
-                              tileMode: TileMode.repeated,
-                            ).createShader(bounds);
-                          },
+                        CustomShaderMask(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -116,6 +87,7 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                           ),
                         ),
                         SizedBox(height: 20),
+
                         Expanded(
                             child: Column(children: [
                           if (books != null && books!.isNotEmpty)
@@ -125,19 +97,31 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                               ),
                             ),
                         ])),
-                        if (books != null && books!.isEmpty)
-                          Text(
-                            'Oops, No Matches! Explore With a New Description',
-                            textAlign: TextAlign.center,
-                            style: Styles.textStyle18.copyWith(
-                              color: Colors.purple.shade700,
-                            ),
-                          ),
+
                         // Spacer(),
                         GeminiCustomTextField(controller: _controller),
                       ],
                     ),
-                    if (isloading) CustomCircleProgressIndicator(),
+                    if (books != null && books!.isEmpty)
+                      Center(
+                        child: Text(
+                          'Oops, No Matches! Explore With a New Description',
+                          textAlign: TextAlign.center,
+                          style: Styles.textStyle18.copyWith(
+                              // color: Colors.purple.shade700,
+                              ),
+                        ),
+                      ),
+                    if (isloading)
+                      Center(
+                        child: Lottie.asset(
+                          AssetsData.circleAnimation,
+                          height: 200, // غيرها حسب المساحة اللي انت عايزها
+                          repeat: true,
+                          reverse: false,
+                          animate: true,
+                        ),
+                      ),
                   ],
                 ),
               );
