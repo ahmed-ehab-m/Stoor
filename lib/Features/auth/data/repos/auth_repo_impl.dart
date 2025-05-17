@@ -174,16 +174,14 @@ class AuthRepoImpl implements AuthRepo {
       final currentName = userData?['name'] ?? 'User';
       final currentEmail = user.email!;
       final updatedEmail =
-          newEmail?.trim().isNotEmpty == true ? newEmail : currentEmail;
+          newEmail.trim().isNotEmpty == true ? newEmail : currentEmail;
 
-      if (updatedEmail != null &&
-          updatedEmail.trim().isNotEmpty &&
-          newEmail != currentEmail) {
+      if (updatedEmail.trim().isNotEmpty && newEmail != currentEmail) {
         String? invalidEmail = FormValidation.validateEmail(updatedEmail);
         if (invalidEmail != null) {
           return Left(ServerFailure(invalidEmail));
         }
-        if (newPassword == null || newPassword.isEmpty) {
+        if (newPassword.isEmpty) {
           return Left(ServerFailure('Password Invalid.'));
         }
 
@@ -198,7 +196,7 @@ class AuthRepoImpl implements AuthRepo {
         }
       }
 
-      await user.updateEmail(newEmail!);
+      await user.updateEmail(newEmail);
       final updatedUser = UserModel(
         name: currentName,
         email: newEmail,
@@ -234,7 +232,7 @@ class AuthRepoImpl implements AuthRepo {
       final currentEmail = user.email!;
 
       final updatedName =
-          newName?.trim().isNotEmpty == true ? newName : currentName;
+          newName.trim().isNotEmpty == true ? newName : currentName;
       print('updatedName in auth repo impl: $updatedName');
       final updatedUser = UserModel(
         name: updatedName,
@@ -266,5 +264,11 @@ class AuthRepoImpl implements AuthRepo {
       (failure) => Left(failure),
       (user) => Right(user),
     );
+  }
+
+////////////////////////////////////////////////////
+  @override
+  Future<String?> getCurrentUserId() async {
+    return firebaseAuth.currentUser?.uid;
   }
 }

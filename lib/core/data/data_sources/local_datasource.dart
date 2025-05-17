@@ -32,13 +32,17 @@ abstract class LocalDatasource {
   Future<Either<Failure, UserModel?>>
       getUserData(); //for reading user data from cache
   Future<Either<Failure, void>> deleteUserData();
+  ///////////////is first time and is logged in//////////////
+  bool isFirstTime();
+  void setFirstTimeDone();
+
+  Future<bool> isLoggedIn();
 }
 
 class LocalDatasourceImpl implements LocalDatasource {
   final SharedPreferences prefs;
 
   LocalDatasourceImpl(this.prefs);
-  int i = 1;
 
   @override
   Future<Either<Failure, String>> saveImage(File image) async {
@@ -164,5 +168,24 @@ class LocalDatasourceImpl implements LocalDatasource {
   Future<int> getFontIndex() async {
     int fontIndex = prefs.getInt(KFontKey) ?? 2;
     return fontIndex;
+  }
+
+////////////////////////////////////////////////
+  @override
+  bool isFirstTime() {
+    return prefs.getBool(kIsFirstTime) ?? true;
+  }
+
+  ////////////////////////////////////////////////
+  @override
+  void setFirstTimeDone() async {
+    await prefs.setBool(kIsFirstTime, false);
+  }
+
+//////////////////////////////////////////////////
+  @override
+  Future<bool> isLoggedIn() {
+    // TODO: implement isLoggedIn
+    throw UnimplementedError();
   }
 }

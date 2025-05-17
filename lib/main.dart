@@ -10,6 +10,8 @@ import 'package:bookly_app/Features/home/presentation/manager/featured_books_cub
 import 'package:bookly_app/Features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
+import 'package:bookly_app/Features/splash/presentation/views/manager/splash_cubit/splash_cubit.dart';
+import 'package:bookly_app/core/data/data_sources/local_datasource.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,11 @@ class BooklyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+            create: (context) => SplashCubit(
+                  getIt.get<LocalDatasourceImpl>(),
+                  getIt.get<AuthRepoImpl>(),
+                )),
         BlocProvider(
             create: (context) => ProfileCubit(
                   getIt.get<AuthRepoImpl>(),

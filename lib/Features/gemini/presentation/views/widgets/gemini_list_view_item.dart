@@ -76,22 +76,8 @@ class _GeminiListViewItemState extends State<GeminiListViewItem> {
                           reviewsCount: 0,
                         ),
                         Spacer(),
-                        ShaderMask(
-                          shaderCallback: (bounds) {
-                            return const LinearGradient(
-                              colors: [
-                                Color(0xFFEC4899), // Pink
-                                Color(0xFFA855F7), // Purple
-                                Color(0xFF3B82F6), // Blue
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              tileMode: TileMode.clamp,
-                            ).createShader(bounds);
-                          },
-                          child: Icon(HugeIcons.strokeRoundedStars,
-                              color: Colors.white, size: 30),
-                        )
+                        Icon(HugeIcons.strokeRoundedStars,
+                            color: Colors.amber, size: 30),
                       ],
                     ),
                   ],

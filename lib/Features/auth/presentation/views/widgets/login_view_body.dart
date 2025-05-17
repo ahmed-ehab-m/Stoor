@@ -8,10 +8,10 @@ import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/utils/validation.dart';
+import 'package:bookly_app/core/widgets/custom_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -60,16 +60,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 spacing: screenSizeHelper.screenHeight * 0.03,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ShaderMask(
-                    shaderCallback: (bounds) {
-                      return LinearGradient(
-                        colors: [kPrimaryColor, Colors.grey],
-                        tileMode: TileMode.repeated,
-                      ).createShader(bounds);
-                    },
-                    child: Icon(HugeIcons.strokeRoundedBookOpen02,
-                        color: Colors.white, size: 100),
-                  ),
+                  CustomLogo(),
                   Center(
                     child: Column(
                       children: [

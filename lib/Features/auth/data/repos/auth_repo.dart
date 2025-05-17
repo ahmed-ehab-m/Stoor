@@ -22,5 +22,5 @@ abstract class AuthRepo {
 
   Future<Either<Failure, void>> signOut();
   Future<Either<Failure, UserModel?>> getUserData();
-  Future<bool> isSignedIn();
+  Future<String?> getCurrentUserId();
 }

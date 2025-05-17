@@ -1,4 +1,3 @@
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:email_validator/email_validator.dart';
 
 class FormValidation {

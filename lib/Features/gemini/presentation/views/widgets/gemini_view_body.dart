@@ -1,17 +1,15 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
-import 'package:bookly_app/Features/gemini/presentation/views/widgets/custom_circle_progress_indicator.dart';
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/custom_loading_animation.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_cutom_text_field.dart';
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_title.dart';
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/initial_book_state_ui.dart';
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/no_matches_widget.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
-import 'package:bookly_app/core/utils/assetsData.dart';
-import 'package:bookly_app/core/utils/styles.dart';
-import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:lottie/lottie.dart';
 
 class GeminiViewBody extends StatefulWidget {
   const GeminiViewBody({
@@ -25,6 +23,7 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
   List<BookModel?>? books;
   bool isloading = false;
   final TextEditingController _controller = TextEditingController();
+
   @override
   void dispose() {
     _controller.dispose();
@@ -65,63 +64,34 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                   children: [
                     Column(
                       children: [
-                        Text(
-                          'Dive into your book journey with ',
-                          style: Styles.textStyle30,
-                        ),
-                        CustomShaderMask(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                        GeminiTitle(),
+                        SizedBox(height: 20),
+                        // Text(
+                        //   'Write a book description\nand I\'ll suggest a book that fits',
+                        //   // textAlign: TextAlign.center,
+                        //   style: Styles.textStyle20.copyWith(
+                        //     color: Colors.white,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                        Expanded(
+                          child: Column(
                             children: [
-                              Icon(
-                                HugeIcons.strokeRoundedGoogleGemini,
-                                size: 50,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                ' Gemini',
-                                style: Styles.textStyle30
-                                    .copyWith(color: Colors.white),
-                              ),
+                              if (books != null && books!.isNotEmpty)
+                                Expanded(
+                                  child: SearchResultListView(
+                                    books: books,
+                                  ),
+                                ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 20),
-
-                        Expanded(
-                            child: Column(children: [
-                          if (books != null && books!.isNotEmpty)
-                            Expanded(
-                              child: SearchResultListView(
-                                books: books,
-                              ),
-                            ),
-                        ])),
-
-                        // Spacer(),
                         GeminiCustomTextField(controller: _controller),
                       ],
                     ),
-                    if (books != null && books!.isEmpty)
-                      Center(
-                        child: Text(
-                          'Oops, No Matches! Explore With a New Description',
-                          textAlign: TextAlign.center,
-                          style: Styles.textStyle18.copyWith(
-                              // color: Colors.purple.shade700,
-                              ),
-                        ),
-                      ),
-                    if (isloading)
-                      Center(
-                        child: Lottie.asset(
-                          AssetsData.circleAnimation,
-                          height: 200, // غيرها حسب المساحة اللي انت عايزها
-                          repeat: true,
-                          reverse: false,
-                          animate: true,
-                        ),
-                      ),
+                    if (books == null && !isloading) InitialBookStateUi(),
+                    if (books != null && books!.isEmpty) NoMatchesWidget(),
+                    if (isloading) CustomLoadingAnimation(),
                   ],
                 ),
               );
