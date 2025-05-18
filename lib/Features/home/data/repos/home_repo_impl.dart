@@ -2,8 +2,10 @@ import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart'
 import 'package:bookly_app/Features/home/data/repos/home_repo.dart';
 import 'package:bookly_app/core/errors/failures.dart';
 import 'package:bookly_app/core/utils/api_service.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
@@ -30,6 +32,35 @@ class HomeRepoImpl implements HomeRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+  ////////////////////////////Test New Api//////////////////////////////////
+
+  void fetchBooks() async {
+    Dio dio = Dio();
+    var cookieJar = CookieJar();
+    dio.interceptors.add(CookieManager(cookieJar));
+
+    try {
+      Response response = await dio.get(
+        'https://hadeer.wuaze.com/api/v1/books/highest-rated',
+        queryParameters: {'i': 1},
+        options: Options(
+          headers: {
+            'Accept': 'application/json',
+            'User-Agent':
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
+            'Accept-Language': 'en-US,en;q=0.9',
+          },
+          followRedirects: true,
+          maxRedirects: 5,
+        ),
+      );
+      print(response.data);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  //////////////////////////////////////////////////////////////
 
   @override
   Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks() async {

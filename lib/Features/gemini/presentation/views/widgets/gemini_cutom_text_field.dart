@@ -51,7 +51,7 @@ class _GeminiCustomTextFieldState extends State<GeminiCustomTextField>
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              width: 1,
+              width: 2,
               color: Colors.transparent, // Transparent to show gradient
             ),
             gradient: LinearGradient(

@@ -23,16 +23,21 @@ class _SplashViewBodyState extends State<SplashViewBody>
   @override
   void initState() {
     triggerAppStatus();
+    loadTheme();
     // TODO: implement initState
     super.initState();
   }
 
   void triggerAppStatus() {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       if (mounted) {
         context.read<SplashCubit>().checkAppStatus();
       }
     });
+  }
+
+  Future loadTheme() async {
+    await BlocProvider.of<ChangeSettingsCubit>(context).loadTheme();
   }
 
   @override

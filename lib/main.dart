@@ -26,15 +26,17 @@ void main() async {
   );
 
   await setupServiceLocator(); // Initialize the service locator
-  // Gemini.init(
-  //     apiKey:
-  //         'AIzaSyCfLCKPziTSPaMPQAEyjP6INBHZlBUE47A'); // Initialize the Gemini API
-  runApp(const BooklyApp());
+  final settingsRepo = getIt.get<SettingsRepoImpl>();
+  final savedThemeIndex = await settingsRepo.getThemeIndex();
+
+  runApp(BooklyApp(
+    savedThemeIndex: savedThemeIndex,
+  ));
 }
 
 class BooklyApp extends StatelessWidget {
-  const BooklyApp({super.key});
-
+  const BooklyApp({super.key, required this.savedThemeIndex});
+  final int savedThemeIndex; // أضفنا savedThemeIndex كـ parameter
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -59,7 +61,8 @@ class BooklyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              ChangeSettingsCubit(getIt.get<SettingsRepoImpl>()),
+              ChangeSettingsCubit(getIt.get<SettingsRepoImpl>())
+                ..changeTheme(savedThemeIndex),
         ),
         BlocProvider<GeminiCubit>(
             create: (context) => GeminiCubit(getIt.get<GeminiRepoImpl>())),
@@ -80,7 +83,7 @@ class BooklyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp.router(
             routerConfig: AppRouter.router,
-            title: 'Bookly App',
+            title: 'Bookly س',
             theme: ThemeData(
               brightness: BlocProvider.of<ChangeSettingsCubit>(context).theme,
               scaffoldBackgroundColor:

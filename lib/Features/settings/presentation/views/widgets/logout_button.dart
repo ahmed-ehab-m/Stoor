@@ -3,10 +3,14 @@ import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:http/http.dart' as http;
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});
@@ -39,6 +43,7 @@ class LogoutButton extends StatelessWidget {
               foregroundColor: Colors.white),
           onPressed: () async {
             await BlocProvider.of<AuthCubit>(context).signOut();
+            // fetchBooks();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,5 +58,23 @@ class LogoutButton extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+void fetchBooks() async {
+  try {
+    var response = await http.get(
+      Uri.parse('https://hadeer.wuaze.com/api/v1/books/highest-rated?i=1'),
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Cookie': '__test=<530bd8f48f46286caefa530fefc50749>',
+      },
+    );
+    print('Response: ${response.body}');
+  } catch (e) {
+    print('Error: $e');
   }
 }
