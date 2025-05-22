@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bookly_app/Features/settings/data/repos/settings_repo.dart';
-import 'package:bookly_app/core/data/data_sources/local_datasource.dart';
+import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:bookly_app/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,8 +16,12 @@ class SettingsRepoImpl implements SettingsRepo {
   Future<Either<Failure, String>> pickProfileImage() async {
     final XFile? pickedFile =
         await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile == null) {
-      return Left(CacheFailure('No image selected'));
+    if (pickedFile == null || pickedFile.path.isEmpty) {
+      final cacheResult = await localDatasource.getProfileImagePath();
+      return cacheResult.fold(
+        (failure) => Left(failure),
+        (path) => Right(path),
+      );
     }
     try {
       final cacheResult =

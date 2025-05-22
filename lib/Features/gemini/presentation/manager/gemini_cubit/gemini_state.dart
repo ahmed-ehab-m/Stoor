@@ -9,18 +9,46 @@ sealed class GeminiState extends Equatable {
 
 final class GeminiInitial extends GeminiState {}
 
-final class GeminiLoadingState extends GeminiState {}
+final class GeminiLoadingState extends GeminiState {
+  final List<ChatMessageModel> chatHistory;
+
+  const GeminiLoadingState({required this.chatHistory});
+}
 
 final class GeminiLoadedState extends GeminiState {
   final List<BookModel?> recommendedBook;
-  const GeminiLoadedState(this.recommendedBook);
+  final List<ChatMessageModel> chatHistory;
+
+  const GeminiLoadedState(this.recommendedBook, this.chatHistory);
   @override
   List<Object> get props => [recommendedBook];
 }
 
 final class GeminiErrorState extends GeminiState {
   final String errorMessage;
-  const GeminiErrorState(this.errorMessage);
+  final List<ChatMessageModel> chatHistory;
+
+  const GeminiErrorState(
+      {required this.errorMessage, required this.chatHistory});
   @override
   List<Object> get props => [errorMessage];
+}
+
+/////////////////////////get chat history/////////////////////////
+final class GeminiChatHistoryLoadedState extends GeminiState {
+  final List<ChatMessageModel> chatHistory;
+
+  const GeminiChatHistoryLoadedState(this.chatHistory);
+  @override
+  List<Object> get props => [chatHistory];
+}
+
+final class GeminiChatHistoryLoadingState extends GeminiState {
+  const GeminiChatHistoryLoadingState();
+}
+
+final class GeminiChatHistoryFailureState extends GeminiState {
+  final String errorMessage;
+
+  const GeminiChatHistoryFailureState(this.errorMessage);
 }

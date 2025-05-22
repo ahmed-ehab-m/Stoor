@@ -1,4 +1,4 @@
-import 'package:bookly_app/core/data/data_sources/local_datasource.dart';
+import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:bookly_app/core/models/user_model.dart';
 import 'package:bookly_app/Features/auth/data/repos/auth_repo.dart';
 import 'package:bookly_app/core/errors/failures.dart';
@@ -233,7 +233,6 @@ class AuthRepoImpl implements AuthRepo {
 
       final updatedName =
           newName.trim().isNotEmpty == true ? newName : currentName;
-      print('updatedName in auth repo impl: $updatedName');
       final updatedUser = UserModel(
         name: updatedName,
         email: currentEmail,

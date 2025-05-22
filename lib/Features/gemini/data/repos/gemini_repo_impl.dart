@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
 import 'package:bookly_app/Features/gemini/data/repos/gemini_repo.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:bookly_app/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -9,7 +11,30 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 
 class GeminiRepoImpl implements GeminiRepo {
   final Gemini gemini;
-  GeminiRepoImpl(this.gemini);
+  final LocalDatasource _localDatasource;
+  GeminiRepoImpl(this.gemini, this._localDatasource);
+  /////////////////////////////////////////////////////
+  @override
+  Future<Either<Failure, void>> saveChatHistory(
+      List<ChatMessageModel> chatHistory) async {
+    var cacheResult = await _localDatasource.saveGeminiChatHistory(chatHistory);
+    return cacheResult.fold(
+      (failure) => Left(failure),
+      (_) => Right(null),
+    );
+  }
+
+  ////////////////////////////////////////////////////
+  @override
+  Future<Either<Failure, List<ChatMessageModel>>> getChatHistory() async {
+    var cacheResult = await _localDatasource.getGeminiChatHistory();
+    return cacheResult.fold(
+      (failure) => Left(failure),
+      (chatHistory) => Right(chatHistory),
+    );
+  }
+
+/////////////////////////////////////////////////
   @override
   Future<Either<Failure, List<BookModel?>>> getRecommendedBook({
     required String userDescription,
@@ -29,8 +54,6 @@ class GeminiRepoImpl implements GeminiRepo {
 
       final jsonData = jsonDecode(cleanedResponse ?? '');
       final selectedIds = jsonData.map((item) => item['id'] as String).toList();
-      // final selectedBook = books.firstWhere((book) => book.id == selectedId,
-      //     orElse: () => books.first);
 
       final selectedBooks =
           books.where((book) => selectedIds.contains(book.id)).toList();
@@ -46,18 +69,11 @@ class GeminiRepoImpl implements GeminiRepo {
     }
   }
 
+  ////////////////////////////////////////////////////
   static String _buildSystemPromt(
       {required List<BookModel> books, required String userDescription}) {
-    //we want to build a string that will be the prompt for the AI to generate a story
-    //the string consists of two parts: the context description and the response instruction
-    //if the context description is null, we will use a default value
-    //if the response instruction is null, we will use a default value
-    //so we use the ?? operator to provide a default value if the parameter is null
     final buffer = StringBuffer();
-    // buffer.write('' ??
-    //     '''Based on the user's description, recommend a book and provide the response in JSON format with the following structure:''');
-    // //we want to add a space between the context description and the response instruction
-    // buffer.write(' ');
+
     buffer.write(
         'You are a book recommendation assistant. Based on the user\'s description, recommend  one or more books from the following list:\n\n');
 
@@ -75,92 +91,6 @@ class GeminiRepoImpl implements GeminiRepo {
     buffer.write('[{"id": "book_id1"}, {"id": "book_id2"}]\n');
     buffer.write(
         'If no books are relevant, return an empty array []. Ensure the response contains only the JSON array and no additional text.');
-    // buffer.write('''
-    //             {
-    //         "kind": ",
-    //         "id": "",
-    //         "etag": "",
-    //         "selfLink": "",
-    //         "volumeInfo": {
-    //             "title": "",
-    //             "subtitle": "",
-    //             "authors": [
-    //                 "",
-    //                 ""
-    //             ],
-    //             "publisher": "",
-    //             "publishedDate": "",
-    //             "description": "",
-    //             "industryIdentifiers": [
-    //                 {
-    //                     "type": "",
-    //                     "identifier": ""
-    //                 },
-    //                 {
-    //                     "type": "",
-    //                     "identifier": ""
-    //                 }
-    //             ],
-    //             "readingModes": {
-    //                 "text": ,
-    //                 "image":
-    //             },
-    //             "pageCount": ,
-    //             "printType": "",
-    //             "categories": [
-    //                 ""
-    //             ],
-    //             "maturityRating": "",
-    //             "allowAnonLogging": ,
-    //             "contentVersion": "",
-    //             "panelizationSummary": {
-    //                 "containsEpubBubbles": ,
-    //                 "containsImageBubbles":
-    //             },
-    //             "imageLinks": {
-    //                 "smallThumbnail": "",
-    //                 "thumbnail": ""
-    //             },
-    //             "language": "",
-    //             "previewLink": "",
-    //             "infoLink": "",
-    //             "canonicalVolumeLink": ""
-    //         },
-    //         "saleInfo": {
-    //             "country": "",
-    //             "saleability": "",
-    //             "isEbook": ,
-    //             "listPrice": {
-    //                 "amount": ,
-    //                 "currencyCode": ""
-    //             },
-    //             "retailPrice": {
-    //                 "amount": ,
-    //                 "currencyCode": ""
-    //             },
-    //             "buyLink": ""
-    //         },
-    //         "accessInfo": {
-    //             "country": "",
-    //             "viewability": "",
-    //             "embeddable": ,
-    //             "publicDomain": ,
-    //             "textToSpeechPermission": "",
-    //             "epub": {
-    //                 "isAvailable":
-    //             },
-    //             "pdf": {
-    //                 "isAvailable": ,
-    //                 "acsTokenLink": ""
-    //             },
-    //             "webReaderLink": "",
-    //             "accessViewStatus": "",
-    //             "quoteSharingAllowed":
-    //         }
-    //     },
-    //     Ensure the response contains only the JSON object and no additional text.
-    //     ''');
-    //finally, we return the string that we have built
     return buffer.toString();
   }
 }

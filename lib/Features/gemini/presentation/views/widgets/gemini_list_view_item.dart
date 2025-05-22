@@ -3,6 +3,7 @@ import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.
 import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -25,11 +26,26 @@ class _GeminiListViewItemState extends State<GeminiListViewItem> {
             .push(AppRouter.KBookDetailsView, extra: widget.bookModel);
       },
       child: Container(
+        // padding: const EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-            // borderRadius: BorderRadius.circular(20),
-            // border: Border.all(color: Colors.grey),
-            // color: BlocProvider.of<ChangeThemeCubit>(context).backgroundColor,
-            ),
+          color: const Color.fromARGB(255, 190, 62, 212)
+              .withOpacity(0.5), // لون مختلف عن UserChat
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30),
+            topLeft: Radius.circular(0),
+            bottomRight: Radius.circular(30),
+            bottomLeft: Radius.circular(30),
+          ),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Color(0xFF4285F4).withOpacity(0.3),
+          //     blurRadius: 8,
+          //     spreadRadius: 1,
+          //   ),
+          // ],
+        ),
         child: SizedBox(
           height: 140,
           child: Row(
@@ -76,8 +92,10 @@ class _GeminiListViewItemState extends State<GeminiListViewItem> {
                           reviewsCount: 0,
                         ),
                         Spacer(),
-                        Icon(HugeIcons.strokeRoundedStars,
-                            color: Colors.amber, size: 30),
+                        CustomShaderMask(
+                          child: Icon(HugeIcons.strokeRoundedStars,
+                              color: Colors.white, size: 25),
+                        ),
                       ],
                     ),
                   ],

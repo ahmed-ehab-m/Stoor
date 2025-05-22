@@ -1,7 +1,5 @@
-import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewestBookImage extends StatelessWidget {
@@ -14,12 +12,12 @@ class NewestBookImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shadowColor:
-          BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor ==
-                  Colors.black
-              ? Colors.grey
-              : Colors.black,
-      elevation: 10,
+      // shadowColor:
+      //     BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor ==
+      //             Colors.black
+      //         ? Colors.grey
+      //         : Colors.black,
+      // elevation: 10,
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(10),

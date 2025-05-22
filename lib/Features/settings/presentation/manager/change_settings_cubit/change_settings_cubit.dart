@@ -34,6 +34,18 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
           Color.fromRGBO(168, 85, 247, 1),
           Color.fromRGBO(107, 70, 193, 1),
         ];
+  ///////////////////////
+  List<Color> get questionsColors => theme == Brightness.dark
+      ? [
+          Colors.grey.shade700.withOpacity(0.5), // رمادي شفاف
+          const Color(0xFFa23757), // أحمر كشميري
+          Colors.blue.withOpacity(0.5), // أزرق رمادي
+        ]
+      : [
+          const Color(0xFFE0E0E0), // رمادي فاتح
+          const Color(0xFFF06292), // وردي ناعم
+          const Color(0xFF90CAF9), //
+        ];
 //////////Change Font Size//////////
   double descriptionFontSize = 16;
   double titleFontSize = 30;

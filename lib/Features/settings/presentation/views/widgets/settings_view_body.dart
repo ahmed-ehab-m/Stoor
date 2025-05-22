@@ -41,7 +41,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         if (state is ProfileLoaded) {
           _emailController.text = state.user?.email ?? '';
           _nameController.text = state.user?.name ?? 'User';
-          print('ProfileLoaded ');
         }
         if (state is ProfileFailure) {}
         return Padding(
@@ -114,12 +113,10 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                   children: [
                     ProfileTextField(
                       validator: (value) {
-                        print('value: $value');
                         return FormValidation.validateName(value!);
                       },
                       fieldController: _nameController,
                       onPressed: () async {
-                        print('name Controller text: ${_nameController.text}');
                         await BlocProvider.of<ProfileCubit>(context)
                             .updateName(newName: _nameController.text);
                       },
@@ -127,7 +124,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                     Divider(),
                     ProfileTextField(
                       validator: (value) {
-                        print('value: $value');
                         return FormValidation.validateEmail(value!);
                       },
                       fieldController: _emailController,
@@ -192,8 +188,9 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             ),
                             const Spacer(),
                             CustomDropdownMenu(
-                                onSelected: (value) {
-                                  BlocProvider.of<ChangeSettingsCubit>(context)
+                                onSelected: (value) async {
+                                  await BlocProvider.of<ChangeSettingsCubit>(
+                                          context)
                                       .changeFontSize(value);
                                 },
                                 initialSelection: indexFont,

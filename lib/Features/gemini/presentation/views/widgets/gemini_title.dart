@@ -8,29 +8,31 @@ class GeminiTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Dive into your book journey with ',
-          style: Styles.textStyle30,
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: CustomShaderMask(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              HugeIcons.strokeRoundedGoogleGemini,
+              size: 30,
+              color: Colors.white,
+            ),
+            Text(
+              ' Gemini',
+              style: Styles.textStyle20
+                  .copyWith(fontWeight: FontWeight.w900, color: Colors.white),
+            ),
+          ],
         ),
-        CustomShaderMask(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                HugeIcons.strokeRoundedGoogleGemini,
-                size: 50,
-                color: Colors.white,
-              ),
-              Text(
-                ' Gemini',
-                style: Styles.textStyle30.copyWith(color: Colors.white),
-              ),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

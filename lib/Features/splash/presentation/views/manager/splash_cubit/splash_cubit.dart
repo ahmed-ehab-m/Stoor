@@ -1,5 +1,5 @@
 import 'package:bookly_app/Features/auth/data/repos/auth_repo.dart';
-import 'package:bookly_app/core/data/data_sources/local_datasource.dart';
+import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

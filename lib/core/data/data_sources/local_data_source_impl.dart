@@ -1,43 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
+
+import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
+import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:bookly_app/core/errors/failures.dart';
 import 'package:bookly_app/core/models/user_model.dart';
 import 'package:bookly_app/core/utils/constants.dart';
-
 import 'package:dartz/dartz.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-abstract class LocalDatasource {
-  Future<Either<Failure, String>> saveImage(File image);
-  Future<Either<Failure, String>> getProfileImagePath();
-  /////////////////////
-  Future<void> saveInt(String key, int value);
-  Future<int> getInt(String key);
-
-  /////////////Theme index/////////////
-  Future<void> saveThemeIndex(int value);
-  Future<int> getThemeIndex();
-
-  ///////////Font index///////////////
-  Future<void> saveFontIndex(int value);
-  Future<int> getFontIndex();
-
-  //////////////////////////
-
-  Future<void> saveString(String key, String value);
-  Future<String?> getString(String key);
-
-  /////////////////////User data//////////////////////
-  Future<Either<Failure, void>> saveUserData(UserModel user);
-  Future<Either<Failure, UserModel?>>
-      getUserData(); //for reading user data from cache
-  Future<Either<Failure, void>> deleteUserData();
-  ///////////////is first time and is logged in//////////////
-  bool isFirstTime();
-  void setFirstTimeDone();
-
-  Future<bool> isLoggedIn();
-}
 
 class LocalDatasourceImpl implements LocalDatasource {
   final SharedPreferences prefs;
@@ -187,5 +158,37 @@ class LocalDatasourceImpl implements LocalDatasource {
   Future<bool> isLoggedIn() {
     // TODO: implement isLoggedIn
     throw UnimplementedError();
+  }
+
+/////////////////////////////////////////////////////
+  @override
+  Future<Either<Failure, List<ChatMessageModel>>> getGeminiChatHistory() async {
+    try {
+      final jsonString = prefs.getString(KChatHistory);
+      if (jsonString == null || jsonString.isEmpty) return Right([]);
+      final List<dynamic> jsonData = jsonDecode(jsonString);
+      final chatHistory = jsonData
+          .cast<Map<String, dynamic>>()
+          .map((json) => ChatMessageModel.fromJson(json))
+          .toList()
+          .cast<ChatMessageModel>();
+      return Right(chatHistory);
+    } catch (e) {
+      return Left(CacheFailure.fromCahceError(e.toString()));
+    }
+  }
+
+///////////////////////////////////////////////////////
+  @override
+  Future<Either<Failure, void>> saveGeminiChatHistory(
+      List<ChatMessageModel> chatHistory) async {
+    try {
+      final jsonString =
+          jsonEncode(chatHistory.map((msg) => msg.toJson()).toList());
+      await prefs.setString(KChatHistory, jsonString);
+      return Right(null);
+    } catch (e) {
+      return Left(CacheFailure.fromCahceError(e.toString()));
+    }
   }
 }

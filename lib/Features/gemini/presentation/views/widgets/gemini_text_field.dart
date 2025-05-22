@@ -6,19 +6,21 @@ import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class GeminiCustomTextField extends StatefulWidget {
-  const GeminiCustomTextField({super.key, required this.controller});
+class GeminiTextField extends StatefulWidget {
+  const GeminiTextField({super.key, required this.controller});
   final TextEditingController controller;
 
   @override
-  State<GeminiCustomTextField> createState() => _GeminiCustomTextFieldState();
+  State<GeminiTextField> createState() => _GeminiTextFieldState();
 }
 
-class _GeminiCustomTextFieldState extends State<GeminiCustomTextField>
+class _GeminiTextFieldState extends State<GeminiTextField>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Alignment> _beginAnimation;
   late Animation<Alignment> _endAnimation;
+  String? question;
+
   @override
   void initState() {
     _controller = AnimationController(
@@ -60,7 +62,7 @@ class _GeminiCustomTextFieldState extends State<GeminiCustomTextField>
               colors: const [
                 Color(0xFFEC4899), // Pink
                 Color(0xFFA855F7), // Purple
-                Color(0xFF3B82F6), // Blue
+                // Color(0xFF3B82F6), // Blue
               ],
             ),
           ),
@@ -85,11 +87,18 @@ class _GeminiCustomTextFieldState extends State<GeminiCustomTextField>
               suffixIcon: CustomShaderMask(
                 child: IconButton(
                   onPressed: () async {
+                    question = widget.controller.text;
+
+                    if (widget.controller.text.isEmpty) return;
+                    widget.controller.clear();
+
+                    print('question: $question');
+                    // onSend(widget.controller.text);
                     await BlocProvider.of<GeminiCubit>(context)
                         .getRecommendedBook(
                       books: BlocProvider.of<FeaturedBooksCubit>(context)
                           .featuredBooks,
-                      userDescription: widget.controller.text,
+                      userDescription: question!,
                     );
                   },
                   icon: Icon(

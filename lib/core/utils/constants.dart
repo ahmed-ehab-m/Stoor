@@ -9,7 +9,7 @@ const String kUserId = 'uid';
 const String kUserName = 'name';
 const String kUserEmail = 'email';
 const String kIsFirstTime = 'isFirstTime';
-
+const String KChatHistory = 'chat_History';
 const String kUserData = 'user_data';
 const String kProfileImage = 'profileImage';
 const String kPattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
