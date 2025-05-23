@@ -6,6 +6,7 @@ import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cub
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_state.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,6 +54,20 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           fit: BoxFit.cover,
                           image: FileImage(File(imagePath)),
                         )),
+                  ),
+                if (BlocProvider.of<PickImageCubit>(context).imagePath.isEmpty)
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor.withOpacity(0.5),
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(
+                      HugeIcons.strokeRoundedUser,
+                      color: Colors.white,
+                    ),
                   ),
                 SizedBox(
                   width: 12,

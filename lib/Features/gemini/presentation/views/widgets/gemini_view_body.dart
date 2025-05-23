@@ -30,47 +30,44 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(),
-      child: BlocBuilder<GeminiCubit, GeminiState>(
-        builder: (context, state) {
-          List<ChatMessageModel> chatHistory =
-              BlocProvider.of<GeminiCubit>(context).chatHistory;
-          return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
-            builder: (context, state) {
-              return Container(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                  bottom: 10,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GeminiTitle(),
-                        //////////////////////////////
-                        if (chatHistory.isEmpty && !isloading)
-                          InitialBookStateUi(),
-                        ////////////////////////////////
-                        Expanded(
-                          child: GeminiChat(),
-                        ),
-                        /////////////////////////////
-                        GeminiTextField(controller: _controller),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
-      ),
+    return BlocBuilder<GeminiCubit, GeminiState>(
+      builder: (context, state) {
+        List<ChatMessageModel> chatHistory =
+            BlocProvider.of<GeminiCubit>(context).chatHistory;
+        return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
+          builder: (context, state) {
+            return Container(
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+                bottom: 10,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GeminiTitle(),
+                      //////////////////////////////
+                      if (chatHistory.isEmpty && !isloading)
+                        InitialBookStateUi(),
+                      ////////////////////////////////
+                      Expanded(
+                        child: GeminiChat(),
+                      ),
+                      /////////////////////////////
+                      GeminiTextField(controller: _controller),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

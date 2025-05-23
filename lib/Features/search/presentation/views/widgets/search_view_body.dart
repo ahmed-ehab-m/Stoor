@@ -26,9 +26,10 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: 20,
-        right: 20,
+        left: 10,
+        right: 10,
         bottom: 10,
+        top: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
