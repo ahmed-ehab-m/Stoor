@@ -73,6 +73,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     icon: Icon(
                       HugeIcons.strokeRoundedSearch01,
                       size: 20,
+                      // color: kPrimaryColor,
                     ))
               ],
             );

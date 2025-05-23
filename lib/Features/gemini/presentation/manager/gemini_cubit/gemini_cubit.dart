@@ -12,20 +12,33 @@ class GeminiCubit extends Cubit<GeminiState> {
   ) : super(GeminiInitial());
   final GeminiRepo _geminiRepo;
   // String? question;
-  final List<ChatMessageModel> chatHistory = [];
-
+  List<ChatMessageModel> chatHistory = [];
 /////////////////////////////////////////////////
-  Future<void> addMessage(
-      {required String type, required dynamic message, String? status}) async {
+  void addMessage({required String type, dynamic? message, String? status}) {
     final chatMessage =
         ChatMessageModel(type: type, message: message, status: status);
-    chatHistory.add(chatMessage);
-    var saveResult = await _geminiRepo.saveChatHistory(chatHistory);
-    saveResult.fold((failure) {
+    chatHistory.insert(0, chatMessage);
+    print('added message type  $type , message $message , status $status');
+    print('Current chatHistory length: ${chatHistory.length}');
+  }
+
+//////////////////////////////////////////////////
+  ///
+  Future<void> saveChatHistory(
+      {required List<ChatMessageModel> chatHistory}) async {
+    emit(GeminiMessageLoadingState());
+    var result = await _geminiRepo.saveChatHistory(chatHistory);
+    result.fold((failure) {
+      print('Save chat history failed: ${failure.errMessage}');
       emit(
-        GeminiChatHistoryFailureState(failure.errMessage!),
+        GeminiMessageSaveFailureState(
+          errorMessage: failure.errMessage!,
+        ),
       );
-    }, (_) {});
+    }, (success) {
+      print('Chat history saved successfully');
+      emit(GeminiMessageSavedState());
+    });
   }
 
 /////////////////////////////////////////////////
@@ -34,11 +47,14 @@ class GeminiCubit extends Cubit<GeminiState> {
     var result = await _geminiRepo.getChatHistory();
 
     result.fold((failure) {
+      print('Get chat history failed: ${failure.errMessage}');
+
       emit(
         GeminiChatHistoryFailureState(failure.errMessage!),
       );
-    }, (chatHistory) {
-      chatHistory = chatHistory;
+    }, (chathistory) {
+      chatHistory = chathistory;
+      print('Get chat history success: ${chatHistory.length} messages');
       emit(
         GeminiChatHistoryLoadedState(
           chatHistory,
@@ -63,7 +79,7 @@ class GeminiCubit extends Cubit<GeminiState> {
     required List<BookModel> books,
   }) async {
     addMessage(type: 'user', message: userDescription);
-    addMessage(type: 'bot', message: 'Loading...', status: 'loading');
+    addMessage(type: 'bot', status: 'loading');
 
     emit(GeminiLoadingState(
       chatHistory: chatHistory,
@@ -73,18 +89,28 @@ class GeminiCubit extends Cubit<GeminiState> {
       userDescription: userDescription,
       books: books,
     );
-    result.fold((failure) {
-      // chatHistory[0] = {'type': 'bot', 'message': 'error', 'status': 'error'};
+    result.fold((failure) async {
+      print('Error from Gemini Cubit: ${failure.errMessage}');
+      final index = findLoadingBotIndex();
+      if (index != -1) {
+        chatHistory[index] = ChatMessageModel(
+          type: 'bot',
+          message: failure.errMessage,
+          status: 'done',
+        );
+      }
+      await saveChatHistory(
+        chatHistory: chatHistory,
+      );
+      print('Chat history in error state: ${chatHistory.length} messages');
       emit(
         GeminiErrorState(
           errorMessage: failure.errMessage!,
           chatHistory: chatHistory,
         ),
       );
-    }, (bookModel) {
+    }, (bookModel) async {
       final index = findLoadingBotIndex();
-      print('index in cubit last');
-      print(index);
       if (index != -1) {
         chatHistory[index] = ChatMessageModel(
           type: 'bot',
@@ -92,6 +118,11 @@ class GeminiCubit extends Cubit<GeminiState> {
           status: 'done',
         );
       }
+      print(
+          'Chat history in success state: ${chatHistory.length} messages'); // addMessage(type: type, message: message)
+      await saveChatHistory(
+        chatHistory: chatHistory,
+      );
 
       emit(
         GeminiLoadedState(bookModel, chatHistory),

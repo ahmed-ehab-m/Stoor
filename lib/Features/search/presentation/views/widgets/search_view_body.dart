@@ -1,5 +1,7 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/newest_list_view.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/custom_search_text_field.dart';
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_result_list_view.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +46,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
           ),
           SizedBox(height: 20),
           Expanded(
+              // child: NewestListView(),
               child: SearchResultListView(
             books: searchResult,
           )),

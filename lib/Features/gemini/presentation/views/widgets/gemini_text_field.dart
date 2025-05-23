@@ -82,7 +82,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Colors.grey),
+                borderSide: BorderSide(color: Colors.white),
               ),
               suffixIcon: CustomShaderMask(
                 child: IconButton(
@@ -92,7 +92,6 @@ class _GeminiTextFieldState extends State<GeminiTextField>
                     if (widget.controller.text.isEmpty) return;
                     widget.controller.clear();
 
-                    print('question: $question');
                     // onSend(widget.controller.text);
                     await BlocProvider.of<GeminiCubit>(context)
                         .getRecommendedBook(

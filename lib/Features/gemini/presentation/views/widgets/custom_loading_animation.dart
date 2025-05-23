@@ -11,11 +11,25 @@ class CustomLoadingAnimation extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 8, top: 0),
+          child: CustomShaderMask(
+            child: Icon(HugeIcons.strokeRoundedStars,
+                color: Colors.white, size: 25),
+          ),
+        ),
         Container(
           margin: const EdgeInsets.only(top: 10),
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 190, 62, 212).withOpacity(0.5),
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFA855F7).withOpacity(0.5),
+                Color(0xFFA855F7).withOpacity(0.5),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(30),
               topLeft: Radius.circular(0),
@@ -23,29 +37,9 @@ class CustomLoadingAnimation extends StatelessWidget {
               bottomLeft: Radius.circular(30),
             ),
           ),
-          child: Row(
-            spacing: 5,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomShaderMask(
-                child: Icon(
-                  HugeIcons.strokeRoundedGoogleGemini,
-                  size: 25,
-                  color: Colors.white,
-                ),
-              ),
-              // Lottie.asset(
-              //   AssetsData.circleAnimation,
-              //   height: 50, // غيرها حسب المساحة اللي انت عايزها
-              //   repeat: true,
-              //   reverse: false,
-              //   animate: true,
-              // ),
-              Text(
-                "Thinking...",
-                style: Styles.textStyle18,
-              )
-            ],
+          child: Text(
+            "Thinking...",
+            style: Styles.textStyle18,
           ),
         ),
       ],

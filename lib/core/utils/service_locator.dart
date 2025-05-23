@@ -5,6 +5,7 @@ import 'package:bookly_app/Features/settings/data/repos/settings_repo_impl.dart'
 import 'package:bookly_app/core/data/data_sources/local_data_source_impl.dart';
 import 'package:bookly_app/core/utils/api_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -27,9 +28,11 @@ Future<void> setupServiceLocator() async {
     getIt.get<
         SharedPreferences>(), // get the instance of SharedPreferences from the locator
   ));
+  getIt.registerLazySingleton(() => Connectivity());
   getIt.registerSingleton<GeminiRepoImpl>(GeminiRepoImpl(
       Gemini.init(apiKey: 'AIzaSyCfLCKPziTSPaMPQAEyjP6INBHZlBUE47A'),
-      getIt.get<LocalDatasourceImpl>()));
+      getIt.get<LocalDatasourceImpl>(),
+      getIt.get<Connectivity>()));
 
   getIt.registerSingleton<HomeRepoImpl>(
     HomeRepoImpl(

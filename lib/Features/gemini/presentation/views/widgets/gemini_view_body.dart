@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_chat.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_text_field.dart';
@@ -21,12 +22,6 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
   List<BookModel?>? books;
   bool isloading = false;
   final TextEditingController _controller = TextEditingController();
-
-  // void onSend(String message) async {
-  //   await BlocProvider.of<GeminiCubit>(context).sendQuestion(message);
-  //   _controller.clear();
-  // }
-
   @override
   void dispose() {
     _controller.dispose();
@@ -39,31 +34,15 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
       padding: const EdgeInsets.only(),
       child: BlocBuilder<GeminiCubit, GeminiState>(
         builder: (context, state) {
-          // List<ChatMessageModel> chatHistory =
-          //     BlocProvider.of<GeminiCubit>(context).chatHistory;
-          if (state is GeminiLoadingState) {
-            // chatHistory = state.chatHistory;
-            isloading = true;
-            books = null;
-          } else if (state is GeminiLoadedState) {
-            // chatHistory = state.chatHistory;
-            isloading = false;
-
-            books = state.recommendedBook;
-          } else if (state is GeminiErrorState) {
-            // chatHistory = state.chatHistory;
-            isloading = false;
-            books = null;
-          }
-
+          List<ChatMessageModel> chatHistory =
+              BlocProvider.of<GeminiCubit>(context).chatHistory;
           return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
             builder: (context, state) {
               return Container(
                 padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  // top: 20,
-                  bottom: 20,
+                  left: 10,
+                  right: 10,
+                  bottom: 10,
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -75,23 +54,16 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                       children: [
                         GeminiTitle(),
                         //////////////////////////////
-                        if (books == null && !isloading) InitialBookStateUi(),
+                        if (chatHistory.isEmpty && !isloading)
+                          InitialBookStateUi(),
                         ////////////////////////////////
-                        SizedBox(height: 20),
-                        // if (books != null && books!.isNotEmpty ||
-                        //     (books != null && books!.isNotEmpty && isloading))
                         Expanded(
-                          child: GeminiChat(
-                              // chatHistory: chatHistory,
-                              ),
+                          child: GeminiChat(),
                         ),
                         /////////////////////////////
-                        // if (books == null || (books != null && books!.isEmpty))
-                        //   Spacer(),
                         GeminiTextField(controller: _controller),
                       ],
                     ),
-                    // if (books != null && books!.isEmpty) NoMatchesWidget(),
                   ],
                 ),
               );

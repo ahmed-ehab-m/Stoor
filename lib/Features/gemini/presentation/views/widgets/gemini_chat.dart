@@ -1,8 +1,11 @@
 import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/custom_loading_animation.dart';
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/no_match_books.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/user_chat_item.dart';
-import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
+import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_result_list_view.dart';
+import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +20,6 @@ class GeminiChat extends StatefulWidget {
 
 class _GeminiChatState extends State<GeminiChat> {
   late ScrollController _scrollController;
-  List<ChatMessageModel> chatHistory = [];
   //////////////////////////////////
   //initialize the scroll controller
   @override
@@ -29,7 +31,7 @@ class _GeminiChatState extends State<GeminiChat> {
         //hasClients to check if the scroll controller مرتبط ب Scrollable widget or not
         // it will be a true after building the widget first time
         //and to make code throw an exception
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        _scrollController.jumpTo(_scrollController.position.minScrollExtent);
       }
     });
     super.initState();
@@ -43,7 +45,7 @@ class _GeminiChatState extends State<GeminiChat> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
+          _scrollController.position.minScrollExtent,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
         );
@@ -54,67 +56,99 @@ class _GeminiChatState extends State<GeminiChat> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: BlocConsumer<GeminiCubit, GeminiState>(
         listener: (context, state) {
-          if (state is GeminiLoadedState) {
-            chatHistory = state.chatHistory;
-          }
           if (state is GeminiChatHistoryLoadingState) {
-            print('chat history Loading');
+            print('Chat history loading state');
           }
           if (state is GeminiChatHistoryLoadedState) {
-            print('chat history loaded');
-            print(state.chatHistory.length);
-            print(state.chatHistory[0].message);
-            print(state.chatHistory[1].message);
-            chatHistory = state.chatHistory;
-            // print('chat history length ${chatHistory.length}');
+            print(
+                'Chat history loaded from shared prefs successfully chat history length: ${state.chatHistory.length}');
           }
-
+          if (state is GeminiMessageSaveFailureState) {
+            showSnackBar(context,
+                message: state.errorMessage, color: Colors.red);
+          }
           if (state is GeminiChatHistoryFailureState) {
-            print('chat history Failure' + state.errorMessage);
+            showSnackBar(context,
+                message: state.errorMessage, color: Colors.red);
+          }
+          if (state is GeminiLoadedState) {
+            print(
+                'Gemini loaded successfully, chatHistory length: ${state.chatHistory.length}');
+          }
+          if (state is GeminiErrorState) {
+            print(
+                'Gemini error state: ${state.errorMessage}, chatHistory length: ${state.chatHistory.length}');
           }
         },
         builder: (context, state) {
-          // BlocProvider.of<GeminiCubit>(context).chatHistory;
-
-          // final chatHistory = state.chatHistory;
-          ChatMessageModel lastMessage;
-          if (chatHistory.isNotEmpty) {
-            int loadingIndex = chatHistory.length - 1;
-            print('loadingIndex $loadingIndex');
-            print(chatHistory[0].type);
-            lastMessage = chatHistory[loadingIndex];
+          List<ChatMessageModel> chatHistory = [];
+          // if (state is GeminiInitial) {
+          //   chatHistory = state.chatHistory;
+          //   print('Initial state, chatHistory length: ${chatHistory.length}');
+          // }
+          if (state is GeminiLoadingState) {
+            chatHistory = state.chatHistory;
+            print('Loading state, chatHistory length: ${chatHistory.length}');
+          } else if (state is GeminiLoadedState) {
+            chatHistory = state.chatHistory;
+            print('Loaded state, chatHistory length: ${chatHistory.length}');
+          } else if (state is GeminiErrorState) {
+            chatHistory = state.chatHistory;
+            print('Error state, chatHistory length: ${chatHistory.length}');
+          } else if (state is GeminiChatHistoryLoadedState) {
+            chatHistory = state.chatHistory;
+            print(
+                'Chat history loaded state, chatHistory length: ${chatHistory.length}');
+          } else if (state is GeminiChatHistoryFailureState) {
+            chatHistory = context
+                .read<GeminiCubit>()
+                .chatHistory; // استخدام chatHistory من Cubit
+            print('Chat history failure state');
           }
+
           return ListView.builder(
-              itemCount: chatHistory.length,
-              controller: _scrollController,
-              shrinkWrap: false,
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                var message = chatHistory[index];
-                if (message.type == 'bot') {
-                  if (message.status == 'loading') {
-                    if (index == chatHistory.length - 1) {
-                      return const CustomLoadingAnimation();
-                    }
-                  } else {
-                    return SearchResultListView(
-                      books: message.message,
-                    );
-                  }
+            key: ValueKey(
+                chatHistory.length), // إضافة key لإجبار إعادة الـ build
+            reverse: true,
+            itemCount: chatHistory.length,
+            controller: _scrollController,
+            shrinkWrap: false,
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              print(
+                  'Building item $index, type: ${chatHistory[index].type}, status: ${chatHistory[index].status}, message: ${chatHistory[index].message}');
+              final message = chatHistory[index];
+              if (message.type == 'bot') {
+                if (message.status == 'loading') {
+                  return const CustomLoadingAnimation();
+                } else if (message.message ==
+                    'No relevant books found , try with different description.') {
+                  return NoMatchBooks(errorMessage: message.message ?? '');
+                } else if (message.message is List<BookModel>) {
+                  print(
+                      'Rendering SearchResultListView with ${message.message.length} books');
+                  return GeminiResultListView(books: message.message);
                 } else {
-                  return Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      UserChatItem(message: message.message),
-                    ],
-                  );
+                  print('Unexpected bot message: ${message.message}');
+                  return const SizedBox.shrink(); // تجنب عرض أي شيء غير متوقع
                 }
-                return null;
-              });
+              } else if (message.type == 'user') {
+                return Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    UserChatItem(message: message.message ?? ''),
+                  ],
+                );
+              } else {
+                print('Unexpected message type: ${message.type}');
+                return const SizedBox.shrink();
+              }
+            },
+          );
         },
       ),
     );

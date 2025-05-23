@@ -34,7 +34,7 @@ final class GeminiErrorState extends GeminiState {
   List<Object> get props => [errorMessage];
 }
 
-/////////////////////////get chat history/////////////////////////
+/////////////////////////save and get chat history/////////////////////////
 final class GeminiChatHistoryLoadedState extends GeminiState {
   final List<ChatMessageModel> chatHistory;
 
@@ -51,4 +51,19 @@ final class GeminiChatHistoryFailureState extends GeminiState {
   final String errorMessage;
 
   const GeminiChatHistoryFailureState(this.errorMessage);
+}
+
+///////////////////////////Save Message/////////////////////////////
+final class GeminiMessageSavedState extends GeminiState {
+  const GeminiMessageSavedState();
+}
+
+final class GeminiMessageSaveFailureState extends GeminiState {
+  final String errorMessage;
+
+  const GeminiMessageSaveFailureState({required this.errorMessage});
+}
+
+final class GeminiMessageLoadingState extends GeminiState {
+  const GeminiMessageLoadingState();
 }

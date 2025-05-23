@@ -5,6 +5,7 @@ import 'package:bookly_app/Features/gemini/data/repos/gemini_repo.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:bookly_app/core/errors/failures.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -12,7 +13,8 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 class GeminiRepoImpl implements GeminiRepo {
   final Gemini gemini;
   final LocalDatasource _localDatasource;
-  GeminiRepoImpl(this.gemini, this._localDatasource);
+  final Connectivity connectivity;
+  GeminiRepoImpl(this.gemini, this._localDatasource, this.connectivity);
   /////////////////////////////////////////////////////
   @override
   Future<Either<Failure, void>> saveChatHistory(
@@ -41,9 +43,17 @@ class GeminiRepoImpl implements GeminiRepo {
     required List<BookModel> books,
   }) async {
     try {
-      if (books.isEmpty) {
-        return left(ServerFailure('No books available to recommend'));
+      final connectivityResult = await connectivity.checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        return left(
+            ServerFailure('Check your Internet connection , and try again'));
       }
+
+      if (books.isEmpty) {
+        return left(
+            ServerFailure('Check your Internet connection , and try again'));
+      }
+      // gemini.
       final promt =
           _buildSystemPromt(books: books, userDescription: userDescription);
       final response = await gemini.prompt(parts: [Part.text(promt)]);
@@ -57,8 +67,9 @@ class GeminiRepoImpl implements GeminiRepo {
 
       final selectedBooks =
           books.where((book) => selectedIds.contains(book.id)).toList();
-      if (cleanedResponse.isEmpty) {
-        return left(ServerFailure('Empty response from Gemini'));
+      if (selectedBooks.isEmpty) {
+        return left(ServerFailure(
+            'No relevant books found , try with different description.'));
       }
       return right(selectedBooks);
     } catch (e) {
