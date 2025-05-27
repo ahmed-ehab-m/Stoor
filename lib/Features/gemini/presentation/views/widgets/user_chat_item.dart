@@ -10,7 +10,7 @@ class UserChatItem extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.1),
+        color: Colors.grey.withOpacity(0.3),
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(0),
           topLeft: Radius.circular(20),
@@ -20,7 +20,7 @@ class UserChatItem extends StatelessWidget {
       ),
       child: Text(
         message,
-        style: Styles.textStyle18.copyWith(),
+        style: Styles.textStyle16,
       ),
     );
   }

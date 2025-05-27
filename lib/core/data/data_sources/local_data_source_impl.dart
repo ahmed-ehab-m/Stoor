@@ -39,8 +39,19 @@ class LocalDatasourceImpl implements LocalDatasource {
       );
     }
   }
-  ///////////////////////////////////////////
 
+  ///////////////////////////////////////////
+  @override
+  Future<Either<Failure, void>> removeProfileImage() async {
+    try {
+      await prefs.remove(kProfileImage);
+      return Right(null);
+    } catch (e) {
+      return Left(CacheFailure(e.toString()));
+    }
+  }
+
+  ////////////////////////////////////////
   @override
   Future<Either<Failure, String>> getProfileImagePath() async {
     try {

@@ -7,6 +7,7 @@ import 'package:bookly_app/Features/gemini/presentation/views/widgets/initial_bo
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
+import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,24 +31,22 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final ScreenSizeHelper screenSizeHelper =
+        ScreenSizeHelper(context); //to use the screen size helper
     return BlocBuilder<GeminiCubit, GeminiState>(
       builder: (context, state) {
         List<ChatMessageModel> chatHistory =
             BlocProvider.of<GeminiCubit>(context).chatHistory;
         return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
           builder: (context, state) {
-            return Container(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 10,
-                bottom: 10,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Stack(
-                children: [
-                  Column(
+            return Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenSizeHelper.horizontalPadding,
+                    vertical: screenSizeHelper.homeVerticalPadding,
+                  ),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GeminiTitle(),
@@ -62,8 +61,8 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                       GeminiTextField(controller: _controller),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           },
         );

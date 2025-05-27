@@ -1,8 +1,8 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/newest_list_view.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/custom_search_text_field.dart';
-import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_result_list_view.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
+import 'package:bookly_app/core/helper/screen_size_helper.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +16,7 @@ class SearchViewBody extends StatefulWidget {
 
 class _SearchViewBodyState extends State<SearchViewBody> {
   List<BookModel> searchResult = [];
+
   @override
   void initState() {
     searchResult = widget.books;
@@ -24,21 +25,37 @@ class _SearchViewBodyState extends State<SearchViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSizeHelper = ScreenSizeHelper(context);
+
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 10,
-        right: 10,
-        bottom: 10,
-        top: 10,
+      padding: EdgeInsets.symmetric(
+        horizontal: screenSizeHelper.horizontalPadding,
+        vertical: screenSizeHelper.homeVerticalPadding,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomSearchTextField(
-            onCHanged: (value) {
-              searchResult = searchBooks(widget.books, value);
-              setState(() {});
-            },
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 30,
+                ),
+                color: kPrimaryColor,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Expanded(
+                child: CustomSearchTextField(
+                  onCHanged: (value) {
+                    searchResult = searchBooks(widget.books, value);
+                    setState(() {});
+                  },
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 20),
           Text(
@@ -47,10 +64,10 @@ class _SearchViewBodyState extends State<SearchViewBody> {
           ),
           SizedBox(height: 20),
           Expanded(
-              // child: NewestListView(),
-              child: SearchResultListView(
-            books: searchResult,
-          )),
+            child: SearchResultListView(
+              books: searchResult,
+            ),
+          ),
         ],
       ),
     );

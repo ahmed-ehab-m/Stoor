@@ -3,6 +3,7 @@ import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -10,7 +11,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.suffixIcon,
-    required this.validator,
+    this.validator,
     this.onSaved,
     this.controller,
   });
@@ -28,10 +29,10 @@ class CustomTextFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          hintText,
-          style: Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
-        ),
+        // Text(
+        //   hintText,
+        //   style: Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
+        // ),
         TextFormField(
           controller: controller,
           cursorColor: kPrimaryColor,
@@ -39,7 +40,20 @@ class CustomTextFormField extends StatelessWidget {
           validator: validator,
           obscureText: obscureText,
           decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: Styles.textStyle18
+                .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
             suffixIcon: suffixIcon,
+            prefixIcon: Icon(
+              hintText.contains('Password')
+                  ? HugeIcons.strokeRoundedLockPassword
+                  : hintText.contains('Email')
+                      ? HugeIcons.strokeRoundedMail01
+                      : hintText.contains('Name')
+                          ? HugeIcons.strokeRoundedUser03
+                          : HugeIcons.strokeRoundedUser03,
+              color: BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
+            ),
             filled: true,
             fillColor: Colors.transparent,
             border: buildOutlineInputBorder(context),

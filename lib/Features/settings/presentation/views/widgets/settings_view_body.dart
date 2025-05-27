@@ -8,6 +8,7 @@ import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_a
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_drop_menu.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_section_title.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/logout_button.dart';
+import 'package:bookly_app/Features/settings/presentation/views/widgets/profile_image.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/profile_text_field.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
@@ -15,6 +16,7 @@ import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class SettingsViewBody extends StatefulWidget {
   const SettingsViewBody({super.key});
@@ -50,44 +52,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
           ),
           child: ListView(
             children: [
-              BlocConsumer<PickImageCubit, PickImageState>(
-                listener: (context, state) {
-                  if (state is PickImageFailure) {
-                    showSnackBar(context,
-                        message: state.message, color: Colors.redAccent);
-                  }
-                },
-                builder: (context, state) {
-                  String? imagePath =
-                      (state is PickImageSuccess) ? state.path : null;
-                  if (state is PickImageLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return Center(
-                    child: InkWell(
-                      onTap: () async {
-                        await BlocProvider.of<PickImageCubit>(context)
-                            .pickProfileImage();
-                      },
-                      child: imagePath == null || imagePath.isEmpty
-                          ? const CircleAvatar(
-                              radius: 60,
-                              child: Icon(
-                                Icons.person,
-                                size: 60,
-                              ),
-                            )
-                          : CircleAvatar(
-                              backgroundImage:
-                                  FileImage(File(imagePath), scale: 1.0),
-                              radius: 60,
-                              key: ValueKey(
-                                  imagePath), // Force rebuild with new image
-                            ),
-                    ),
-                  );
-                },
-              ),
+              ProfileImage(),
               const SizedBox(
                 height: 20,
               ),
@@ -104,7 +69,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
               CustomSectionTitle(title: 'Profile'),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: Colors.grey.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding:
@@ -153,7 +118,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                           : 3;
                   return Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.1),
+                      color: Colors.grey.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -30,94 +30,106 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   Widget build(BuildContext context) {
     final screenSizeHelper = ScreenSizeHelper(context);
 
-    return SingleChildScrollView(
-      reverse: true,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: screenSizeHelper.authVerticalPadding,
-            horizontal: screenSizeHelper.horizontalPadding),
-        child: Form(
-          key: formkey,
-          child: BlocConsumer<AuthCubit, AuthState>(
-            listener: (context, state) {
-              if (state is LoginLoading) {
-                buttonChild = const CircularProgressIndicator(
-                  color: Colors.white,
-                );
-              }
-              if (state is LoginFailure) {
-                buttonChild = const Text('Login');
+    return Center(
+      child: SingleChildScrollView(
+        reverse: true,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              // vertical: screenSizeHelper.authVerticalPadding,
+              horizontal: screenSizeHelper.horizontalPadding),
+          child: Form(
+            key: formkey,
+            child: BlocConsumer<AuthCubit, AuthState>(
+              listener: (context, state) {
+                if (state is LoginLoading) {
+                  buttonChild = const CircularProgressIndicator(
+                    color: Colors.white,
+                  );
+                }
+                if (state is LoginFailure) {
+                  buttonChild = const Text('Login');
 
-                showSnackBar(context,
-                    message: state.message, color: Colors.red);
-              }
-              if (state is LoginSuccess) {
-                GoRouter.of(context).pushReplacement(AppRouter.KMainView);
-              }
-            },
-            builder: (context, state) {
-              return Column(
-                spacing: screenSizeHelper.screenHeight * 0.03,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomLogo(),
-                  Center(
-                    child: Column(
-                      children: [
-                        Text('Welcome Back !', style: Styles.textStyle40),
-                        Text('Dive Into Your Books Again',
-                            style: Styles.textStyle24.copyWith(
-                              fontFamily: 'DancingScript-VariableFont_wght',
-                            )),
-                      ],
-                    ),
-                  ),
-                  CustomTextFormField(
-                    onSaved: (value) {
-                      email = value!;
-                    },
-                    hintText: 'Email',
-                    validator: (value) {
-                      return FormValidation.validateEmail(value!);
-                    },
-                  ),
-                  CustomTextFormField(
-                    onSaved: (value) {
-                      password = value!;
-                    },
-                    validator: (value) {
-                      return FormValidation.validatePassword(value!);
-                    },
-                    hintText: 'Password',
-                    obscureText: BlocProvider.of<AuthCubit>(context).isVisible,
-                    suffixIcon: IconButton(
-                      onPressed:
-                          BlocProvider.of<AuthCubit>(context).togglePassword,
-                      icon: Icon(
-                        BlocProvider.of<AuthCubit>(context).suffixIcon,
-                        color: kPrimaryColor,
+                  showSnackBar(context,
+                      message: state.message, color: Colors.red);
+                }
+                if (state is LoginSuccess) {
+                  GoRouter.of(context).pushReplacement(AppRouter.KMainView);
+                }
+              },
+              builder: (context, state) {
+                return Column(
+                  spacing: screenSizeHelper.screenHeight * 0.02,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomLogo(),
+                    Center(
+                      child: Column(
+                        children: [
+                          Text('Welcome Back !', style: Styles.textStyle40),
+                          Text('Dive Into Your Books Again',
+                              style: Styles.textStyle24.copyWith(
+                                fontFamily: 'DancingScript-VariableFont_wght',
+                              )),
+                        ],
                       ),
                     ),
-                  ),
-                  SubmitButton(
-                      onPressed: () async {
-                        formkey.currentState!.save();
-                        if (formkey.currentState!.validate()) {
-                          await BlocProvider.of<AuthCubit>(context)
-                              .logIn(email: email, password: password);
-                        }
+                    SizedBox(
+                      height: screenSizeHelper.screenHeight * 0.01,
+                    ),
+                    CustomTextFormField(
+                      onSaved: (value) {
+                        email = value!;
                       },
-                      buttonChild: buttonChild),
-                  // Spacer(),
-                  AccountCheckRow(
-                    type: 'Sign Up',
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
+                      hintText: 'Email',
+                      validator: (value) {
+                        return FormValidation.validateEmail(value!);
+                      },
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    CustomTextFormField(
+                      onSaved: (value) {
+                        password = value!;
+                      },
+                      validator: (value) {
+                        return FormValidation.validatePassword(value!);
+                      },
+                      hintText: 'Password',
+                      obscureText:
+                          BlocProvider.of<AuthCubit>(context).isVisible,
+                      suffixIcon: IconButton(
+                        onPressed:
+                            BlocProvider.of<AuthCubit>(context).togglePassword,
+                        icon: Icon(
+                          BlocProvider.of<AuthCubit>(context).suffixIcon,
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenSizeHelper.screenHeight * 0.01,
+                    ),
+                    SubmitButton(
+                        onPressed: () async {
+                          formkey.currentState!.save();
+                          if (formkey.currentState!.validate()) {
+                            await BlocProvider.of<AuthCubit>(context)
+                                .logIn(email: email, password: password);
+                          }
+                        },
+                        buttonChild: buttonChild),
+                    // Spacer(),
+                    AccountCheckRow(
+                      type: 'Sign Up',
+                      onPressed: () {
+                        GoRouter.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

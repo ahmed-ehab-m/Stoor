@@ -34,14 +34,14 @@ class NoMatchBooks extends StatelessWidget {
                     Text(
                       errorMessage.split(',')[0], // First sentence
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                       ).copyWith(
                         fontWeight: FontWeight.w900,
                       ),
                     ),
                     Text(
-                      errorMessage?.split(',')?[1] ?? '', // Second sentence
-                      style: Styles.textStyle16.copyWith(
+                      errorMessage.split(',')[1] ?? '', // Second sentence
+                      style: Styles.textStyle14.copyWith(
                         fontWeight: FontWeight.w900,
                       ),
                     ),

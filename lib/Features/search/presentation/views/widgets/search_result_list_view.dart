@@ -1,7 +1,6 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
-import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_list_view_item.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/search/presentation/views/widgets/search_list_item.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/book_list_view_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,10 +15,13 @@ class SearchResultListView extends StatelessWidget {
         if (state is GeminiLoadingState) {}
         return ListView.builder(
           itemCount: books!.length,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) => SearchListItem(
-            bookModel: books![index],
+          // physics: const NeverScrollableScrollPhysics(),
+          // shrinkWrap: true,
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: NewestBookListViewItem(
+              bookModel: books![index],
+            ),
           ),
         );
       },

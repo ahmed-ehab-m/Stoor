@@ -28,4 +28,14 @@ class PickImageCubit extends Cubit<PickImageState> {
       emit(PickImageSuccess(path));
     });
   }
+
+  //////////////////////////////////////////
+  Future<void> removeProfileImage() async {
+    emit(PickImageLoading());
+    final result = await settingsRepo.removeProfileImage();
+    result.fold((failure) => emit(PickImageFailure(failure.errMessage!)), (_) {
+      imagePath = '';
+      emit(PickImageSuccess(''));
+    });
+  }
 }

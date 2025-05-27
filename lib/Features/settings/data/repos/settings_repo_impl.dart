@@ -12,6 +12,22 @@ class SettingsRepoImpl implements SettingsRepo {
 
   SettingsRepoImpl(this.localDatasource);
 
+  ///////////////////////////////////////////
+  @override
+  Future<Either<Failure, void>> removeProfileImage() async {
+    try {
+      final cacheResult = await localDatasource
+          .removeProfileImage(); // Save null to remove image);
+      return cacheResult.fold(
+        (failure) => Left(failure),
+        (_) => Right(_),
+      );
+    } catch (e) {
+      return Left(CacheFailure(e.toString()));
+    }
+  }
+
+  ///////////////////////////////////////////
   @override
   Future<Either<Failure, String>> pickProfileImage() async {
     final XFile? pickedFile =

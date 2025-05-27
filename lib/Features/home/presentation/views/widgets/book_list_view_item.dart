@@ -10,15 +10,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-class BookListViewItem extends StatefulWidget {
-  const BookListViewItem({super.key, this.bookModel});
+class NewestBookListViewItem extends StatefulWidget {
+  const NewestBookListViewItem({super.key, this.bookModel});
   final BookModel? bookModel;
 
   @override
-  State<BookListViewItem> createState() => _BookListViewItemState();
+  State<NewestBookListViewItem> createState() => _NewestBookListViewItemState();
 }
 
-class _BookListViewItemState extends State<BookListViewItem> {
+class _NewestBookListViewItemState extends State<NewestBookListViewItem> {
   bool isBookmarked = false;
   @override
   Widget build(BuildContext context) {
@@ -30,55 +30,63 @@ class _BookListViewItemState extends State<BookListViewItem> {
       child: Stack(
         children: [
           SizedBox(
-            height: 140,
-            child: Row(
-              children: [
-                NewestBookImage(
-                    imageUrl:
-                        widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
-                            ''),
-                SizedBox(width: 30),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Text(
-                          widget.bookModel?.volumeInfo.title ?? 'No title',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Styles.textStyle18
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        widget.bookModel?.volumeInfo.authors![0] ?? 'No author',
-                        style: Styles.textStyle14,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        child: Row(children: [
-                          Text(
-                            'Free',
-                            style: Styles.textStyle20,
+            height: 180,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  NewestBookImage(
+                      imageUrl:
+                          widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
+                              ''),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            widget.bookModel?.volumeInfo.title ?? 'No title',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.textStyle18
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
-                        ]),
-                      ),
-                      Spacer(),
-                      BookRating(
-                        rating: '0.0',
-                        reviewsCount: 0,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          widget.bookModel?.volumeInfo.authors![0] ??
+                              'No author',
+                          style: Styles.textStyle14,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          child: Row(children: [
+                            Text(
+                              'Free',
+                              style: Styles.textStyle20,
+                            ),
+                          ]),
+                        ),
+                        Spacer(),
+                        BookRating(
+                          rating: '0.0',
+                          reviewsCount: 0,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Positioned(

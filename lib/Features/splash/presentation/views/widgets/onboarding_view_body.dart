@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/assetsData.dart';
@@ -41,8 +42,13 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
             'Let Gemini suggest your next read from our collection, tailored just for you.',
       },
     ];
+    final screenSizeHelper = ScreenSizeHelper(context);
+
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      padding: EdgeInsets.only(
+          left: screenSizeHelper.horizontalPadding,
+          right: screenSizeHelper.horizontalPadding,
+          bottom: 10),
       child: Column(
         children: [
           Expanded(

@@ -26,106 +26,141 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   Widget buttonChild = const Text('Sign Up');
   String email = '';
   String password = '';
-  String name = '';
+  String firstName = '';
+  String lastName = '';
+
   @override
   Widget build(BuildContext context) {
     final screenSizeHelper = ScreenSizeHelper(context);
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: screenSizeHelper.authVerticalPadding,
-            horizontal: screenSizeHelper.horizontalPadding),
-        child: Form(
-          key: formkey,
-          child: BlocConsumer<AuthCubit, AuthState>(
-            listener: (context, state) {
-              if (state is SignUpLoading) {
-                buttonChild = const CircularProgressIndicator(
-                  color: Colors.white,
-                );
-              }
-              if (state is SignUpFailure) {
-                buttonChild = const Text('Sign Up');
-                showSnackBar(context,
-                    message: state.message, color: Colors.red);
-              }
-              if (state is SignUpSuccess) {
-                GoRouter.of(context).pushReplacement(AppRouter.KLoginView);
-              }
-            },
-            builder: (context, state) {
-              return Column(
-                spacing: screenSizeHelper.screenHeight * 0.02,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomLogo(),
-                  Center(
-                    child: Column(
-                      children: [
-                        Text('Create an Account', style: Styles.textStyle40),
-                        Text('Start Your Reading Journey',
-                            style: Styles.textStyle24.copyWith(
-                              fontFamily: 'DancingScript-VariableFont_wght',
-                            )),
-                      ],
-                    ),
-                  ),
-                  CustomTextFormField(
-                    onSaved: (value) {
-                      name = value!;
-                    },
-                    hintText: 'Name',
-                    validator: (value) {
-                      return FormValidation.validateName(value!);
-                    },
-                  ),
-                  CustomTextFormField(
-                    onSaved: (value) {
-                      email = value!;
-                    },
-                    hintText: 'Email',
-                    validator: (value) {
-                      return FormValidation.validateEmail(value!);
-                    },
-                  ),
-                  CustomTextFormField(
-                    onSaved: (value) {
-                      password = value!;
-                    },
-                    validator: (value) {
-                      return FormValidation.validatePassword(value!);
-                    },
-                    hintText: 'Password',
-                    obscureText: BlocProvider.of<AuthCubit>(context).isVisible,
-                    suffixIcon: IconButton(
-                      onPressed:
-                          BlocProvider.of<AuthCubit>(context).togglePassword,
-                      icon: Icon(
-                        BlocProvider.of<AuthCubit>(context).suffixIcon,
-                        color: kPrimaryColor,
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              // vertical: screenSizeHelper.authVerticalPadding,
+              horizontal: screenSizeHelper.horizontalPadding),
+          child: Form(
+            key: formkey,
+            child: BlocConsumer<AuthCubit, AuthState>(
+              listener: (context, state) {
+                if (state is SignUpLoading) {
+                  buttonChild = const CircularProgressIndicator(
+                    color: Colors.white,
+                  );
+                }
+                if (state is SignUpFailure) {
+                  buttonChild = const Text('Sign Up');
+                  showSnackBar(context,
+                      message: state.message, color: Colors.red);
+                }
+                if (state is SignUpSuccess) {
+                  GoRouter.of(context).pushReplacement(AppRouter.KLoginView);
+                }
+              },
+              builder: (context, state) {
+                return Column(
+                  spacing: screenSizeHelper.screenHeight * 0.02,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomLogo(),
+                    Center(
+                      child: Column(
+                        children: [
+                          Text('Create an Account', style: Styles.textStyle40),
+                          Text('Start Your Reading Journey',
+                              style: Styles.textStyle24.copyWith(
+                                fontFamily: 'DancingScript-VariableFont_wght',
+                              )),
+                        ],
                       ),
                     ),
-                  ),
-                  SubmitButton(
-                      onPressed: () async {
-                        formkey.currentState!.save();
-                        if (formkey.currentState!.validate()) {
-                          await BlocProvider.of<AuthCubit>(context).signUp(
-                              email: email, password: password, name: name);
-                        }
+                    SizedBox(
+                      height: screenSizeHelper.screenHeight * 0.01,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      spacing: 10,
+                      children: [
+                        Expanded(
+                          child: CustomTextFormField(
+                            onSaved: (value) {
+                              firstName = value!;
+                            },
+                            hintText: 'First Name',
+                            validator: (value) {
+                              return FormValidation.validateName(value!);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: CustomTextFormField(
+                            onSaved: (value) {
+                              lastName = value!;
+                            },
+                            hintText: 'Last Name',
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    CustomTextFormField(
+                      onSaved: (value) {
+                        email = value!;
                       },
-                      buttonChild: buttonChild),
-                  Text('Or', style: Styles.textStyle20),
-                  GoogleButton(),
-                  AccountCheckRow(
-                    type: 'Login',
-                    onPressed: () {
-                      GoRouter.of(context).push(AppRouter.KLoginView);
-                    },
-                  ),
-                ],
-              );
-            },
+                      hintText: 'Enter Your Email',
+                      validator: (value) {
+                        return FormValidation.validateEmail(value!);
+                      },
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    CustomTextFormField(
+                      onSaved: (value) {
+                        password = value!;
+                      },
+                      validator: (value) {
+                        return FormValidation.validatePassword(value!);
+                      },
+                      hintText: 'Enter Your Password',
+                      obscureText:
+                          BlocProvider.of<AuthCubit>(context).isVisible,
+                      suffixIcon: IconButton(
+                        onPressed:
+                            BlocProvider.of<AuthCubit>(context).togglePassword,
+                        icon: Icon(
+                          BlocProvider.of<AuthCubit>(context).suffixIcon,
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenSizeHelper.screenHeight * 0.01,
+                    ),
+                    SubmitButton(
+                        onPressed: () async {
+                          formkey.currentState!.save();
+                          if (formkey.currentState!.validate()) {
+                            await BlocProvider.of<AuthCubit>(context).signUp(
+                                email: email,
+                                password: password,
+                                name: '$firstName $lastName');
+                          }
+                        },
+                        buttonChild: buttonChild),
+                    Text('Or', style: Styles.textStyle20),
+                    GoogleButton(),
+                    AccountCheckRow(
+                      type: 'Login',
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRouter.KLoginView);
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

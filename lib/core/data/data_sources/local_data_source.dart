@@ -7,6 +7,7 @@ import 'package:dartz/dartz.dart';
 abstract class LocalDatasource {
   Future<Either<Failure, String>> saveImage(File image);
   Future<Either<Failure, String>> getProfileImagePath();
+  Future<Either<Failure, void>> removeProfileImage();
   /////////////////////
   Future<void> saveInt(String key, int value);
   Future<int> getInt(String key);

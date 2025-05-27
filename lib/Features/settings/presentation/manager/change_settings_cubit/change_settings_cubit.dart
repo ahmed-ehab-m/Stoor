@@ -25,14 +25,21 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
   /////////////////////////////////////////////
   List<Color> get gradientColors => theme == Brightness.dark
       ? [
-          Color.fromRGBO(134, 24, 157, 1),
-          Color.fromRGBO(46, 26, 71, 1),
-          Color.fromRGBO(75, 46, 107, 1),
+          // بنفسجي فاتح باستيل
+          // Colors.grey,
+          // const Color(0xFF37474F)
+          // const Color.fromARGB(255, 0, 166, 243),
+          const Color(0xFF9C27B0),
+          Colors.grey,
+
+          // const Color(0xFFE1BEE7),
+
+          // const Color(0xFF6A1B9A), // بنفسجي غامق هادي
+          // const Color(0xFF263238), // رمادي مزرق غامق
         ]
       : [
-          Color.fromRGBO(156, 39, 176, 1),
-          Color.fromRGBO(168, 85, 247, 1),
-          Color.fromRGBO(107, 70, 193, 1),
+          const Color(0xFF9C27B0),
+          Colors.grey,
         ];
   ///////////////////////
   List<Color> get questionsColors => theme == Brightness.dark

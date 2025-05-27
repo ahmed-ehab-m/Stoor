@@ -1,13 +1,13 @@
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/Features/splash/presentation/views/manager/splash_cubit/splash_cubit.dart';
+import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_logo_animation.dart';
+import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_test_animation.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/assetsData.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -17,27 +17,86 @@ class SplashViewBody extends StatefulWidget {
 }
 
 class _SplashViewBodyState extends State<SplashViewBody>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController animationController;
-  late final Animation<Offset> slidingAnimation;
+    with TickerProviderStateMixin {
+  late final AnimationController _logoAnimationController;
+  late final AnimationController _textAnimationController;
+
+  // Logo animations
+  late final Animation<double> _logoSizeAnimation;
+  late final Animation<double> _logoPositionAnimation;
+
+  // Text animations
+  late final Animation<double> _textOpacityAnimation;
+
   @override
   void initState() {
-    triggerAppStatus();
-    loadTheme();
-    // TODO: implement initState
     super.initState();
+    _initAnimations();
+    triggerAppStatus();
   }
 
-  void triggerAppStatus() {
+  void _initAnimations() {
+    // Logo animation controller
+    _logoAnimationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    // Text animation controller
+    _textAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+
+    // Logo size animation
+    _logoSizeAnimation = Tween<double>(
+      begin: 200.0,
+      end: 60.0,
+    ).animate(CurvedAnimation(
+      parent: _logoAnimationController,
+      curve: Curves.easeInOut,
+    ));
+
+    // Logo position animation (يتحرك نصف المسافة لليمين عشان يكون في المنتصف مع النص)
+    _logoPositionAnimation = Tween<double>(
+            begin: 0.0, // في المنتصف
+            end: -60 // يتحرك لليمين نصف المسافة الكلية
+            )
+        .animate(CurvedAnimation(
+      parent: _logoAnimationController,
+      curve: Curves.easeInOut,
+    ));
+
+    // Text opacity animation
+    _textOpacityAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _textAnimationController,
+      curve: Curves.easeOut,
+    ));
+
+    // بدء الـ animation بعد ثانية واحدة
     Future.delayed(const Duration(seconds: 1), () {
       if (mounted) {
-        context.read<SplashCubit>().checkAppStatus();
+        _logoAnimationController.forward();
+
+        // بدء الـ text animation مع حركة اللوجو
+        Future.delayed(const Duration(milliseconds: 1500), () {
+          if (mounted) {
+            _textAnimationController.forward();
+          }
+        });
       }
     });
   }
 
-  Future loadTheme() async {
-    await BlocProvider.of<ChangeSettingsCubit>(context).loadTheme();
+  void triggerAppStatus() {
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        context.read<SplashCubit>().checkAppStatus();
+      }
+    });
   }
 
   @override
@@ -48,7 +107,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   Future<void> _precacheImagesAndNavigate() async {
     try {
-      // Precache images
       final pages = [
         AssetsData.onboardingImageOne,
         AssetsData.onboardingImageTwo,
@@ -56,16 +114,16 @@ class _SplashViewBodyState extends State<SplashViewBody>
       for (var image in pages) {
         await precacheImage(AssetImage(image), context);
       }
-      // Navigate to OnboardingView after images are loaded
-      // if (mounted) {
-      //   GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
-      // }
     } catch (e) {
-      // Handle any errors and navigate anyway
-      // if (mounted) {
-      //   GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
-      // }
+      // Handle any errors
     }
+  }
+
+  @override
+  void dispose() {
+    _logoAnimationController.dispose();
+    _textAnimationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -96,61 +154,33 @@ class _SplashViewBodyState extends State<SplashViewBody>
                     .gradientColors,
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 80),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ShaderMask(
-                      shaderCallback: (bounds) {
-                        return LinearGradient(
-                          colors: [kPrimaryColor, Colors.white],
-                          tileMode: TileMode.repeated,
-                        ).createShader(bounds);
-                      },
-                      child: Icon(HugeIcons.strokeRoundedBookOpen02,
-                          color: Colors.white, size: 200),
+            child: AnimatedBuilder(
+              animation: Listenable.merge([
+                _logoAnimationController,
+                _textAnimationController,
+              ]),
+              builder: (context, child) {
+                return Stack(
+                  children: [
+                    // Logo
+                    CustomLogoAnimation(
+                      logoAnimationController: _logoAnimationController,
+                      logoSizeAnimation: _logoSizeAnimation,
+                      logoPositionAnimation: _logoPositionAnimation,
                     ),
-                  ),
-                  Text('Stoor',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'DancingScript-VariableFont_wght',
-                        fontSize: 50,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center),
-                  // SlidingText(slidingAnimation: slidingAnimation),
-                ],
-              ),
+                    // النص (يظهر على شمال اللوجو)
+                    CustomTestAnimation(
+                      textAnimationController: _textAnimationController,
+                      textOpacityAnimation: _textOpacityAnimation,
+                      logoPositionAnimation: _logoPositionAnimation,
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         );
       },
     );
-  }
-
-  void initSlidingAnimation() {
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-    // TODO: implement initState
-    super.initState();
-    slidingAnimation = Tween<Offset>(begin: Offset(0, 2), end: Offset.zero)
-        .animate(animationController);
-    animationController.forward();
-    // slidingAnimation.addListener(() {
-    //   setState(() {});
-    // });
-  }
-
-  void navigateToOnboarding() {
-    Future.delayed(const Duration(seconds: 2), () {
-      GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
-      // Get.to(() => const HomeView(),
-      //     transition: Transition.fadeIn, duration: KTransationDuration);
-    });
   }
 }

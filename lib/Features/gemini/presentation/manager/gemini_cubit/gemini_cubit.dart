@@ -14,7 +14,7 @@ class GeminiCubit extends Cubit<GeminiState> {
   // String? question;
   List<ChatMessageModel> chatHistory = [];
 /////////////////////////////////////////////////
-  void addMessage({required String type, dynamic? message, String? status}) {
+  void addMessage({required String type, dynamic message, String? status}) {
     final chatMessage =
         ChatMessageModel(type: type, message: message, status: status);
     chatHistory.insert(0, chatMessage);

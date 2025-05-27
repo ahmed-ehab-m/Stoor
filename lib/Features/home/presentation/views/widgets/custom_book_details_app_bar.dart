@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,10 +20,14 @@ class _CusomBookDetailsAppBarState extends State<CusomBookDetailsAppBar> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
+            color: kPrimaryColor,
             onPressed: () {
               GoRouter.of(context).pop();
             },
-            icon: Icon(Icons.arrow_back_ios_new)),
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              size: 30,
+            )),
         IconButton(
             onPressed: () {
               setState(() {

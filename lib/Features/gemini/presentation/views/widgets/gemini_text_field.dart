@@ -1,6 +1,7 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
@@ -50,10 +51,11 @@ class _GeminiTextFieldState extends State<GeminiTextField>
       animation: _controller,
       builder: (context, child) {
         return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              width: 2,
+              width: 1,
               color: Colors.transparent, // Transparent to show gradient
             ),
             gradient: LinearGradient(
@@ -67,21 +69,23 @@ class _GeminiTextFieldState extends State<GeminiTextField>
             ),
           ),
           child: TextField(
+            cursorColor: kPrimaryColor,
+
             controller: widget.controller, // ربط الـ Controller
             style: Styles.textStyle18, // Change the input text style here
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(20),
+              contentPadding: const EdgeInsets.all(10),
               filled: true,
               fillColor:
                   BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor,
               hintText: 'Describe your favorite book...',
-              hintStyle: Styles.textStyle16.copyWith(
-                color: Colors.grey[600],
+              hintStyle: Styles.textStyle14.copyWith(
+                color: Colors.grey[500],
                 // Lighter color for hint
                 fontStyle: FontStyle.italic, // Italic for a softer look
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: Colors.white),
               ),
               suffixIcon: CustomShaderMask(
@@ -100,9 +104,24 @@ class _GeminiTextFieldState extends State<GeminiTextField>
                       userDescription: question!,
                     );
                   },
-                  icon: Icon(
-                    Icons.send,
-                    color: Colors.white,
+                  icon: BlocBuilder<GeminiCubit, GeminiState>(
+                    builder: (context, state) {
+                      Widget? sendWidget = Icon(
+                        Icons.send,
+                        color: Colors.white,
+                      );
+                      if (state is GeminiLoadingState) {
+                        sendWidget = const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        );
+                      }
+                      return sendWidget;
+                    },
                   ),
                 ),
               ),

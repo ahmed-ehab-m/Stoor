@@ -1,6 +1,7 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/books_details_section.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
+import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
@@ -8,6 +9,8 @@ class BookDetailsViewBody extends StatelessWidget {
   final BookModel? bookModel;
   @override
   Widget build(BuildContext context) {
+    final ScreenSizeHelper screenSizeHelper =
+        ScreenSizeHelper(context); //to use the screen size helper
     // var width = MediaQuery.of(context).size.width;
     //to use Expanded widget in the column, we need to wrap the column with a sliver widget
     //and use SliverFillRemaining to make the column take all the available space
@@ -17,7 +20,8 @@ class BookDetailsViewBody extends StatelessWidget {
           //beccause customscroolview has a scroll body, we don't need to use true
           hasScrollBody: false,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(
+                horizontal: screenSizeHelper.horizontalPadding),
             child: Column(
               children: [
                 CusomBookDetailsAppBar(),

@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -9,6 +10,7 @@ class CustomSearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      cursorColor: kPrimaryColor,
       style: Styles.textStyle18,
       onChanged: onCHanged,
       decoration: InputDecoration(
