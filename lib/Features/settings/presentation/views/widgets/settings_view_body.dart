@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_state.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_alert_dialog.dart';
@@ -11,7 +9,6 @@ import 'package:bookly_app/Features/settings/presentation/views/widgets/logout_b
 import 'package:bookly_app/Features/settings/presentation/views/widgets/profile_image.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/profile_text_field.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
-import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/utils/validation.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +74,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                 child: Column(
                   children: [
                     ProfileTextField(
+                      iconData: HugeIcons.strokeRoundedUser,
                       validator: (value) {
                         return FormValidation.validateName(value!);
                       },
@@ -88,6 +86,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                     ),
                     Divider(),
                     ProfileTextField(
+                      iconData: HugeIcons.strokeRoundedMail01,
                       validator: (value) {
                         return FormValidation.validateEmail(value!);
                       },

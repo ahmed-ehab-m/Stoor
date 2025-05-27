@@ -23,7 +23,7 @@ class CustomImageChoice extends StatelessWidget {
               // color: Colors.white,
               borderRadius: BorderRadius.circular(50),
               border: Border.all(
-                color: Colors.grey,
+                color: kPrimaryColor,
                 width: 1,
               ),
             ),
@@ -32,7 +32,7 @@ class CustomImageChoice extends StatelessWidget {
               radius: 30,
               child: Icon(
                 iconData,
-                // color: kPrimaryColor,
+                // color: Colors.black, // Use white color for the icon
                 size: 35,
               ),
             ),
@@ -41,7 +41,7 @@ class CustomImageChoice extends StatelessWidget {
             choiceName,
             style: Styles.textStyle18.copyWith(
               fontWeight: FontWeight.normal,
-              color: kPrimaryColor,
+              // color: kPrimaryColor,
             ),
           ),
         ],

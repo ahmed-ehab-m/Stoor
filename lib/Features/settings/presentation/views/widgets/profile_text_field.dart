@@ -7,9 +7,10 @@ class ProfileTextField extends StatelessWidget {
       {super.key,
       this.fieldController,
       required this.onPressed,
-      required this.validator});
+      required this.validator,
+      required this.iconData});
   final TextEditingController? fieldController;
-
+  final IconData iconData;
   final void Function() onPressed;
   final String? Function(String?)? validator;
 
@@ -27,6 +28,10 @@ class ProfileTextField extends StatelessWidget {
           ),
         ),
         hintText: 'name',
+        prefixIcon: Icon(
+          iconData,
+          // color: Theme.of(context).iconTheme.color,
+        ),
         hintStyle: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w900,

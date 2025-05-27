@@ -54,20 +54,20 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           image: FileImage(File(imagePath)),
                         )),
                   ),
-                if (BlocProvider.of<PickImageCubit>(context).imagePath.isEmpty)
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.3),
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Icon(
-                      HugeIcons.strokeRoundedUser,
-                      color: Colors.white,
-                    ),
-                  ),
+                // if (BlocProvider.of<PickImageCubit>(context).imagePath.isEmpty)
+                //   Container(
+                //     height: 40,
+                //     width: 40,
+                //     decoration: BoxDecoration(
+                //       color: Colors.grey.withOpacity(0.3),
+                //       shape: BoxShape.rectangle,
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //     child: Icon(
+                //       HugeIcons.strokeRoundedUser,
+                //       color: Colors.white,
+                //     ),
+                //   ),
                 SizedBox(
                   width: 12,
                 ),

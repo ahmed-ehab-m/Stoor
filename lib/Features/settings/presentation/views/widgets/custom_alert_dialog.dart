@@ -1,5 +1,6 @@
 import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cubit.dart';
 import 'package:bookly_app/Features/auth/presentation/views/widgets/custom_text_form_field.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_state.dart';
 import 'package:bookly_app/core/utils/constants.dart';
@@ -30,9 +31,8 @@ class CustomAlertDialog extends StatelessWidget {
         Widget buttonWidget = Row(
           spacing: 5,
           children: [
-            Icon(
-              HugeIcons.strokeRoundedPencilEdit01,
-            ),
+            Icon(HugeIcons.strokeRoundedPencilEdit01,
+                color: BlocProvider.of<ChangeSettingsCubit>(context).iconColor),
             Text('Update',
                 style: Styles.textStyle18.copyWith(
                   color: kPrimaryColor,
@@ -114,6 +114,7 @@ class CustomAlertDialog extends StatelessWidget {
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              spacing: 5,
               children: [
                 ElevatedButton(
                   onPressed: () async {
@@ -122,7 +123,8 @@ class CustomAlertDialog extends StatelessWidget {
                   child: Text(
                     'Cancel',
                     style: Styles.textStyle18.copyWith(
-                      color: Colors.black,
+                      color: BlocProvider.of<ChangeSettingsCubit>(context)
+                          .iconColor,
                     ),
                   ),
                 ),

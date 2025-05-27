@@ -1,0 +1,77 @@
+import 'package:bookly_app/core/utils/styles.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+
+class FeaturedBookSkeleton extends StatelessWidget {
+  const FeaturedBookSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Skeletonizer(
+      enabled: true,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.3,
+        child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          separatorBuilder: (context, index) => const SizedBox(width: 10),
+          scrollDirection: Axis.horizontal,
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Card(
+                      shadowColor: Colors.grey,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 2.6 / 4,
+                          child: Skeleton.leaf(
+                              child: Container(
+                            color: Colors.grey,
+                          )),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Skeleton.leaf(
+                    child: Text(
+                      'Book Title Placeholder',
+                      style: Styles.textStyle18.copyWith(
+                        fontWeight: FontWeight.w900,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Skeleton.leaf(
+                    child: Text(
+                      'Author Placeholder',
+                      style: Styles.textStyle14.copyWith(
+                        color: Colors.grey.shade700,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

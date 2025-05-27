@@ -1,6 +1,6 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/book_list_view_item.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +19,7 @@ class SearchResultListView extends StatelessWidget {
           // shrinkWrap: true,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: NewestBookListViewItem(
+            child: NewestBookItem(
               bookModel: books![index],
             ),
           ),

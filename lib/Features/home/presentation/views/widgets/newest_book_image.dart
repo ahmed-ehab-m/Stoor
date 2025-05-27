@@ -12,12 +12,6 @@ class NewestBookImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      // shadowColor:
-      //     BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor ==
-      //             Colors.black
-      //         ? Colors.grey
-      //         : Colors.black,
-      // elevation: 10,
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(10),

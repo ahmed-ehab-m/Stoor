@@ -10,15 +10,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-class NewestBookListViewItem extends StatefulWidget {
-  const NewestBookListViewItem({super.key, this.bookModel});
+class NewestBookItem extends StatefulWidget {
+  const NewestBookItem({super.key, this.bookModel});
   final BookModel? bookModel;
 
   @override
-  State<NewestBookListViewItem> createState() => _NewestBookListViewItemState();
+  State<NewestBookItem> createState() => _NewestBookItemState();
 }
 
-class _NewestBookListViewItemState extends State<NewestBookListViewItem> {
+class _NewestBookItemState extends State<NewestBookItem> {
   bool isBookmarked = false;
   @override
   Widget build(BuildContext context) {

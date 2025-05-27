@@ -14,6 +14,7 @@ class CameraIcon extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         child: Icon(
           HugeIcons.strokeRoundedCamera01,
+          color: Colors.white,
         ),
       ),
     );

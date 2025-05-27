@@ -52,27 +52,27 @@ class _GeminiTextFieldState extends State<GeminiTextField>
       builder: (context, child) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              width: 1,
-              color: Colors.transparent, // Transparent to show gradient
-            ),
-            gradient: LinearGradient(
-              begin: _beginAnimation.value,
-              end: _endAnimation.value,
-              colors: const [
-                Color(0xFFEC4899), // Pink
-                Color(0xFFA855F7), // Purple
-                // Color(0xFF3B82F6), // Blue
-              ],
-            ),
-          ),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(10),
+          //   border: Border.all(
+          //     width: 1,
+          //     color: Colors.transparent, // Transparent to show gradient
+          //   ),
+          //   gradient: LinearGradient(
+          //     begin: _beginAnimation.value,
+          //     end: _endAnimation.value,
+          //     colors: const [
+          //       Color(0xFFEC4899), // Pink
+          //       Color(0xFFA855F7), // Purple
+          //       // Color(0xFF3B82F6), // Blue
+          //     ],
+          //   ),
+          // ),
           child: TextField(
             cursorColor: kPrimaryColor,
 
             controller: widget.controller, // ربط الـ Controller
-            style: Styles.textStyle18, // Change the input text style here
+            style: Styles.textStyle16, // Change the input text style here
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(10),
               filled: true,
@@ -85,7 +85,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
                 fontStyle: FontStyle.italic, // Italic for a softer look
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide(color: Colors.white),
               ),
               suffixIcon: CustomShaderMask(

@@ -2,7 +2,8 @@ import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart'
 import 'package:bookly_app/Features/home/data/models/book_model/image_links.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/volume_info.dart';
 import 'package:bookly_app/Features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/book_list_view_item.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_item.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -20,7 +21,7 @@ class NewestListView extends StatelessWidget {
             (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: NewestBookListViewItem(
+                child: NewestBookItem(
                   bookModel: state.books[index],
                 ),
               );
@@ -40,27 +41,7 @@ class NewestListView extends StatelessWidget {
           return Skeletonizer.sliver(
             // effect:ShimmerEffect() ,
             enabled: true,
-            child: SliverList(
-                delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return Skeleton.shade(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Container(
-                      width: 50, // نفس عرض CustomBookImage
-                      height: 140, // نفس الارتفاع
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300], // لون الـ skeleton
-                        borderRadius:
-                            BorderRadius.circular(8), // نفس الـ borderRadius
-                      ),
-                      child: const Text(''),
-                    ),
-                  ),
-                );
-              },
-              childCount: 5,
-            )),
+            child: NewestBookSkeleton(),
           );
         }
       },

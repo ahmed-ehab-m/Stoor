@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_image_choice.dart';
 import 'package:bookly_app/core/utils/styles.dart';
@@ -8,6 +9,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 void createCustomBotttomSheet(BuildContext context) {
   showMaterialModalBottomSheet(
+    // backgroundColor: Colors.black,
     context: context,
     builder: (context) => SizedBox(
       height: 200,
@@ -18,7 +20,7 @@ void createCustomBotttomSheet(BuildContext context) {
             width: 50,
             height: 5,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(''),
@@ -27,14 +29,14 @@ void createCustomBotttomSheet(BuildContext context) {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: Icon(HugeIcons.strokeRoundedCancel01),
-                ),
+                // IconButton(
+                //   onPressed: () => Navigator.pop(context),
+                //   icon: Icon(HugeIcons.strokeRoundedCancel01),
+                // ),
                 Expanded(
                   child: Text(
                     'Profile Photo',
-                    style: Styles.textStyle24.copyWith(
+                    style: Styles.textStyle20.copyWith(
                       fontWeight: FontWeight.w900,
                     ),
                     textAlign: TextAlign.center,

@@ -40,7 +40,8 @@ class ProfileImage extends StatelessWidget {
                         radius: 80,
                         child: Icon(
                           Icons.person,
-                          size: 60,
+                          size: 100,
+                          color: Colors.white,
                         ),
                       ),
                       CameraIcon(),
