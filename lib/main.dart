@@ -95,6 +95,10 @@ class BooklyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
           );
+          // return MaterialApp(
+          //   home: TestAnimation(),
+          //   a
+          // );
         },
       ),
     );

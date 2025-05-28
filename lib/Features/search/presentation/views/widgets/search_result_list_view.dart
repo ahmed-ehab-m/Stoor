@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchResultListView extends StatelessWidget {
-  const SearchResultListView({super.key, required this.books});
+  const SearchResultListView(
+      {super.key, required this.books, required this.searchQuery});
   final List<BookModel?>? books;
-
+  final String searchQuery;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GeminiCubit, GeminiState>(
@@ -21,6 +22,7 @@ class SearchResultListView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: NewestBookItem(
               bookModel: books![index],
+              searchQuery: searchQuery,
             ),
           ),
         );

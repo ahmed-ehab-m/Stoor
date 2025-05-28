@@ -16,6 +16,7 @@ class SearchViewBody extends StatefulWidget {
 
 class _SearchViewBodyState extends State<SearchViewBody> {
   List<BookModel> searchResult = [];
+  String searchQuery = '';
 
   @override
   void initState() {
@@ -50,6 +51,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
               Expanded(
                 child: CustomSearchTextField(
                   onCHanged: (value) {
+                    searchQuery = value;
                     searchResult = searchBooks(widget.books, value);
                     setState(() {});
                   },
@@ -66,6 +68,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
           Expanded(
             child: SearchResultListView(
               books: searchResult,
+              searchQuery: searchQuery,
             ),
           ),
         ],

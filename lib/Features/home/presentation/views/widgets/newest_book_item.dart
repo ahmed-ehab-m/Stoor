@@ -4,6 +4,7 @@ import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +12,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class NewestBookItem extends StatefulWidget {
-  const NewestBookItem({super.key, this.bookModel});
+  const NewestBookItem({super.key, this.bookModel, this.searchQuery});
   final BookModel? bookModel;
+  final String? searchQuery;
 
   @override
   State<NewestBookItem> createState() => _NewestBookItemState();
@@ -50,12 +52,11 @@ class _NewestBookItemState extends State<NewestBookItem> {
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.5,
-                          child: Text(
-                            widget.bookModel?.volumeInfo.title ?? 'No title',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Styles.textStyle18
-                                .copyWith(fontWeight: FontWeight.bold),
+                          child: highlightText(
+                            text: widget.bookModel!.volumeInfo.title ??
+                                'No title',
+                            searchQuery: widget.searchQuery ?? '',
+                            baseStyle: Styles.textStyle18,
                           ),
                         ),
                         SizedBox(
@@ -118,4 +119,41 @@ class _NewestBookItemState extends State<NewestBookItem> {
       ),
     );
   }
+}
+
+Widget highlightText({
+  required String text,
+  required String searchQuery,
+  required TextStyle baseStyle,
+}) {
+  if (searchQuery.isEmpty || !text.toLowerCase().contains(searchQuery)) {
+    return Text(
+      text,
+      style: baseStyle,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+  final lowerText = text.toLowerCase();
+  final lowerQuery = searchQuery.toLowerCase();
+  final startIndex = lowerText.indexOf(lowerQuery);
+  final endIndex = startIndex + lowerQuery.length;
+  final beforeMatch = text.substring(0, startIndex);
+  final match = text.substring(startIndex, endIndex);
+  final afterMatch = text.substring(endIndex);
+  return RichText(
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+    text: TextSpan(
+      children: [
+        TextSpan(text: beforeMatch, style: baseStyle),
+        TextSpan(
+          text: match,
+          style: baseStyle.copyWith(
+              color: kPrimaryColor, fontWeight: FontWeight.bold),
+        ),
+        TextSpan(text: afterMatch, style: baseStyle)
+      ],
+    ),
+  );
 }

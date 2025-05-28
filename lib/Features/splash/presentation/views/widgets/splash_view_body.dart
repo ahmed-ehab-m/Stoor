@@ -109,7 +109,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     try {
       final pages = [
         AssetsData.onboardingImageOne,
-        AssetsData.onboardingImageTwo,
+        AssetsData.aiGhostAnimation,
       ];
       for (var image in pages) {
         await precacheImage(AssetImage(image), context);
@@ -135,9 +135,11 @@ class _SplashViewBodyState extends State<SplashViewBody>
             if (state is SplashNavigateToOnboarding) {
               GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
             } else if (state is SplashNavigateToHome) {
-              GoRouter.of(context).pushReplacement(AppRouter.KMainView);
+              GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
+              // GoRouter.of(context).pushReplacement(AppRouter.KMainView);
             } else if (state is SplashNavigateToSignUp) {
-              GoRouter.of(context).pushReplacement(AppRouter.KSignupView);
+              // GoRouter.of(context).pushReplacement(AppRouter.KSignupView);
+              GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
             } else if (state is SplashError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
