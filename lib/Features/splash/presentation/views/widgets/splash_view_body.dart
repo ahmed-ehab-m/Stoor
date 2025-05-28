@@ -135,8 +135,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
             if (state is SplashNavigateToOnboarding) {
               GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
             } else if (state is SplashNavigateToHome) {
-              GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
-              // GoRouter.of(context).pushReplacement(AppRouter.KMainView);
+              // GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);
+              GoRouter.of(context).pushReplacement(AppRouter.KMainView);
             } else if (state is SplashNavigateToSignUp) {
               // GoRouter.of(context).pushReplacement(AppRouter.KSignupView);
               GoRouter.of(context).pushReplacement(AppRouter.KOnboardingView);

@@ -12,6 +12,7 @@ import 'package:bookly_app/Features/settings/presentation/views/settings_view.da
 import 'package:bookly_app/Features/splash/presentation/views/onboarding_view.dart';
 import 'package:bookly_app/Features/splash/presentation/views/splash_view.dart';
 import 'package:bookly_app/core/utils/service_locator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -60,21 +61,65 @@ abstract class AppRouter {
         builder: (context, state) => const GeminiView(),
       ),
       GoRoute(
-        path: KBookDetailsView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
-          child: BookDetailsView(
-            bookModel: state.extra as BookModel?,
+          path: KBookDetailsView,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: BlocProvider(
+                create: (context) =>
+                    SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
+                child: BookDetailsView(
+                  bookModel: state.extra as BookModel?,
+                ),
+              ),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return ScaleTransition(
+                  scale: Tween<double>(begin: 0.0, end: 1).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeInOut, // منحنى ناعم
+                    ),
+                  ),
+                  child: child,
+                );
+              },
+              transitionDuration: const Duration(milliseconds: 500),
+            );
+          }
+          //  (context, state) => BlocProvider(
+          //   create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
+          //   child: BookDetailsView(
+          //     bookModel: state.extra as BookModel?,
+          //   ),
+          // ), // Replace with actual BookDetailsView
           ),
-        ), // Replace with actual BookDetailsView
-      ),
       GoRoute(
-          path: KSearchView,
-          builder: (context, state) {
-            return SearchView(
+        path: KSearchView,
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: SearchView(
               books: state.extra as List<BookModel>,
-            ); // Replace with actual SearchView
-          }),
+            ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position:
+                    Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero)
+                        .animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeInOut, // منحنى ناعم
+                  ),
+                ),
+                child: child,
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 500),
+          );
+        },
+      ),
     ],
   );
 }

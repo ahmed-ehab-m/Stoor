@@ -1,7 +1,5 @@
 import 'package:bookly_app/core/utils/styles.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class FeaturedBookSkeleton extends StatelessWidget {
@@ -12,7 +10,7 @@ class FeaturedBookSkeleton extends StatelessWidget {
     return Skeletonizer(
       enabled: true,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: MediaQuery.of(context).size.height * 0.34,
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
           separatorBuilder: (context, index) => const SizedBox(width: 10),

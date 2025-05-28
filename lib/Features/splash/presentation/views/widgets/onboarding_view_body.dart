@@ -2,8 +2,10 @@ import 'package:bookly_app/Features/splash/presentation/views/widgets/ai_ghost_a
 import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_naviagation_section.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/assetsData.dart';
+import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class OnboardingViewBody extends StatefulWidget {
   const OnboardingViewBody({super.key});
@@ -57,22 +59,46 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
               },
               itemBuilder: (context, index) {
                 return Column(
-                  spacing: 20,
+                  // spacing: 20,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        spacing: 5,
+                        children: [
+                          Icon(
+                            HugeIcons.strokeRoundedBookOpen02,
+                            size: 30,
+                          ),
+                          Text(
+                            'Stoor',
+                            style: Styles.textStyle30.copyWith(
+                              fontFamily: 'DancingScript-VariableFont_wght',
+                              // color: kPrimaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     pages[index]['image'] == AssetsData.aiGhostAnimation
                         ? AiGhostAnimation(
                             screenSizeHelper: screenSizeHelper,
                             animation: pages[index]['image']!,
                           )
-                        : Container(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              image: DecorationImage(
-                                image: AssetImage(pages[index]['image']!),
-                                fit: BoxFit.cover,
+                        : Stack(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  image: DecorationImage(
+                                    image: AssetImage(pages[index]['image']!),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                     pages[index]['image'] == AssetsData.aiGhostAnimation
                         ? CustomShaderMask(

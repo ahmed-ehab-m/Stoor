@@ -1,15 +1,18 @@
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/custom_question.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_subtitle.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 class QuestionsGridView extends StatelessWidget {
   const QuestionsGridView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ScreenSizeHelper screenSizeHelper = ScreenSizeHelper(context);
     List<Color> colors =
         BlocProvider.of<ChangeSettingsCubit>(context).questionsColors;
     List<String> recentSearches = [
@@ -42,6 +45,14 @@ class QuestionsGridView extends StatelessWidget {
                   child: CustomQuestion(
                       color: selectedGradient, question: question));
             }).toList()),
+        // Center(
+        //   child: LottieBuilder.asset(
+        //     'assets/animations/aiGhostAnimation.json',
+        //     // width: screenSizeHelper.screenWidth * 8,
+        //     height: screenSizeHelper.screenHeight * 0.2,
+        //     fit: BoxFit.contain,
+        //   ),
+        // ),
       ],
     );
   }
