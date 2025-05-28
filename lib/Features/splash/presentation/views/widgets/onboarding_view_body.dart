@@ -1,14 +1,9 @@
+import 'package:bookly_app/Features/splash/presentation/views/widgets/ai_ghost_animation.dart';
 import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_naviagation_section.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
-import 'package:bookly_app/core/utils/app_router.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/assetsData.dart';
-import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingViewBody extends StatefulWidget {
   const OnboardingViewBody({super.key});
@@ -40,7 +35,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
         'image': AssetsData.aiGhostAnimation,
         'title': 'AI-Powered Book Picks',
         'subtitle':
-            'Let Gemini suggest your next read from our collection, tailored just for you.',
+            'Let AI Bot suggest your next read from our collection, tailored just for you.',
       },
     ];
     final screenSizeHelper = ScreenSizeHelper(context);
@@ -64,37 +59,40 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                 return Column(
                   spacing: 20,
                   children: [
-                    Stack(
-                      children: [
-                        pages[index]['image'] == AssetsData.aiGhostAnimation
-                            ? LottieBuilder.asset(
-                                pages[index]['image']!,
-                                width: screenSizeHelper.screenWidth * 0.8,
-                                height: screenSizeHelper.screenHeight * 0.4,
+                    pages[index]['image'] == AssetsData.aiGhostAnimation
+                        ? AiGhostAnimation(
+                            screenSizeHelper: screenSizeHelper,
+                            animation: pages[index]['image']!,
+                          )
+                        : Container(
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              image: DecorationImage(
+                                image: AssetImage(pages[index]['image']!),
                                 fit: BoxFit.cover,
-                              )
-                            : Container(
-                                // margin: EdgeInsets.only(top: 50),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.5,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  image: DecorationImage(
-                                    image: AssetImage(pages[index]['image']!),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
                               ),
-                      ],
-                    ),
-                    Text(
-                      pages[index]['title']!,
-                      style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                        // color: textColor,
-                      ),
-                    ),
+                            ),
+                          ),
+                    pages[index]['image'] == AssetsData.aiGhostAnimation
+                        ? CustomShaderMask(
+                            child: Text(
+                              pages[index]['title']!,
+                              style: TextStyle(
+                                fontSize: 50,
+                                fontWeight: FontWeight.bold,
+                                // color: textColor,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            pages[index]['title']!,
+                            style: TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.bold,
+                              // color: textColor,
+                            ),
+                          ),
                     Text(
                       pages[index]['subtitle']!,
                       style: TextStyle(

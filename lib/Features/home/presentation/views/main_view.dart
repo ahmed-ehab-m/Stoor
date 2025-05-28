@@ -97,8 +97,9 @@ class _MainViewState extends State<MainView> {
                     ),
                     IconButton(
                       icon: Icon(
-                        FontAwesomeIcons.bookmark,
+                        HugeIcons.strokeRoundedBookmark02,
                         color: _currentIndex == 1 ? Colors.amber : Colors.grey,
+                        size: 30,
                       ),
                       onPressed: () => _onItemTapped(1),
                     ),
@@ -106,13 +107,13 @@ class _MainViewState extends State<MainView> {
                       icon: _currentIndex == 2
                           ? CustomShaderMask(
                               child: Icon(
-                                HugeIcons.strokeRoundedGoogleGemini,
+                                HugeIcons.strokeRoundedRobot01,
                                 color: Colors.white,
                                 size: 35,
                               ),
                             )
                           : Icon(
-                              HugeIcons.strokeRoundedGoogleGemini,
+                              HugeIcons.strokeRoundedRobot01,
                               color: Colors.grey,
                               size: 35,
                             ),
