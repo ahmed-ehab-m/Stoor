@@ -49,8 +49,11 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                   radius: 0.5,
                   focalRadius: 0.8,
                   colors: [
-                    Color.fromARGB(255, 1, 85, 202),
-                    Color.fromARGB(255, 0, 0, 0), // أزرق غامق (أعلى)
+                    // Color.fromARGB(255, 1, 85, 202),
+                    Color(0xFFA855F7), // Purple
+
+                    BlocProvider.of<ChangeSettingsCubit>(context)
+                        .backgroundColor!, // أزرق غامق (أعلى)
                     // أزرق غامق (أعلى)
                     // Color(0xFF3B82F6).withOpacity(0.7), // أزرق متوسط
                     // Color(0xFF60A5FA).withOpacity(0.3),

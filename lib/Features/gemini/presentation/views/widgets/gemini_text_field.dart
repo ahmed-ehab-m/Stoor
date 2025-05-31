@@ -51,23 +51,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
       animation: _controller,
       builder: (context, child) {
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.circular(10),
-          //   border: Border.all(
-          //     width: 1,
-          //     color: Colors.transparent, // Transparent to show gradient
-          //   ),
-          //   gradient: LinearGradient(
-          //     begin: _beginAnimation.value,
-          //     end: _endAnimation.value,
-          //     colors: const [
-          //       Color(0xFFEC4899), // Pink
-          //       Color(0xFFA855F7), // Purple
-          //       // Color(0xFF3B82F6), // Blue
-          //     ],
-          //   ),
-          // ),
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: TextField(
             cursorColor: kPrimaryColor,
 
@@ -76,8 +60,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(10),
               filled: true,
-              fillColor:
-                  BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor,
+              fillColor: Colors.grey.withOpacity(0.1),
               hintText: 'Describe your favorite book...',
               hintStyle: Styles.textStyle14.copyWith(
                 color: Colors.grey[500],

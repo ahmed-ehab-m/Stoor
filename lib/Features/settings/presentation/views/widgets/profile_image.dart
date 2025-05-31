@@ -37,10 +37,10 @@ class ProfileImage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.grey.withOpacity(0.3),
-                        radius: 80,
+                        radius: 70,
                         child: Icon(
                           Icons.person,
-                          size: 100,
+                          size: 80,
                           color: Colors.white,
                         ),
                       ),
@@ -51,7 +51,7 @@ class ProfileImage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundImage: FileImage(File(imagePath), scale: 1.0),
-                        radius: 80,
+                        radius: 70,
                         key:
                             ValueKey(imagePath), // Force rebuild with new image
                       ),

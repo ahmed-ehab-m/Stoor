@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/book%20marks/presentation/views/book_marks_view.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
@@ -25,7 +26,12 @@ class _MainViewState extends State<MainView> {
   late ScrollController scrollController;
 
   List<BookModel> books = [];
-  List<Widget> screens = [HomeView(), HomeView(), GeminiView(), SettingsView()];
+  List<Widget> screens = [
+    HomeView(),
+    BookMarksView(),
+    GeminiView(),
+    SettingsView()
+  ];
   /////////////////////////
   void _onItemTapped(int index) {
     setState(() {

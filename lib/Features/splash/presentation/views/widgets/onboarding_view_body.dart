@@ -61,25 +61,25 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                 return Column(
                   // spacing: 20,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        spacing: 5,
-                        children: [
-                          Icon(
-                            HugeIcons.strokeRoundedBookOpen02,
-                            size: 30,
-                          ),
-                          Text(
-                            'Stoor',
-                            style: Styles.textStyle30.copyWith(
-                              fontFamily: 'DancingScript-VariableFont_wght',
-                              // color: kPrimaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(bottom: 10),
+                    //   child: Row(
+                    //     spacing: 5,
+                    //     children: [
+                    //       Icon(
+                    //         HugeIcons.strokeRoundedBookOpen02,
+                    //         size: 30,
+                    //       ),
+                    //       Text(
+                    //         'Stoor',
+                    //         style: Styles.textStyle30.copyWith(
+                    //           fontFamily: 'DancingScript-VariableFont_wght',
+                    //           // color: kPrimaryColor,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     pages[index]['image'] == AssetsData.aiGhostAnimation
                         ? AiGhostAnimation(
                             screenSizeHelper: screenSizeHelper,
@@ -107,7 +107,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                               style: TextStyle(
                                 fontSize: 50,
                                 fontWeight: FontWeight.bold,
-                                // color: textColor,
+                                color: Colors.white,
                               ),
                             ),
                           )

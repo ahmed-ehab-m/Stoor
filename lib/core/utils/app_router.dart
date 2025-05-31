@@ -1,5 +1,6 @@
 import 'package:bookly_app/Features/auth/presentation/views/login_view.dart';
 import 'package:bookly_app/Features/auth/presentation/views/signup_view.dart';
+import 'package:bookly_app/Features/book%20marks/presentation/views/book_marks_view.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
@@ -26,6 +27,8 @@ abstract class AppRouter {
   static const KBookDetailsView = '/bookdetailsview';
   static const KSearchView = '/searchview';
   static const KGeminiView = '/geminiview';
+  static const KBookMarksView = '/bookMarksView';
+
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -49,51 +52,48 @@ abstract class AppRouter {
         builder: (context, state) => const MainView(),
       ),
       GoRoute(
-        path: KSettingsView,
-        builder: (context, state) => const SettingsView(),
-      ),
-      GoRoute(
         path: KHomeView,
         builder: (context, state) => const HomeView(),
+      ),
+      GoRoute(
+        path: KBookMarksView,
+        builder: (context, state) => const BookMarksView(),
+      ),
+      GoRoute(
+        path: KSettingsView,
+        builder: (context, state) => const SettingsView(),
       ),
       GoRoute(
         path: KGeminiView,
         builder: (context, state) => const GeminiView(),
       ),
       GoRoute(
-          path: KBookDetailsView,
-          pageBuilder: (context, state) {
-            return CustomTransitionPage(
-              key: state.pageKey,
-              child: BlocProvider(
-                create: (context) =>
-                    SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
-                child: BookDetailsView(
-                  bookModel: state.extra as BookModel?,
-                ),
+        path: KBookDetailsView,
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: BlocProvider(
+              create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
+              child: BookDetailsView(
+                bookModel: state.extra as BookModel?,
               ),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return ScaleTransition(
-                  scale: Tween<double>(begin: 0.0, end: 1).animate(
-                    CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.easeInOut, // منحنى ناعم
-                    ),
+            ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return ScaleTransition(
+                scale: Tween<double>(begin: 0.0, end: 1).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeInOut, // منحنى ناعم
                   ),
-                  child: child,
-                );
-              },
-              transitionDuration: const Duration(milliseconds: 500),
-            );
-          }
-          //  (context, state) => BlocProvider(
-          //   create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
-          //   child: BookDetailsView(
-          //     bookModel: state.extra as BookModel?,
-          //   ),
-          // ), // Replace with actual BookDetailsView
-          ),
+                ),
+                child: child,
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 500),
+          );
+        },
+      ),
       GoRoute(
         path: KSearchView,
         pageBuilder: (context, state) {

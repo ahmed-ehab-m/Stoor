@@ -150,7 +150,8 @@ Widget highlightText({
         TextSpan(
           text: match,
           style: baseStyle.copyWith(
-              color: kPrimaryColor, fontWeight: FontWeight.bold),
+              color: const Color.fromARGB(255, 189, 49, 214),
+              fontWeight: FontWeight.bold),
         ),
         TextSpan(text: afterMatch, style: baseStyle)
       ],

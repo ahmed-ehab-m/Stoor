@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/library_title.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
@@ -8,6 +9,7 @@ import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_s
 import 'package:bookly_app/Features/settings/presentation/views/widgets/logout_button.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/profile_image.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/profile_text_field.dart';
+import 'package:bookly_app/Features/settings/presentation/views/widgets/settings_title.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/utils/validation.dart';
@@ -49,9 +51,13 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
           ),
           child: ListView(
             children: [
-              ProfileImage(),
+              SettingsTitle(),
               const SizedBox(
                 height: 20,
+              ),
+              ProfileImage(),
+              const SizedBox(
+                height: 10,
               ),
               Center(
                 child: Text(
