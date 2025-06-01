@@ -90,7 +90,7 @@ abstract class AppRouter {
                 child: child,
               );
             },
-            transitionDuration: const Duration(milliseconds: 500),
+            transitionDuration: const Duration(milliseconds: 300),
           );
         },
       ),
@@ -116,7 +116,7 @@ abstract class AppRouter {
                 child: child,
               );
             },
-            transitionDuration: const Duration(milliseconds: 500),
+            transitionDuration: const Duration(milliseconds: 300),
           );
         },
       ),

@@ -6,6 +6,7 @@ import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_b
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({super.key});
@@ -39,11 +40,13 @@ class ProfileImage extends StatelessWidget {
                         backgroundColor: Colors.grey.withOpacity(0.3),
                         radius: 70,
                         child: Icon(
-                          Icons.person,
+                          HugeIcons.strokeRoundedUser,
                           size: 80,
                           color: Colors.white,
                         ),
                       ),
+                      // Icon(HugeIcons.strokeRoundedUserCircle02, size: 150),
+
                       CameraIcon(),
                     ],
                   )

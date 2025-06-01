@@ -7,15 +7,13 @@ class CustomDropdownMenu extends StatelessWidget {
     super.key,
     required this.firstOption,
     required this.secondOption,
-    this.thridption,
-    this.fourthOption,
+    required this.thridption,
     required this.initialSelection,
     this.onSelected,
   });
   final String firstOption;
   final String secondOption;
-  final String? thridption;
-  final String? fourthOption;
+  final String thridption;
   final int initialSelection;
   final void Function(dynamic)? onSelected;
   @override
@@ -36,12 +34,8 @@ class CustomDropdownMenu extends StatelessWidget {
             value: 1, label: firstOption, style: buttonStyle(1, color)),
         DropdownMenuEntry(
             value: 2, label: secondOption, style: buttonStyle(2, color)),
-        if (thridption != null)
-          DropdownMenuEntry(
-              value: 3, label: thridption!, style: buttonStyle(3, color)),
-        if (fourthOption != null)
-          DropdownMenuEntry(
-              value: 4, label: fourthOption!, style: buttonStyle(4, color)),
+        DropdownMenuEntry(
+            value: 3, label: thridption, style: buttonStyle(3, color)),
       ],
     );
   }
@@ -53,12 +47,11 @@ class CustomDropdownMenu extends StatelessWidget {
       textStyle: WidgetStatePropertyAll(
         TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      // backgroundColor: WidgetStateProperty.all(
-      //   value == initialSelection ? Colors.indigo.withOpacity(0.2) : null,
-      // ),
-      // foregroundColor: WidgetStateProperty.all(
-      //   value == initialSelection ? Colors.indigo : color,
-      // ),
+      backgroundColor: WidgetStateProperty.all(
+        value == initialSelection
+            ? const Color(0xFF9C27B0).withOpacity(0.3)
+            : null,
+      ),
     );
   }
 }

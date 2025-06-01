@@ -9,22 +9,25 @@ class EmptyBooksWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // مسافة صغيرة بين الجملتين
+          SvgPicture.asset(
+            'assets/images/Group 1 (4).svg', // اضبط الصورة زي ما عايز.',
+            height: 200, // اضبط الحجم زي ما عايز
+            width: 200,
+          ),
+          const SizedBox(height: 30),
           Text(
             'You haven \'t added any bookmarks yet!',
-            style: Styles.textStyle20,
+            style: Styles.textStyle20.copyWith(fontWeight: FontWeight.w900),
           ),
           const SizedBox(height: 10), // مسافة صغيرة بين الجملتين
           Text(
             "Start adding your favorites and explore now!",
             style: Styles.textStyle16.copyWith(color: Colors.grey),
             textAlign: TextAlign.center,
-          ),
-          SvgPicture.asset(
-            'assets/images/undraw_books_wxzz.svg',
-            height: 200, // اضبط الحجم زي ما عايز
-            width: 200,
           ),
         ],
       ),

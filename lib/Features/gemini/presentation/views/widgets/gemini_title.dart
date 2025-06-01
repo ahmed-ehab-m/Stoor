@@ -25,8 +25,8 @@ class GeminiTitle extends StatelessWidget {
             //   color: Colors.white,
             // ),
             Text(
-              ' Ai Bot',
-              style: Styles.textStyle20
+              'Ai Bot',
+              style: Styles.textStyle24
                   .copyWith(fontWeight: FontWeight.w900, color: Colors.white),
             ),
           ],

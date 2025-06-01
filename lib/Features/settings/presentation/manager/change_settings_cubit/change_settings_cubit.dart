@@ -60,20 +60,23 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
 
   Future<void> defaultFontSize() async {
     fontIndex = await settingsRepo.getFontIndex();
-    await changeFontSize(fontIndex);
+    changeFontSize(fontIndex);
   }
 
-  Future<void> changeFontSize(int fontNumber) async {
+  void changeFontSize(int fontNumber) async {
     switch (fontNumber) {
       case 1:
+        fontIndex = 1;
         descriptionFontSize = 12;
         titleFontSize = 24;
         break;
       case 2:
+        fontIndex = 2;
         descriptionFontSize = 16;
         titleFontSize = 30;
         break;
       case 3:
+        fontIndex = 3;
         descriptionFontSize = 20;
         titleFontSize = 36;
         break;
@@ -85,12 +88,14 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
 /////////////Change Theme////////////////
   final hour = DateTime.now().hour;
   Brightness theme = Brightness.dark;
+  int themeIndex = 3;
   Color? backgroundColor = Colors.white;
   Color? iconColor = Colors.black;
   Brightness defaultTheme() {
     if (hour >= 5 && hour < 17) {
       backgroundColor = Colors.white;
       iconColor = Colors.black;
+
       return Brightness.light;
     } else {
       backgroundColor = Colors.black;
@@ -110,18 +115,21 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
   changeTheme(int themeType) async {
     switch (themeType) {
       case 1:
+        themeIndex = 1;
         theme = Brightness.light;
         backgroundColor = Colors.white;
         iconColor = Colors.black;
 
         break;
       case 2:
+        themeIndex = 2;
         theme = Brightness.dark;
         backgroundColor = Colors.black;
         iconColor = Colors.white;
 
         break;
       case 3:
+        themeIndex = 3;
         theme = defaultTheme();
 
         break;
