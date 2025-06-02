@@ -17,7 +17,7 @@ class CustomLogoAnimation extends StatelessWidget {
     return Center(
       child: Transform.translate(
         offset: Offset(logoPositionAnimation.value, 0),
-        child: logoAnimationController.value >= 0.5
+        child: logoAnimationController.value == 1
             ? Icon(
                 HugeIcons.strokeRoundedBookOpen02,
                 color: Colors.white,

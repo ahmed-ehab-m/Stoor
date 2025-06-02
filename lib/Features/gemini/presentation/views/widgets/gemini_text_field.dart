@@ -1,6 +1,5 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
@@ -21,6 +20,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
   late Animation<Alignment> _beginAnimation;
   late Animation<Alignment> _endAnimation;
   String? question;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
   @override
   void dispose() {
     _controller.dispose();
-    // TODO: implement dispose
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -53,8 +53,8 @@ class _GeminiTextFieldState extends State<GeminiTextField>
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: TextField(
+            focusNode: _focusNode,
             cursorColor: kPrimaryColor,
-
             controller: widget.controller, // ربط الـ Controller
             style: Styles.textStyle16, // Change the input text style here
             decoration: InputDecoration(
@@ -78,7 +78,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
 
                     if (widget.controller.text.isEmpty) return;
                     widget.controller.clear();
-
+                    _focusNode.unfocus();
                     // onSend(widget.controller.text);
                     await BlocProvider.of<GeminiCubit>(context)
                         .getRecommendedBook(

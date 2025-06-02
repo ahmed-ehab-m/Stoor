@@ -35,88 +35,10 @@ class _SplashViewBodyState extends State<SplashViewBody>
     triggerAppStatus();
   }
 
-  void _initAnimations() {
-    // Logo animation controller
-    _logoAnimationController = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    );
-
-    // Text animation controller
-    _textAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
-    );
-
-    // Logo size animation
-    _logoSizeAnimation = Tween<double>(
-      begin: 200.0,
-      end: 60.0,
-    ).animate(CurvedAnimation(
-      parent: _logoAnimationController,
-      curve: Curves.easeInOut,
-    ));
-
-    // Logo position animation (يتحرك نصف المسافة لليمين عشان يكون في المنتصف مع النص)
-    _logoPositionAnimation = Tween<double>(
-            begin: 0.0, // في المنتصف
-            end: -60 // يتحرك لليمين نصف المسافة الكلية
-            )
-        .animate(CurvedAnimation(
-      parent: _logoAnimationController,
-      curve: Curves.easeInOut,
-    ));
-
-    // Text opacity animation
-    _textOpacityAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _textAnimationController,
-      curve: Curves.easeOut,
-    ));
-
-    // بدء الـ animation بعد ثانية واحدة
-    Future.delayed(const Duration(seconds: 1), () {
-      if (mounted) {
-        _logoAnimationController.forward();
-
-        // بدء الـ text animation مع حركة اللوجو
-        Future.delayed(const Duration(milliseconds: 1500), () {
-          if (mounted) {
-            _textAnimationController.forward();
-          }
-        });
-      }
-    });
-  }
-
-  void triggerAppStatus() {
-    Future.delayed(const Duration(seconds: 4), () {
-      if (mounted) {
-        context.read<SplashCubit>().checkAppStatus();
-      }
-    });
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _precacheImagesAndNavigate();
-  }
-
-  Future<void> _precacheImagesAndNavigate() async {
-    try {
-      final pages = [
-        AssetsData.onboardingImageOne,
-        AssetsData.aiGhostAnimation,
-      ];
-      for (var image in pages) {
-        await precacheImage(AssetImage(image), context);
-      }
-    } catch (e) {
-      // Handle any errors
-    }
   }
 
   @override
@@ -150,6 +72,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               gradient: LinearGradient(
+                stops: [0, 1],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: BlocProvider.of<ChangeSettingsCubit>(context)
@@ -184,5 +107,86 @@ class _SplashViewBodyState extends State<SplashViewBody>
         );
       },
     );
+  }
+
+  ////////////////////////Pre Cache Images//////////////////////////
+  Future<void> _precacheImagesAndNavigate() async {
+    try {
+      final pages = [
+        AssetsData.onboardingImageOne,
+        AssetsData.aiGhostAnimation,
+      ];
+      for (var image in pages) {
+        await precacheImage(AssetImage(image), context);
+      }
+    } catch (e) {
+      // Handle any errors
+    }
+  }
+
+  /////////////////////Trigger App Status//////////////////////////
+  void triggerAppStatus() {
+    Future.delayed(const Duration(milliseconds: 3500), () {
+      if (mounted) {
+        context.read<SplashCubit>().checkAppStatus();
+      }
+    });
+  }
+
+////////////////Animations Functions///////////////
+  void _initAnimations() {
+    // Logo animation controller
+    _logoAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    // Text animation controller
+    _textAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+
+    // Logo size animation
+    _logoSizeAnimation = Tween<double>(
+      begin: 200.0,
+      end: 60.0,
+    ).animate(CurvedAnimation(
+      parent: _logoAnimationController,
+      curve: Curves.easeInOut,
+    ));
+
+    // Logo position animation (يتحرك نصف المسافة لليمين عشان يكون في المنتصف مع النص)
+    _logoPositionAnimation = Tween<double>(
+            begin: 0.0, // في المنتصف
+            end: -80 // يتحرك لليمين نصف المسافة الكلية
+            )
+        .animate(CurvedAnimation(
+      parent: _logoAnimationController,
+      curve: Curves.easeInOut,
+    ));
+
+    // Text opacity animation
+    _textOpacityAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _textAnimationController,
+      curve: Curves.easeOut,
+    ));
+
+    // بدء الـ animation بعد ثانية واحدة
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) {
+        _logoAnimationController.forward();
+
+        // بدء الـ text animation مع حركة اللوجو
+        Future.delayed(const Duration(milliseconds: 1500), () {
+          if (mounted) {
+            _textAnimationController.forward();
+          }
+        });
+      }
+    });
   }
 }

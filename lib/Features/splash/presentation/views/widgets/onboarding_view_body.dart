@@ -2,10 +2,8 @@ import 'package:bookly_app/Features/splash/presentation/views/widgets/ai_ghost_a
 import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_naviagation_section.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/assetsData.dart';
-import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class OnboardingViewBody extends StatefulWidget {
   const OnboardingViewBody({super.key});

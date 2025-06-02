@@ -14,14 +14,14 @@ class CustomTestAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Transform.translate(
-        offset: Offset(logoPositionAnimation.value + 120, 0), // على شمال اللوجو
+        offset: Offset(logoPositionAnimation.value + 100, 0), // على شمال اللوجو
         child: AnimatedBuilder(
           animation: textAnimationController,
           builder: (context, child) {
             return FadeTransition(
               opacity: textOpacityAnimation,
               child: Text(
-                'Stoor',
+                ' Stoor',
                 style: TextStyle(
                   color: Colors.white.withOpacity(textOpacityAnimation.value),
                   fontFamily: 'DancingScript-VariableFont_wght',

@@ -1,5 +1,6 @@
 import 'package:bookly_app/Features/settings/data/repos/settings_repo.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,23 +25,8 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
         ];
   /////////////////////////////////////////////
   List<Color> get gradientColors => theme == Brightness.dark
-      ? [
-          // بنفسجي فاتح باستيل
-          // Colors.grey,
-          // const Color(0xFF37474F)
-          // const Color.fromARGB(255, 0, 166, 243),
-          const Color(0xFF9C27B0),
-          Colors.grey,
-
-          // const Color(0xFFE1BEE7),
-
-          // const Color(0xFF6A1B9A), // بنفسجي غامق هادي
-          // const Color(0xFF263238), // رمادي مزرق غامق
-        ]
-      : [
-          const Color(0xFF9C27B0),
-          Colors.grey,
-        ];
+      ? [kPrimaryColor, Color(0xff3c1053)]
+      : [kPrimaryColor, Color(0xffffc0cb)];
   ///////////////////////
   List<Color> get questionsColors => theme == Brightness.dark
       ? [

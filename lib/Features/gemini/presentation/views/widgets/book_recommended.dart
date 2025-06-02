@@ -24,6 +24,16 @@ class BookRecommended extends StatelessWidget {
           },
           child: Container(
             // decoration: BoxDecoration(
+            //   color: Colors.grey.withOpacity(0.1),
+            //   borderRadius: BorderRadius.only(
+            //     topRight: Radius.circular(20),
+            //     topLeft: Radius.circular(0),
+            //     bottomRight: Radius.circular(20),
+            //     bottomLeft: Radius.circular(20),
+            //   ),
+            //   // border: Border.all(color: Colors.red),
+            // ),
+            // decoration: BoxDecoration(
             //   color: Colors.grey.withOpacity(0.3),
             // ),
             child: Column(
