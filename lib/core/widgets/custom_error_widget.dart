@@ -16,14 +16,14 @@ class CustomErrorWidget extends StatelessWidget {
           filter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20), // تأثير Blur
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.purple.withOpacity(0.4), // لون بنفسجي فاتح
-                  Colors.black.withOpacity(0.6), // لون بنفسجي غامق
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              // gradient: LinearGradient(
+              //   colors: [
+              //     Colors.purple.withOpacity(0.4), // لون بنفسجي فاتح
+              //     Colors.black.withOpacity(0.6), // لون بنفسجي غامق
+              //   ],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
+              // ),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -38,15 +38,26 @@ class CustomErrorWidget extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/images/errorRobot.svg',
-                  height: 200,
-                  width: 200,
+                  height: 250,
+                  width: 250,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    errorMessage,
-                    style: Styles.textStyle18,
-                    textAlign: TextAlign.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        errorMessage.split(',')[0], // First sentence
+                        style: Styles.textStyle20
+                            .copyWith(fontWeight: FontWeight.w900),
+                      ),
+                      const SizedBox(height: 10), // مسافة صغيرة بين الجملتين
+
+                      Text(
+                        errorMessage.split(',')[1] ?? '', // Second sentence
+                        style: Styles.textStyle16.copyWith(color: Colors.grey),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 ),
               ],
