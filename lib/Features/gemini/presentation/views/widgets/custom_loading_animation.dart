@@ -1,7 +1,5 @@
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/bot_icon.dart';
-import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:lottie/lottie.dart';
 
 class CustomLoadingAnimation extends StatelessWidget {

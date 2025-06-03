@@ -1,9 +1,7 @@
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/empty_books_widget.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/library_title.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
-import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class BookMarksViewBody extends StatelessWidget {
   const BookMarksViewBody({super.key});

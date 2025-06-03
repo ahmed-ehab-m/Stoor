@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_chat.dart';

@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:scroll_to_hide/scroll_to_hide.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -68,7 +67,6 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     books = BlocProvider.of<FeaturedBooksCubit>(context).featuredBooks;
-
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
@@ -82,18 +80,12 @@ class _MainViewState extends State<MainView> {
         //ScrollNotification => to discover or listen  when the user scroll
         //ScrolLNotification => send a notification when the user scroll
         //ScrolLUpdateNotification => it send a notification when the user scroll
-        body: GestureDetector(
-          onTap: () {
-            if (!isVisible) {
-              setState(() {
-                isVisible = true;
-              });
-            }
-          },
-          child: NotificationListener<ScrollNotification>(
-            ///onNotification => it's a callback that will be called when the user scroll
-            onNotification: (scrollNotification) {
-              if (scrollNotification is ScrollUpdateNotification) {
+        body: NotificationListener<ScrollNotification>(
+          ///onNotification => it's a callback that will be called when the user scroll
+          onNotification: (scrollNotification) {
+            if (_currentIndex == 2) return true;
+            if (scrollNotification is ScrollUpdateNotification) {
+              if (scrollNotification.metrics.axis == Axis.vertical) {
                 // if the scroll delta(number of pixels) is greater than 5
                 // to avoid much rendering
                 if (scrollNotification.scrollDelta!.abs() > 20) {
@@ -110,22 +102,22 @@ class _MainViewState extends State<MainView> {
                     });
                   }
                 }
-              } else if (scrollNotification is ScrollEndNotification) {
-                print('scroll stoped');
-                Future.delayed(const Duration(seconds: 2), () {
-                  if (mounted) {
-                    setState(() {
-                      isVisible = true;
-                    });
-                  }
-                });
               }
-              return true;
-            },
-            child: IndexedStack(
-              index: _currentIndex,
-              children: screens,
-            ),
+            } else if (scrollNotification is ScrollEndNotification) {
+              print('scroll stoppppppppppppppppppppppppppped');
+              Future.delayed(const Duration(seconds: 3), () {
+                if (mounted) {
+                  setState(() {
+                    isVisible = true;
+                  });
+                }
+              });
+            }
+            return true;
+          },
+          child: IndexedStack(
+            index: _currentIndex,
+            children: screens,
           ),
         ),
         bottomNavigationBar:
@@ -143,24 +135,12 @@ class _MainViewState extends State<MainView> {
                 //default value cuz Animatedcontainer wanna a value to make animation
                 double barHeight = 0;
                 return AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 500),
                   height: isVisible ? (barHeight == 0 ? null : barHeight) : 0,
-                  // margin: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(50),
-                  //   color: backgroundColor,
-                  //   boxShadow: [
-                  //     BoxShadow(
-                  //       color: Colors.grey.withOpacity(0.5),
-                  //       blurRadius: 5,
-                  //       offset: Offset(0, 0),
-                  //     ),
-                  //   ],
-                  // ),
-                  child: Visibility(
-                    visible: isVisible,
-                    // to make bottom app bar calculate height depending on his content
-                    // it's not affcted by animatedcontainer constraints
+                  child: AnimatedOpacity(
+                    opacity: isVisible ? 1 : 0,
+                    duration: const Duration(
+                        milliseconds: 300), // مدة أنيميشن الـ Opacity
                     child: IntrinsicHeight(
                       child: Container(
                         margin: const EdgeInsets.only(
@@ -202,7 +182,6 @@ class _MainViewState extends State<MainView> {
                                 }
                               });
                             }
-
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [

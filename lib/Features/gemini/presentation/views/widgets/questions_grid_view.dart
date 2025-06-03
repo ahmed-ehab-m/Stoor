@@ -5,7 +5,6 @@ import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 
 class QuestionsGridView extends StatelessWidget {
   const QuestionsGridView({super.key});

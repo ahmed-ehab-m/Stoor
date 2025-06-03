@@ -4,7 +4,6 @@ import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
