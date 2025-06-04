@@ -11,7 +11,7 @@ class BotIcon extends StatelessWidget {
       padding: EdgeInsets.only(right: 8, top: 0),
       child: CustomShaderMask(
         child:
-            Icon(HugeIcons.strokeRoundedRobot01, color: Colors.white, size: 25),
+            Icon(HugeIcons.strokeRoundedRobot01, color: Colors.white, size: 30),
       ),
     );
   }

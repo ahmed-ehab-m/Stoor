@@ -90,8 +90,8 @@ class BooklyApp extends StatelessWidget {
             title: 'Stoor',
             theme: ThemeData(
               brightness: BlocProvider.of<ChangeSettingsCubit>(context).theme,
-              scaffoldBackgroundColor:
-                  BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor,
+              // scaffoldBackgroundColor:
+              //     BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor,
             ),
             debugShowCheckedModeBanner: false,
           );

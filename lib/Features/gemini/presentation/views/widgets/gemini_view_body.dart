@@ -45,37 +45,27 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                   height: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    gradient: RadialGradient(
-                      center: Alignment.bottomRight,
-                      radius: 0.5,
-                      focalRadius: 1,
-                      colors: [
-                        Color(0xFFA855F7).withOpacity(0.5), // Purple مع Opacity
-                        BlocProvider.of<ChangeSettingsCubit>(context)
-                            .backgroundColor!
-                            .withOpacity(0.2), // لون الخلفية مع Opacity
-                      ],
-                    ),
+                    // gradient: LinearGradient(
+                    //   colors: [Color(0xfff7f8f8), Color(0xffacbb78)],
+                    //   stops: [0, 1],
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomRight,
+                    // )
+
+                    // gradient: RadialGradient(
+                    //   center: Alignment.bottomRight,
+                    //   radius: 0.5,
+                    //   focalRadius: 1,
+                    //   colors: [
+                    //     Color(0xFFA855F7).withOpacity(0.5), // Purple مع Opacity
+                    //     BlocProvider.of<ChangeSettingsCubit>(context)
+                    //         .backgroundColor!
+                    //         .withOpacity(0.2), // لون الخلفية مع Opacity
+                    //   ],
+                    // ),
                   ),
                 ),
-                // Radial Gradient تاني
-                // Container(
-                //   width: double.infinity,
-                //   height: double.infinity,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(20),
-                //     gradient: RadialGradient(
-                //       center: Alignment.topRight,
-                //       radius: 0.5,
-                //       focalRadius: 0.8,
-                //       colors: [
-                //         Color(0xFFCE93D8)
-                //             .withOpacity(0.1), // بنفسجي فاتح مع Opacity
-                //         Colors.transparent, // يتلاشى للشفاف
-                //       ],
-                //     ),
-                //   ),
-                // ),
+
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: screenSizeHelper.horizontalPadding,

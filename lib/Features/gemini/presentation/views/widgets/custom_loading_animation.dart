@@ -11,15 +11,11 @@ class CustomLoadingAnimation extends StatelessWidget {
       children: [
         BotIcon(),
         Lottie.asset(
-          "assets/animations/Animation - 1748187284463.json",
+          "assets/animations/typingAnimation.json",
           width: 50,
           height: 50,
           // fit: BoxFit.cover,
         ),
-        // child: Text(
-        //   "Thinking...",
-        //   style: Styles.textStyle18,
-        // ),
       ],
     );
   }

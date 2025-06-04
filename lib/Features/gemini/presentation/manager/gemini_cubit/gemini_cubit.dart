@@ -13,6 +13,7 @@ class GeminiCubit extends Cubit<GeminiState> {
   final GeminiRepo _geminiRepo;
   // String? question;
   List<ChatMessageModel> chatHistory = [];
+  String userQuestion = '';
 /////////////////////////////////////////////////
   void addMessage({required String type, dynamic message, String? status}) {
     final chatMessage =
@@ -78,6 +79,7 @@ class GeminiCubit extends Cubit<GeminiState> {
     required String userDescription,
     required List<BookModel> books,
   }) async {
+    userQuestion = userDescription;
     addMessage(type: 'user', message: userDescription);
     addMessage(type: 'bot', status: 'loading');
 

@@ -19,7 +19,7 @@ class FeaturedBookListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,7 +65,7 @@ class FeaturedBookListItem extends StatelessWidget {
           Text(
             getShortTitle(author),
             style: Styles.textStyle14.copyWith(
-              color: Colors.grey.shade700,
+              color: Colors.grey,
               // color: kPrimaryColor,
             ),
             maxLines: 1,

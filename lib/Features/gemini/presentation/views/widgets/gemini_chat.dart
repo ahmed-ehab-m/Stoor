@@ -56,7 +56,7 @@ class _GeminiChatState extends State<GeminiChat> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: BlocConsumer<GeminiCubit, GeminiState>(
         listener: (context, state) {
           if (state is GeminiChatHistoryLoadingState) {
@@ -125,7 +125,7 @@ class _GeminiChatState extends State<GeminiChat> {
                 if (message.status == 'loading') {
                   return const CustomLoadingAnimation();
                 } else if (message.message ==
-                    'No relevant books found , try with different description.') {
+                    'No relevant books found ,try with different description.') {
                   return NoMatchBooks(errorMessage: message.message ?? '');
                 } else if (message.message is List<BookModel>) {
                   print(

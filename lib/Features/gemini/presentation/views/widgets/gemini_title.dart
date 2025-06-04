@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/bot_icon.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +20,10 @@ class GeminiTitle extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // Icon(
-            //   HugeIcons.strokeRoundedGoogleGemini,
-            //   size: 30,
-            //   color: Colors.white,
-            // ),
+            BotIcon(),
             Text(
               'Ai Bot',
-              style: Styles.textStyle24
+              style: Styles.textStyle20
                   .copyWith(fontWeight: FontWeight.w900, color: Colors.white),
             ),
           ],

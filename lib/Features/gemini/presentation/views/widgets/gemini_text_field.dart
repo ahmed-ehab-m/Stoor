@@ -61,14 +61,14 @@ class _GeminiTextFieldState extends State<GeminiTextField>
               contentPadding: const EdgeInsets.all(10),
               filled: true,
               fillColor: Colors.grey.withOpacity(0.1),
-              hintText: 'Describe your favorite book...',
+              hintText: 'Ask a Bot...',
               hintStyle: Styles.textStyle14.copyWith(
-                color: Colors.grey[500],
-                // Lighter color for hint
-                fontStyle: FontStyle.italic, // Italic for a softer look
-              ),
+                  // color: Colors.grey[500],
+                  // Lighter color for hint
+                  // fontStyle: FontStyle.italic, // Italic for a softer look
+                  ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: Colors.white),
               ),
               suffixIcon: CustomShaderMask(

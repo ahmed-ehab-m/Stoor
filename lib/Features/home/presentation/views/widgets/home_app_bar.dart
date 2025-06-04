@@ -39,29 +39,9 @@ class _HomeAppBarState extends State<HomeAppBar> {
             }
             return Column(
               children: [
-                // Row(
-                //   children: [
-                //     ShaderMask(
-                //       shaderCallback: (bounds) {
-                //         return LinearGradient(
-                //           colors: [kPrimaryColor, Colors.grey],
-                //           tileMode: TileMode.repeated,
-                //         ).createShader(bounds);
-                //       },
-                //       child: Icon(HugeIcons.strokeRoundedBookOpen02,
-                //           color: Colors.white, size: 30),
-                //     ),
-                //     Text(
-                //       ' Stoor ',
-                //       style: Styles.textStyle20.copyWith(
-                //         fontWeight: FontWeight.w900,
-                //         // color: kPrimaryColor,
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: 8,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     if (BlocProvider.of<PickImageCubit>(context)
                         .imagePath
@@ -70,7 +50,6 @@ class _HomeAppBarState extends State<HomeAppBar> {
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
-                            // color: Colors.white,
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
@@ -79,9 +58,11 @@ class _HomeAppBarState extends State<HomeAppBar> {
                             )),
                       ),
                     Text(
-                        'Hi,${displayName[0].toUpperCase() + displayName.substring(1)}',
-                        style: Styles.textStyle18
-                            .copyWith(fontWeight: FontWeight.w900)),
+                      'Hi,${displayName[0].toUpperCase() + displayName.substring(1)}',
+                      style: Styles.textStyle18
+                          .copyWith(fontWeight: FontWeight.w900),
+                    ),
+                    Spacer(),
                     IconButton(
                         onPressed: () {
                           searchResult =

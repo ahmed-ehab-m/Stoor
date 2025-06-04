@@ -32,10 +32,7 @@ class ProfileTextField extends StatelessWidget {
           iconData,
           // color: Theme.of(context).iconTheme.color,
         ),
-        hintStyle: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w900,
-        ),
+        hintStyle: Styles.textStyle16,
         border: InputBorder.none,
       ),
     );
