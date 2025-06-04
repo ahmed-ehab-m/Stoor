@@ -54,8 +54,8 @@ class GeminiRepoImpl implements GeminiRepo {
             ServerFailure('Check your Internet connection , and try again'));
       }
       // gemini.
-      final promt =
-          _buildSystemPromtRecommendation(books: books, userDescription: userDescription);
+      final promt = _buildSystemPromtRecommendation(
+          books: books, userDescription: userDescription);
       final response = await gemini.prompt(parts: [Part.text(promt)]);
       String cleanedResponse = response?.output ?? '';
       cleanedResponse =
@@ -115,32 +115,39 @@ class GeminiRepoImpl implements GeminiRepo {
         return left(
             ServerFailure('Check your Internet connection , and try again'));
       }
-      final promt =
-          // _buildSystemPromtRecommendation(books: books, userDescription: userDescription);
-    } catch (e) {}
+      final promt = _buildSystemPromtBookDescription(book: book);
+      final response = await gemini.prompt(parts: [Part.text(promt)]);
+      final cleanedResponse =
+          response!.output!.substring(1, response.output!.length - 1).trim();
+      if (cleanedResponse.isEmpty) {
+        return left(ServerFailure('There is no description for this book.'));
+      }
+      return right(cleanedResponse);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
   }
+
   ///////////////////////////////////////////
-  static String _buildSystemPromtBookDescription(
-      {required BookModel book}) {
+  static String _buildSystemPromtBookDescription({required BookModel book}) {
     final buffer = StringBuffer();
 
     buffer.write(
-        'You are a book recommendation assistant. Based on the user\'s description, recommend  one or more books from the following list:\n\n');
+        'You are a book recommendation assistant. Based on this book Details, search first and then create a new description (summary) for the following book:\n\n');
 
-   
-      buffer.write('- Title: ${book.volumeInfo.title}\n');
-      buffer.write(
-          '  Description: ${book.volumeInfo.description ?? "No description available"}\n');
-     
-    
-    buffer.write('User description: "$userDescription"\n\n');
+    buffer.write('- Title: ${book.volumeInfo.title}\n');
     buffer.write(
-        'Choose the most relevant book from the list above based on the user description. ');
+        '  Description: ${book.volumeInfo.description ?? "No description available"}\n');
     buffer.write(
-        'Return a JSON array of objects, each containing the "id" of a selected book, like this:\n');
-    buffer.write('[{"id": "book_id1"}, {"id": "book_id2"}]\n');
+        '  Author: ${book.volumeInfo.authors?.join(", ") ?? "No author available"}\n');
     buffer.write(
-        'If no books are relevant, return an empty array []. Ensure the response contains only the JSON array and no additional text.');
+        'The summary should be a concise paragraph, limited to a maximum of 5 lines. ');
+
+    buffer.write(
+        'Return only the new summary as a plain text string, with no additional text or formatting (e.g., no JSON, no labels).');
     return buffer.toString();
   }
 }

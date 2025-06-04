@@ -74,6 +74,23 @@ class GeminiCubit extends Cubit<GeminiState> {
     return -1;
   }
 
+//////////////////////////////////////////////
+  Future<void> getBookDescription({required BookModel book}) async {
+    emit(GetBookDescriptionLoadingState());
+    var result = await _geminiRepo.getBookDescription(book: book);
+    result.fold((failure) {
+      print('Get book description failed: ${failure.errMessage}');
+      emit(
+        GetBookDescriptionFailureState(message: failure.errMessage!),
+      );
+    }, (description) {
+      print('Get book description success: $description');
+      emit(
+        GetBookDescriptionLoadedState(bookDescription: description),
+      );
+    });
+  }
+
 /////////////////////////////////////////////
   Future<void> getRecommendedBook({
     required String userDescription,

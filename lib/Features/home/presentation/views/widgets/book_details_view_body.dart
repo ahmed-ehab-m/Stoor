@@ -21,6 +21,7 @@ class BookDetailsViewBody extends StatelessWidget {
           hasScrollBody: false,
           child: Padding(
             padding: EdgeInsets.symmetric(
+                vertical: screenSizeHelper.homeVerticalPadding,
                 horizontal: screenSizeHelper.horizontalPadding),
             child: Column(
               children: [

@@ -9,6 +9,20 @@ sealed class GeminiState extends Equatable {
 
 final class GeminiInitial extends GeminiState {}
 
+////////////////////////////////////////////////
+final class GetBookDescriptionLoadingState extends GeminiState {}
+
+final class GetBookDescriptionLoadedState extends GeminiState {
+  final String bookDescription;
+  const GetBookDescriptionLoadedState({required this.bookDescription});
+}
+
+final class GetBookDescriptionFailureState extends GeminiState {
+  final String message;
+  const GetBookDescriptionFailureState({required this.message});
+}
+
+/////////////////////////////////////////////////////
 final class GeminiLoadingState extends GeminiState {
   final List<ChatMessageModel> chatHistory;
 
