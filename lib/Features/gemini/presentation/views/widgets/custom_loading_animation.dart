@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/bot_icon.dart';
+import 'package:bookly_app/core/utils/assets_data.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -11,7 +12,7 @@ class CustomLoadingAnimation extends StatelessWidget {
       children: [
         BotIcon(),
         Lottie.asset(
-          "assets/animations/typingAnimation.json",
+          AssetsData.typingAnimation,
           width: 50,
           height: 50,
           // fit: BoxFit.cover,

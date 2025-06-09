@@ -42,7 +42,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 ////////////////////////////////////////////////
   Future<void> updateName({required String newName}) async {
     emit(ProfileLoading());
-    print('newName in cubit: $newName');
     final updateResult = await authRepo.updateName(newName: newName);
     updateResult.fold(
       (failure) => emit(ProfileFailure(failure.errMessage!)),
@@ -52,7 +51,6 @@ class ProfileCubit extends Cubit<ProfileState> {
           (failure) => emit(ProfileFailure(failure.errMessage!)),
           (user) {
             userName = user!.name;
-            print('user.name in cubit: ${user.name}');
             return emit(ProfileLoaded(user: user));
           },
         );

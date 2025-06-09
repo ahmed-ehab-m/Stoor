@@ -4,7 +4,6 @@ import 'package:bookly_app/Features/auth/presentation/views/widgets/custom_text_
 import 'package:bookly_app/Features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/utils/validation.dart';
@@ -103,7 +102,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             BlocProvider.of<AuthCubit>(context).togglePassword,
                         icon: Icon(
                           BlocProvider.of<AuthCubit>(context).suffixIcon,
-                          color: kPrimaryColor,
+                          color: const Color(0xFF9C27B0),
                         ),
                       ),
                     ),

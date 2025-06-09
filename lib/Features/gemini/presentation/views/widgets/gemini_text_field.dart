@@ -17,8 +17,8 @@ class GeminiTextField extends StatefulWidget {
 class _GeminiTextFieldState extends State<GeminiTextField>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<Alignment> _beginAnimation;
-  late Animation<Alignment> _endAnimation;
+  // late Animation<Alignment> _beginAnimation;
+  // late Animation<Alignment> _endAnimation;
   String? question;
   final FocusNode _focusNode = FocusNode();
 
@@ -28,13 +28,13 @@ class _GeminiTextFieldState extends State<GeminiTextField>
       vsync: this,
       duration: const Duration(seconds: 3),
     )..repeat();
-    _beginAnimation =
-        Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.bottomRight)
-            .animate(_controller);
-    _endAnimation = Tween<Alignment>(
-      begin: Alignment.bottomRight,
-      end: Alignment.topLeft,
-    ).animate(_controller);
+    // _beginAnimation =
+    //     Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.bottomRight)
+    //         .animate(_controller);
+    // _endAnimation = Tween<Alignment>(
+    //   begin: Alignment.bottomRight,
+    //   end: Alignment.topLeft,
+    // ).animate(_controller);
     super.initState();
   }
 

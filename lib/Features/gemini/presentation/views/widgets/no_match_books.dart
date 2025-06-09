@@ -61,7 +61,7 @@ class NoMatchBooks extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          errorMessage.split(',')[1] ?? '', // Second sentence
+                          errorMessage.split(',')[1], // Second sentence
                           style: Styles.textStyle18.copyWith(
                             fontWeight: FontWeight.w900,
                           ),

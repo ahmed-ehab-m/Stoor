@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:bookly_app/core/utils/assets_data.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,14 +17,6 @@ class CustomErrorWidget extends StatelessWidget {
           filter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20), // تأثير Blur
           child: Container(
             decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   colors: [
-              //     Colors.purple.withOpacity(0.4), // لون بنفسجي فاتح
-              //     Colors.black.withOpacity(0.6), // لون بنفسجي غامق
-              //   ],
-              //   begin: Alignment.topLeft,
-              //   end: Alignment.bottomRight,
-              // ),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -37,7 +30,7 @@ class CustomErrorWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min, // لضبط الحجم حسب المحتوى
               children: [
                 SvgPicture.asset(
-                  'assets/images/errorRobot.svg',
+                  AssetsData.errorRobot,
                   height: 250,
                   width: 250,
                 ),
@@ -53,7 +46,7 @@ class CustomErrorWidget extends StatelessWidget {
                       const SizedBox(height: 10), // مسافة صغيرة بين الجملتين
 
                       Text(
-                        errorMessage.split(',')[1] ?? '', // Second sentence
+                        errorMessage.split(',')[1], // Second sentence
                         style: Styles.textStyle16.copyWith(color: Colors.grey),
                         textAlign: TextAlign.center,
                       ),

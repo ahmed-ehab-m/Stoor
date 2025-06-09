@@ -50,16 +50,14 @@ class NewestBookSkeleton extends StatelessWidget {
                               SizedBox(
                                 height: 20,
                               ),
-                              Container(
-                                child: Row(children: [
-                                  Skeleton.leaf(
-                                    child: Text(
-                                      'Free      ',
-                                      style: Styles.textStyle20,
-                                    ),
+                              Row(children: [
+                                Skeleton.leaf(
+                                  child: Text(
+                                    'Free      ',
+                                    style: Styles.textStyle20,
                                   ),
-                                ]),
-                              ),
+                                ),
+                              ]),
                               Spacer(),
                               Skeleton.leaf(
                                 child: Text(

@@ -54,7 +54,6 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                     searchQuery = value;
                     searchResult = searchBooks(widget.books, value);
                     setState(() {});
-                    print(searchQuery);
                   },
                 ),
               ),

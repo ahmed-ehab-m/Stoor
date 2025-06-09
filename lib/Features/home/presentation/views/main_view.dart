@@ -104,7 +104,6 @@ class _MainViewState extends State<MainView> {
                 }
               }
             } else if (scrollNotification is ScrollEndNotification) {
-              print('scroll stoppppppppppppppppppppppppppped');
               Future.delayed(const Duration(seconds: 3), () {
                 if (mounted) {
                   setState(() {
@@ -176,8 +175,6 @@ class _MainViewState extends State<MainView> {
                                         .size.height; // تحديث الـ Height
                                     _heightCalculated =
                                         true; // علامة إن الـ Height اتحسب
-                                    print(barHeight);
-                                    print('hello');
                                   });
                                 }
                               });

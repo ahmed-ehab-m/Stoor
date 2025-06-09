@@ -4,7 +4,7 @@ import 'package:bookly_app/Features/splash/presentation/views/manager/splash_cub
 import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_logo_animation.dart';
 import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_test_animation.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
-import 'package:bookly_app/core/utils/assetsData.dart';
+import 'package:bookly_app/core/utils/assets_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

@@ -8,7 +8,6 @@ import 'package:bookly_app/Features/settings/presentation/manager/change_setting
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class BookDetailsSection extends StatefulWidget {
@@ -105,7 +104,7 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                 return Skeletonizer(
                   enabled: enabled,
                   child: Text(
-                    description ?? 'No description available for this book',
+                    description,
                     textAlign: TextAlign.start,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 5,

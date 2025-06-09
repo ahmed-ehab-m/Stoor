@@ -8,6 +8,8 @@ import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart'
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
+import 'package:dynamic_background/domain/models/painter_data/lava_painter_data.dart';
+import 'package:dynamic_background/widgets/views/dynamic_bg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,54 +39,60 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
             BlocProvider.of<GeminiCubit>(context).chatHistory;
         return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
           builder: (context, state) {
-            return Stack(
-              children: [
-                // Radial Gradient أول
-                Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    // gradient: LinearGradient(
-                    //   colors: [Color(0xfff7f8f8), Color(0xffacbb78)],
-                    //   stops: [0, 1],
-                    //   begin: Alignment.topLeft,
-                    //   end: Alignment.bottomRight,
-                    // )
-
-                    // gradient: RadialGradient(
-                    //   center: Alignment.bottomRight,
-                    //   radius: 0.5,
-                    //   focalRadius: 1,
-                    //   colors: [
-                    //     Color(0xFFA855F7).withOpacity(0.5), // Purple مع Opacity
-                    //     BlocProvider.of<ChangeSettingsCubit>(context)
-                    //         .backgroundColor!
-                    //         .withOpacity(0.2), // لون الخلفية مع Opacity
-                    //   ],
-                    // ),
-                  ),
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: screenSizeHelper.horizontalPadding,
-                    vertical: screenSizeHelper.homeVerticalPadding,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GeminiTitle(),
-                      if (chatHistory.isEmpty && !isloading)
-                        InitialBookStateUi(),
-                      Expanded(
-                        child: GeminiChat(),
-                      ),
-                      GeminiTextField(controller: _controller),
+                child: DynamicBg(
+                  duration: const Duration(seconds: 35),
+                  painterData: LavaPainterData(
+                    width: 250.0,
+                    widthTolerance: 75.0,
+                    growAndShrink: true,
+                    growthRate: 10.0,
+                    growthRateTolerance: 5.0,
+                    blurLevel: 25.0,
+                    numBlobs: 5,
+                    backgroundColor: Colors.transparent, // خلفية داكنة هادئة
+                    colors: [
+                      Color(0xFF6B46C1)
+                          .withOpacity(0.6), // Purple غامق (مشتق من Indigo)
+                      Color(0xFF8E44AD)
+                          .withOpacity(0.5), // Purple متوسط (مشتق من Amethyst)
+                      Color(0xFFBB6BD9)
+                          .withOpacity(0.4), // Purple فاتح (مشتق من Lavender)
+                      Color(0xFF3498DB).withOpacity(0.3), // Blue فاتح للتوازن
                     ],
+                    allSameColor: false,
+                    fadeBetweenColors: true,
+                    changeColorsTogether: false,
+                    speed: 20.0,
+                    speedTolerance: 5.0,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenSizeHelper.horizontalPadding,
+                      vertical: screenSizeHelper.homeVerticalPadding,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GeminiTitle(),
+                        if (chatHistory.isEmpty && !isloading)
+                          InitialBookStateUi(),
+                        Expanded(
+                          child: GeminiChat(),
+                        ),
+                        GeminiTextField(controller: _controller),
+                      ],
+                    ),
                   ),
                 ),
-              ],
+              ),
             );
           },
         );
