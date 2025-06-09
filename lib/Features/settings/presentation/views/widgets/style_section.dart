@@ -12,7 +12,7 @@ class StyleSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomSectionTitle(title: 'Style'),
+        const CustomSectionTitle(title: 'Style'),
         BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
           builder: (context, state) {
             int indexFont =
@@ -29,7 +29,7 @@ class StyleSection extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         'Theme',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
@@ -47,10 +47,10 @@ class StyleSection extends StatelessWidget {
                           thridption: 'Default'),
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         'Font Size',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),

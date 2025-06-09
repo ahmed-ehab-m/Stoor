@@ -25,7 +25,7 @@ class GeminiCubit extends Cubit<GeminiState> {
   ///
   Future<void> saveChatHistory(
       {required List<ChatMessageModel> chatHistory}) async {
-    emit(GeminiMessageLoadingState());
+    emit(const GeminiMessageLoadingState());
     var result = await _geminiRepo.saveChatHistory(chatHistory);
     result.fold((failure) {
       emit(
@@ -34,13 +34,13 @@ class GeminiCubit extends Cubit<GeminiState> {
         ),
       );
     }, (success) {
-      emit(GeminiMessageSavedState());
+      emit(const GeminiMessageSavedState());
     });
   }
 
 /////////////////////////////////////////////////
   Future<void> getChatHistory() async {
-    emit(GeminiChatHistoryLoadingState());
+    emit(const GeminiChatHistoryLoadingState());
     var result = await _geminiRepo.getChatHistory();
 
     result.fold((failure) {

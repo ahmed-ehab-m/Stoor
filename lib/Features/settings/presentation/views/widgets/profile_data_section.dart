@@ -42,7 +42,7 @@ class _ProfileDataSectionState extends State<ProfileDataSection> {
 
         return Column(
           children: [
-            ProfileImage(),
+            const ProfileImage(),
             const SizedBox(
               height: 10,
             ),
@@ -55,7 +55,7 @@ class _ProfileDataSectionState extends State<ProfileDataSection> {
                 style: Styles.textStyle18.copyWith(fontWeight: FontWeight.w900),
               ),
             ),
-            CustomSectionTitle(title: 'Profile'),
+            const CustomSectionTitle(title: 'Profile'),
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.2),
@@ -75,7 +75,7 @@ class _ProfileDataSectionState extends State<ProfileDataSection> {
                           .updateName(newName: _nameController.text);
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ProfileTextField(
                     iconData: HugeIcons.strokeRoundedMail01,
                     validator: (value) {

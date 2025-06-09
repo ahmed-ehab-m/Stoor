@@ -27,7 +27,7 @@ class TestAnimation extends StatelessWidget {
             height: screenSizeHelper.screenHeight * 0.4,
             fit: BoxFit.cover,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
       ),
     );

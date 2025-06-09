@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class NewestBookImage extends StatelessWidget {
   const NewestBookImage({
@@ -13,7 +13,7 @@ class NewestBookImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(10),
           bottomRight: Radius.circular(10),
         ),
@@ -23,7 +23,7 @@ class NewestBookImage extends StatelessWidget {
             fit: BoxFit.fill,
             imageUrl: imageUrl,
             errorWidget: (context, url, error) => const Icon(
-              FontAwesomeIcons.solidImage,
+              HugeIcons.strokeRoundedImageNotFound01,
               size: 40,
             ),
           ),

@@ -22,46 +22,31 @@ class BookRecommended extends StatelessWidget {
               extra: bookModel,
             );
           },
-          child: Container(
-            // decoration: BoxDecoration(
-            //   color: Colors.grey.withOpacity(0.1),
-            //   borderRadius: BorderRadius.only(
-            //     topRight: Radius.circular(20),
-            //     topLeft: Radius.circular(0),
-            //     bottomRight: Radius.circular(20),
-            //     bottomLeft: Radius.circular(20),
-            //   ),
-            //   // border: Border.all(color: Colors.red),
-            // ),
-            // decoration: BoxDecoration(
-            //   color: Colors.grey.withOpacity(0.3),
-            // ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // const SizedBox(
-                //   height: 38,
-                // ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 80),
-                  child: NewestBookImage(
-                    imageUrl: bookModel?.volumeInfo.imageLinks.thumbnail ??
-                        'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
-                  ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // const SizedBox(
+              //   height: 38,
+              // ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 80),
+                child: NewestBookImage(
+                  imageUrl: bookModel?.volumeInfo.imageLinks.thumbnail ??
+                      'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
                 ),
-                const SizedBox(
-                  height: 20,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                textAlign: TextAlign.center,
+                bookModel?.volumeInfo.title ?? 'Book Title',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(
-                  textAlign: TextAlign.center,
-                  bookModel?.volumeInfo.title ?? 'Book Title',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

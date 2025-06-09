@@ -23,7 +23,7 @@ class QuestionsGridView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 20,
       children: [
-        GeminiSubTitle(),
+        const GeminiSubTitle(),
         Text(
           'Recent Questions:',
           style: Styles.textStyle18.copyWith(

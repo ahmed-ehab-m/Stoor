@@ -10,9 +10,9 @@ class CustomLoadingAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        BotIcon(),
+        const BotIcon(),
         Lottie.asset(
-          AssetsData.typingAnimation,
+          AssetsData.typingAnimation2,
           width: 50,
           height: 50,
           // fit: BoxFit.cover,

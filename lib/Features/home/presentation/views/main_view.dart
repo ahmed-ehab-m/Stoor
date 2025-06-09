@@ -6,7 +6,6 @@ import 'package:bookly_app/Features/settings/presentation/manager/change_setting
 import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/Features/settings/presentation/views/settings_view.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,10 +26,10 @@ class _MainViewState extends State<MainView> {
   bool _heightCalculated = false; // متغير جديد
   List<BookModel> books = [];
   List<Widget> screens = [
-    HomeView(),
-    BookMarksView(),
-    GeminiView(),
-    SettingsView()
+    const HomeView(),
+    const BookMarksView(),
+    const GeminiView(),
+    const SettingsView()
   ];
   /////////////////////////
   void _onItemTapped(int index) {
@@ -151,7 +150,7 @@ class _MainViewState extends State<MainView> {
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
                               blurRadius: 5,
-                              offset: Offset(0, 0),
+                              offset: const Offset(0, 0),
                             ),
                           ],
                         ),
@@ -204,14 +203,14 @@ class _MainViewState extends State<MainView> {
                                 ),
                                 IconButton(
                                   icon: _currentIndex == 2
-                                      ? CustomShaderMask(
+                                      ? const CustomShaderMask(
                                           child: Icon(
                                             HugeIcons.strokeRoundedRobot01,
                                             color: Colors.white,
                                             size: 35,
                                           ),
                                         )
-                                      : Icon(
+                                      : const Icon(
                                           HugeIcons.strokeRoundedRobot01,
                                           color: Colors.grey,
                                           size: 35,
@@ -223,7 +222,7 @@ class _MainViewState extends State<MainView> {
                                     HugeIcons.strokeRoundedSettings02,
                                     size: 30,
                                     color: _currentIndex == 3
-                                        ? kPrimaryColor
+                                        ? const Color(0xFFA855F7)
                                         : Colors.grey,
                                   ),
                                   onPressed: () => _onItemTapped(3),

@@ -23,18 +23,18 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         vertical: screenSizeHelper.homeVerticalPadding,
       ),
       child: ListView(
-        children: [
+        children: const [
           SettingsTitle(),
-          const SizedBox(
+          SizedBox(
             height: 20,
           ),
           ProfileDataSection(),
           StyleSection(),
-          const SizedBox(
+          SizedBox(
             height: 10,
           ),
           LogoutButton(),
-          const SizedBox(
+          SizedBox(
             height: 20,
           ),
         ],

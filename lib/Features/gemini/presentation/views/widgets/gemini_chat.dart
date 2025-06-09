@@ -57,10 +57,10 @@ class _GeminiChatState extends State<GeminiChat> {
             showSnackBar(context,
                 message: state.errorMessage, color: Colors.red);
           }
-          if (state is GeminiErrorState) {
-            showSnackBar(context,
-                message: state.errorMessage, color: Colors.red);
-          }
+          // if (state is GeminiErrorState) {
+          //   showSnackBar(context,
+          //       message: state.errorMessage, color: Colors.red);
+          // }
         },
         builder: (context, state) {
           // دايمًا استخدم chatHistory من GeminiCubit

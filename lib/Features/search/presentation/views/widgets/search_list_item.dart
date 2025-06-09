@@ -35,7 +35,7 @@ class _SearchListItemState extends State<SearchListItem> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(30),
             topLeft: Radius.circular(0),
             bottomRight: Radius.circular(30),
@@ -49,7 +49,7 @@ class _SearchListItemState extends State<SearchListItem> {
               NewestBookImage(
                   imageUrl:
                       widget.bookModel?.volumeInfo.imageLinks.thumbnail ?? ''),
-              SizedBox(width: 30),
+              const SizedBox(width: 30),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,17 +64,17 @@ class _SearchListItemState extends State<SearchListItem> {
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
                     Text(
                       widget.bookModel?.volumeInfo.authors![0] ?? 'No author',
                       style: Styles.textStyle14,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Text(
                           'Free',
@@ -82,8 +82,8 @@ class _SearchListItemState extends State<SearchListItem> {
                         ),
                       ],
                     ),
-                    Spacer(),
-                    BookRating(
+                    const Spacer(),
+                    const BookRating(
                       rating: '0.0',
                       reviewsCount: 0,
                     ),

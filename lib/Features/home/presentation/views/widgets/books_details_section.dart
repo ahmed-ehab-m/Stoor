@@ -22,7 +22,6 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
   @override
   void initState() {
     getBookDescription();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -40,10 +39,10 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
         return Column(
           children: [
             const SizedBox(
-              height: 38,
+              height: 12,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 80),
               child: NewestBookImage(
                 imageUrl: widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
                     'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
@@ -77,7 +76,7 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
             const SizedBox(
               height: 18,
             ),
-            BookRating(
+            const BookRating(
               mainAxisAlignment: MainAxisAlignment.center,
               rating: '4.5',
               reviewsCount: 100,
@@ -102,16 +101,21 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                   enabled = false;
                 }
                 return Skeletonizer(
-                  enabled: enabled,
-                  child: Text(
-                    description,
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 5,
-                    style: TextStyle(
-                      fontSize: BlocProvider.of<ChangeSettingsCubit>(context)
-                          .descriptionFontSize,
-                      color: Colors.grey[700],
+                  enabled: false,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      // description,
+                      widget.bookModel?.volumeInfo.description ??
+                          'No description available yet',
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 5,
+                      style: TextStyle(
+                        fontSize: BlocProvider.of<ChangeSettingsCubit>(context)
+                            .descriptionFontSize,
+                        color: Colors.grey[700],
+                      ),
                     ),
                   ),
                 );
@@ -120,12 +124,13 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
             const SizedBox(
               height: 30,
             ),
+
             BookAction(
               bookModel: widget.bookModel,
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
           ],
         );
       },

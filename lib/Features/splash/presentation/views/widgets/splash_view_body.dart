@@ -72,7 +72,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                stops: [0, 1],
+                stops: const [0, 1],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: BlocProvider.of<ChangeSettingsCubit>(context)

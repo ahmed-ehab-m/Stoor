@@ -59,13 +59,14 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                     numBlobs: 5,
                     backgroundColor: Colors.transparent, // خلفية داكنة هادئة
                     colors: [
-                      Color(0xFF6B46C1)
+                      const Color(0xFF6B46C1)
                           .withOpacity(0.6), // Purple غامق (مشتق من Indigo)
-                      Color(0xFF8E44AD)
+                      const Color(0xFF8E44AD)
                           .withOpacity(0.5), // Purple متوسط (مشتق من Amethyst)
-                      Color(0xFFBB6BD9)
+                      const Color(0xFFBB6BD9)
                           .withOpacity(0.4), // Purple فاتح (مشتق من Lavender)
-                      Color(0xFF3498DB).withOpacity(0.3), // Blue فاتح للتوازن
+                      const Color(0xFF3498DB)
+                          .withOpacity(0.3), // Blue فاتح للتوازن
                     ],
                     allSameColor: false,
                     fadeBetweenColors: true,
@@ -81,10 +82,10 @@ class _GeminiViewBodyState extends State<GeminiViewBody> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GeminiTitle(),
+                        const GeminiTitle(),
                         if (chatHistory.isEmpty && !isloading)
-                          InitialBookStateUi(),
-                        Expanded(
+                          const InitialBookStateUi(),
+                        const Expanded(
                           child: GeminiChat(),
                         ),
                         GeminiTextField(controller: _controller),

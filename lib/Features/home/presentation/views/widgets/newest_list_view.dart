@@ -33,12 +33,12 @@ class NewestListView extends StatelessWidget {
             child: Center(
               child: Text(
                 state.errorMessage,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
             ),
           );
         } else {
-          return Skeletonizer.sliver(
+          return const Skeletonizer.sliver(
             // effect:ShimmerEffect() ,
             enabled: true,
             child: NewestBookSkeleton(),
@@ -49,7 +49,7 @@ class NewestListView extends StatelessWidget {
   }
 }
 
-BookModel mockupBookModel = BookModel(
+BookModel mockupBookModel = const BookModel(
   id: '1',
   volumeInfo: VolumeInfo(
     title: 'Sample Book Title',

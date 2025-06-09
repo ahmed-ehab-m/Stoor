@@ -15,10 +15,10 @@ class CustomSectionTitle extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10),
           child: Text(
             title,
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            style: const TextStyle(fontSize: 16, color: Colors.grey),
           ),
         ),
-        Divider(),
+        const Divider(),
         const SizedBox(
           height: 20,
         ),

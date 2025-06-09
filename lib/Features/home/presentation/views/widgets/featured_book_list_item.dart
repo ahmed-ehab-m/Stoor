@@ -4,7 +4,7 @@ import 'package:bookly_app/core/utils/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class FeaturedBookListItem extends StatelessWidget {
   const FeaturedBookListItem(
@@ -32,7 +32,7 @@ class FeaturedBookListItem extends StatelessWidget {
                   : Colors.black,
               // elevation: 10,
               child: ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(10),
                   bottomRight: Radius.circular(10),
                 ),
@@ -42,7 +42,7 @@ class FeaturedBookListItem extends StatelessWidget {
                     fit: BoxFit.fill,
                     imageUrl: imageUrl,
                     errorWidget: (context, url, error) => const Icon(
-                      FontAwesomeIcons.solidImage,
+                      HugeIcons.strokeRoundedImageNotFound01,
                       size: 40,
                     ),
                   ),

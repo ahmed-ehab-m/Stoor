@@ -89,7 +89,8 @@ class AuthRepoImpl implements AuthRepo {
     try {
       await FirebaseAuth.instance.signOut();
       final cacheResult = await _localDatasource.deleteUserData();
-      return cacheResult.fold((failure) => Left(failure), (_) => Right(null));
+      return cacheResult.fold(
+          (failure) => Left(failure), (_) => const Right(null));
     } on FirebaseAuthException catch (e) {
       return Left(ServerFailure.fromFirebaseAuthError(e.code));
     } on DioException catch (e) {
@@ -204,7 +205,7 @@ class AuthRepoImpl implements AuthRepo {
       final cacheResult = await _localDatasource.saveUserData(updatedUser);
       return cacheResult.fold(
         (failure) => Left(failure),
-        (_) => Right(null),
+        (_) => const Right(null),
       );
     } on FirebaseAuthException catch (e) {
       return Left(ServerFailure.fromFirebaseAuthError(e.code));
@@ -239,7 +240,7 @@ class AuthRepoImpl implements AuthRepo {
       final cacheResult = await _localDatasource.saveUserData(updatedUser);
       return cacheResult.fold(
         (failure) => Left(failure),
-        (_) => Right(null),
+        (_) => const Right(null),
       );
     } on FirebaseAuthException catch (e) {
       return Left(ServerFailure.fromFirebaseAuthError(e.code));

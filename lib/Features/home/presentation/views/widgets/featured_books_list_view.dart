@@ -42,7 +42,7 @@ class FeaturedBooksListView extends StatelessWidget {
         } else if (state is FeaturedBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         } else {
-          return FeaturedBookSkeleton();
+          return const FeaturedBookSkeleton();
         }
       },
     );

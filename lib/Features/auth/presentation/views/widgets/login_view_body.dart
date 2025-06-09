@@ -60,11 +60,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   spacing: screenSizeHelper.screenHeight * 0.02,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomLogo(),
+                    const CustomLogo(),
                     Center(
                       child: Column(
                         children: [
-                          Text('Welcome Back !', style: Styles.textStyle40),
+                          const Text('Welcome Back !',
+                              style: Styles.textStyle40),
                           Text('Dive Into Your Books Again',
                               style: Styles.textStyle24.copyWith(
                                 fontFamily: 'DancingScript-VariableFont_wght',
@@ -84,7 +85,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         return FormValidation.validateEmail(value!);
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     CustomTextFormField(

@@ -10,8 +10,6 @@ import 'package:bookly_app/Features/home/presentation/manager/featured_books_cub
 import 'package:bookly_app/Features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
-import 'package:bookly_app/Features/splash/presentation/views/manager/splash_cubit/splash_cubit.dart';
-import 'package:bookly_app/core/data/data_sources/local_data_source_impl.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +40,9 @@ class BooklyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => SplashCubit(
-                  getIt.get<LocalDatasourceImpl>(),
-                  getIt.get<AuthRepoImpl>(),
-                )),
+          create: (context) =>
+              GeminiCubit(getIt.get<GeminiRepoImpl>())..getChatHistory(),
+        ),
         BlocProvider(
             create: (context) => ProfileCubit(
                   getIt.get<AuthRepoImpl>(),
@@ -64,9 +61,7 @@ class BooklyApp extends StatelessWidget {
               ChangeSettingsCubit(getIt.get<SettingsRepoImpl>())
                 ..changeTheme(savedThemeIndex),
         ),
-        BlocProvider<GeminiCubit>(
-            create: (context) =>
-                GeminiCubit(getIt.get<GeminiRepoImpl>())..getChatHistory()),
+
         // . return value of the function , .. is the spread operator
         // after create cubit call this function to fetch data
         // best Practice is to call the function in the cubit constructor
@@ -82,9 +77,6 @@ class BooklyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
         builder: (context, state) {
-          // return MaterialApp(
-          //   home: GeminiChat(),
-          // );
           return MaterialApp.router(
             routerConfig: AppRouter.router,
             title: 'Stoor',
@@ -95,10 +87,6 @@ class BooklyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
           );
-          // return MaterialApp(
-          //   home: TestAnimation(),
-          //   a
-          // );
         },
       ),
     );

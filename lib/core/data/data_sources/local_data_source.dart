@@ -34,7 +34,6 @@ abstract class LocalDatasource {
   bool isFirstTime();
   void setFirstTimeDone();
 
-  Future<bool> isLoggedIn();
   ////////////save Gemini chat history//////////////////
   Future<Either<Failure, void>> saveGeminiChatHistory(
       List<ChatMessageModel> chatHistory);

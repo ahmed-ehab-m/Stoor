@@ -62,7 +62,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
                       style: Styles.textStyle18
                           .copyWith(fontWeight: FontWeight.w900),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                         onPressed: () {
                           searchResult =
@@ -71,7 +71,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
                           GoRouter.of(context)
                               .push(AppRouter.KSearchView, extra: searchResult);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           HugeIcons.strokeRoundedSearch01,
                           size: 20,
                           // color: kPrimaryColor,

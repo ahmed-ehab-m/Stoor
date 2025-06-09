@@ -15,4 +15,6 @@ class AssetsData {
   // Gemini view
   static const String typingAnimation =
       "${KAnimationsPath}typingAnimation.json";
+  static const String typingAnimation2 =
+      "${KAnimationsPath}typingAnimation2.json";
 }

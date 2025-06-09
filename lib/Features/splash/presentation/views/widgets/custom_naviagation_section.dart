@@ -50,12 +50,12 @@ class CustomNaviagationSection extends StatelessWidget {
                           'Skip',
                           style: Styles.textStyle20.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFFA855F7)),
+                              color: const Color(0xFFA855F7)),
                         ),
                       ),
                     ),
                   )
-                : Expanded(child: SizedBox()),
+                : const Expanded(child: SizedBox()),
             Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
@@ -72,7 +72,8 @@ class CustomNaviagationSection extends StatelessWidget {
                   child: Text(
                     currentPage == 1 ? 'Get Started' : 'Next',
                     style: Styles.textStyle20.copyWith(
-                        fontWeight: FontWeight.bold, color: Color(0xFFA855F7)),
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFFA855F7)),
                   ),
                 ),
               ),

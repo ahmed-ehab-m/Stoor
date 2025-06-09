@@ -8,7 +8,7 @@ class CustomShaderMask extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShaderMask(
         shaderCallback: (bounds) {
-          return LinearGradient(
+          return const LinearGradient(
             colors: [
               Color(0xFFEC4899), // Pink
               Color(0xFFA855F7), // Purple

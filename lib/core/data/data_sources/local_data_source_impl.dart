@@ -45,7 +45,7 @@ class LocalDatasourceImpl implements LocalDatasource {
   Future<Either<Failure, void>> removeProfileImage() async {
     try {
       await prefs.remove(kProfileImage);
-      return Right(null);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure(e.toString()));
     }
@@ -96,7 +96,7 @@ class LocalDatasourceImpl implements LocalDatasource {
   Future<Either<Failure, void>> saveUserData(UserModel user) async {
     try {
       await prefs.setString(kUserData, user.toJson());
-      return Right(null);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure.fromCahceError(e.toString()));
     }
@@ -107,7 +107,7 @@ class LocalDatasourceImpl implements LocalDatasource {
   Future<Either<Failure, UserModel?>> getUserData() async {
     try {
       final jsonString = prefs.getString(kUserData);
-      if (jsonString == null) return Right(null);
+      if (jsonString == null) return const Right(null);
       final userModel = UserModel.fromjsonString(jsonString);
       return Right(userModel);
     } on Exception catch (e) {
@@ -120,7 +120,7 @@ class LocalDatasourceImpl implements LocalDatasource {
   Future<Either<Failure, void>> deleteUserData() async {
     try {
       prefs.remove(kUserData);
-      return Right(null);
+      return const Right(null);
     } on Exception catch (e) {
       return Left(CacheFailure.fromCahceError(e.toString()));
     }
@@ -165,18 +165,13 @@ class LocalDatasourceImpl implements LocalDatasource {
   }
 
 //////////////////////////////////////////////////
-  @override
-  Future<bool> isLoggedIn() {
-    // TODO: implement isLoggedIn
-    throw UnimplementedError();
-  }
 
 /////////////////////////////////////////////////////
   @override
   Future<Either<Failure, List<ChatMessageModel>>> getGeminiChatHistory() async {
     try {
       final jsonString = prefs.getString(KChatHistory);
-      if (jsonString == null || jsonString.isEmpty) return Right([]);
+      if (jsonString == null || jsonString.isEmpty) return const Right([]);
       final List<dynamic> jsonData = jsonDecode(jsonString);
       final chatHistory = jsonData
           .cast<Map<String, dynamic>>()
@@ -197,7 +192,7 @@ class LocalDatasourceImpl implements LocalDatasource {
       final jsonString =
           jsonEncode(chatHistory.map((msg) => msg.toJson()).toList());
       await prefs.setString(KChatHistory, jsonString);
-      return Right(null);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure.fromCahceError(e.toString()));
     }

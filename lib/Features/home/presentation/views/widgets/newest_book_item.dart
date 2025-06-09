@@ -7,8 +7,8 @@ import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class NewestBookItem extends StatefulWidget {
   const NewestBookItem({super.key, this.bookModel, this.searchQuery});
@@ -33,7 +33,7 @@ class _NewestBookItemState extends State<NewestBookItem> {
           SizedBox(
             height: 180,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(20),
@@ -44,21 +44,27 @@ class _NewestBookItemState extends State<NewestBookItem> {
                       imageUrl:
                           widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
                               ''),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 15),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.5,
-                          child: highlightText(
-                            text: widget.bookModel!.volumeInfo.title ??
-                                'No title',
-                            searchQuery: widget.searchQuery ?? '',
-                            baseStyle: Styles.textStyle18,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: highlightText(
+                                  text: widget.bookModel!.volumeInfo.title ??
+                                      'No title',
+                                  searchQuery: widget.searchQuery ?? '',
+                                  baseStyle: Styles.textStyle18,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 3,
                         ),
                         Text(
@@ -66,19 +72,17 @@ class _NewestBookItemState extends State<NewestBookItem> {
                               'No author',
                           style: Styles.textStyle14,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          child: Row(children: [
-                            Text(
-                              'Free',
-                              style: Styles.textStyle20,
-                            ),
-                          ]),
-                        ),
-                        Spacer(),
-                        BookRating(
+                        const Row(children: [
+                          Text(
+                            'Free',
+                            style: Styles.textStyle20,
+                          ),
+                        ]),
+                        const Spacer(),
+                        const BookRating(
                           rating: '0.0',
                           reviewsCount: 0,
                         ),
@@ -102,8 +106,8 @@ class _NewestBookItemState extends State<NewestBookItem> {
                 builder: (context, state) {
                   return Icon(
                     isBookmarked
-                        ? FontAwesomeIcons.solidBookmark
-                        : FontAwesomeIcons.bookmark,
+                        ? HugeIcons.strokeRoundedBookmark02
+                        : HugeIcons.strokeRoundedBookmark02,
                     color: isBookmarked
                         ? Colors.amber
                         : BlocProvider.of<ChangeSettingsCubit>(context)

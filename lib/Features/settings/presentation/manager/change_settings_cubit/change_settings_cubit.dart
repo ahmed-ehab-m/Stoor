@@ -12,21 +12,11 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
   }
 
   final SettingsRepo settingsRepo;
-  List<Color> get geminiColors => theme == Brightness.light
-      ? [
-          Color(0xFFF3E8FF), // Pastel Purple
-          Color(0xFFFCE7F3), // Pastel Pink
-          Color(0xFFE0F2FE), // Sky Blue
-        ]
-      : [
-          Color(0xFF1A0B2E), // Deep Purple (قريب من الأسود بس فيه لمسة أرجواني)
-          Color(0xFF2A1B3D), // Dark Indigo (مزيج من الأرجواني والأزرق الغامق)
-          Color(0xFF4A1A3F), // Dark Plum (لمسة Pink غامقة للحيوية)
-        ];
+
   /////////////////////////////////////////////
   List<Color> get gradientColors => theme == Brightness.dark
-      ? [kPrimaryColor, Color(0xff3c1053)]
-      : [kPrimaryColor, Color(0xffffc0cb)];
+      ? [kPrimaryColor, const Color(0xff3c1053)]
+      : [kPrimaryColor, const Color(0xffffc0cb)];
   ///////////////////////
   List<Color> get questionsColors => theme == Brightness.dark
       ? [

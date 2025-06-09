@@ -39,7 +39,7 @@ class ProfileImage extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: Colors.grey.withOpacity(0.3),
                         radius: 70,
-                        child: Icon(
+                        child: const Icon(
                           HugeIcons.strokeRoundedUser,
                           size: 80,
                           color: Colors.white,
@@ -47,7 +47,7 @@ class ProfileImage extends StatelessWidget {
                       ),
                       // Icon(HugeIcons.strokeRoundedUserCircle02, size: 150),
 
-                      CameraIcon(),
+                      const CameraIcon(),
                     ],
                   )
                 : Stack(
@@ -58,7 +58,7 @@ class ProfileImage extends StatelessWidget {
                         key:
                             ValueKey(imagePath), // Force rebuild with new image
                       ),
-                      CameraIcon(),
+                      const CameraIcon(),
                     ],
                   ),
           ),

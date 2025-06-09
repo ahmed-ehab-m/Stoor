@@ -25,7 +25,7 @@ class LogoutButton extends StatelessWidget {
           buttonChild = const CircularProgressIndicator();
         }
         if (state is SignOutFailure) {
-          buttonChild = Text('Log out');
+          buttonChild = const Text('Log out');
           showSnackBar(context, message: state.message, color: Colors.red);
         }
         return ElevatedButton(
@@ -45,7 +45,7 @@ class LogoutButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 HugeIcons.strokeRoundedLogout02,
                 size: 25,
               ),

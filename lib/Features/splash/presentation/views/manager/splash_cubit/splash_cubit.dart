@@ -28,7 +28,7 @@ class SplashCubit extends Cubit<SplashState> {
         }
       }
     } catch (e) {
-      emit(SplashError('Failed to check app status'));
+      emit(const SplashError('Failed to check app status'));
     }
   }
 }

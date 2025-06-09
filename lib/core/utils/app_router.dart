@@ -1,3 +1,4 @@
+import 'package:bookly_app/Features/auth/data/repos/auth_repo_impl.dart';
 import 'package:bookly_app/Features/auth/presentation/views/login_view.dart';
 import 'package:bookly_app/Features/auth/presentation/views/signup_view.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/book_marks_view.dart';
@@ -10,8 +11,10 @@ import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/home/presentation/views/main_view.dart';
 import 'package:bookly_app/Features/search/presentation/views/search_view.dart';
 import 'package:bookly_app/Features/settings/presentation/views/settings_view.dart';
+import 'package:bookly_app/Features/splash/presentation/views/manager/splash_cubit/splash_cubit.dart';
 import 'package:bookly_app/Features/splash/presentation/views/onboarding_view.dart';
 import 'package:bookly_app/Features/splash/presentation/views/splash_view.dart';
+import 'package:bookly_app/core/data/data_sources/local_data_source_impl.dart';
 import 'package:bookly_app/core/utils/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +36,13 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const SplashView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => SplashCubit(
+            getIt.get<LocalDatasourceImpl>(),
+            getIt.get<AuthRepoImpl>(),
+          ),
+          child: const SplashView(),
+        ),
       ),
       GoRoute(
         path: KOnboardingView,

@@ -22,7 +22,7 @@ class GeminiRepoImpl implements GeminiRepo {
     var cacheResult = await _localDatasource.saveGeminiChatHistory(chatHistory);
     return cacheResult.fold(
       (failure) => Left(failure),
-      (_) => Right(null),
+      (_) => const Right(null),
     );
   }
 
@@ -62,7 +62,7 @@ class GeminiRepoImpl implements GeminiRepo {
           cleanedResponse.replaceAll('```json', '').replaceAll('```', '');
       cleanedResponse = cleanedResponse.trim();
 
-      final jsonData = jsonDecode(cleanedResponse ?? '');
+      final jsonData = jsonDecode(cleanedResponse);
       final selectedIds = jsonData.map((item) => item['id'] as String).toList();
 
       final selectedBooks =

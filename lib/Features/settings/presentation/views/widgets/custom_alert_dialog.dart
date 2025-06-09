@@ -43,7 +43,7 @@ class CustomAlertDialog extends StatelessWidget {
           buttonWidget = Row(
             spacing: 5,
             children: [
-              Icon(
+              const Icon(
                 HugeIcons.strokeRoundedPencilEdit01,
               ),
               Text('Updating...',
@@ -59,7 +59,7 @@ class CustomAlertDialog extends StatelessWidget {
           buttonWidget = Row(
             spacing: 5,
             children: [
-              Icon(
+              const Icon(
                 HugeIcons.strokeRoundedPencilEdit01,
                 // color: kPrimaryColor,
               ),
@@ -100,7 +100,7 @@ class CustomAlertDialog extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(

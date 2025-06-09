@@ -1,4 +1,3 @@
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
@@ -11,7 +10,7 @@ class CameraIcon extends StatelessWidget {
       bottom: -1,
       right: -1,
       child: CircleAvatar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: Color(0xFFA855F7),
         child: Icon(
           HugeIcons.strokeRoundedCamera01,
           color: Colors.white,

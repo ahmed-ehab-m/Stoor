@@ -12,12 +12,13 @@ class AiGhostAnimation extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: RadialGradient(
+        gradient: const RadialGradient(
           center: Alignment.center,
           radius: 0.5,
           focalRadius: 0.8,
           colors: [
             // Color.fromARGB(255, 1, 85, 202),
+
             Color(0xFFA855F7), // Purple
             // Color(0xFFA855F7), // Purple
             Colors.transparent,

@@ -2,7 +2,6 @@ import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart'
 import 'package:bookly_app/Features/search/presentation/views/widgets/custom_search_text_field.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -39,11 +38,11 @@ class _SearchViewBodyState extends State<SearchViewBody> {
           Row(
             children: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_ios_new,
                   size: 30,
                 ),
-                color: kPrimaryColor,
+                color: const Color(0xFFA855F7),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -59,12 +58,12 @@ class _SearchViewBodyState extends State<SearchViewBody> {
               ),
             ],
           ),
-          SizedBox(height: 20),
-          Text(
+          const SizedBox(height: 20),
+          const Text(
             'Search Result',
             style: Styles.textStyle18,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Expanded(
             child: SearchResultListView(
               books: searchResult,

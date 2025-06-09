@@ -19,7 +19,7 @@ class GeminiTitle extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BotIcon(),
+            const BotIcon(),
             Text(
               'Ai Bot',
               style: Styles.textStyle20

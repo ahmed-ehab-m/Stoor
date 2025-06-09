@@ -71,7 +71,7 @@ class GeminiResultListView extends StatelessWidget {
                                 // overflow: TextOverflow.ellipsis,
                                 // maxLines: 2,
                                 recommendedMessage, // First sentence
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                 ).copyWith(
                                   fontWeight: FontWeight.w900,
@@ -100,7 +100,7 @@ class GeminiResultListView extends StatelessWidget {
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           CarouselSlider.builder(

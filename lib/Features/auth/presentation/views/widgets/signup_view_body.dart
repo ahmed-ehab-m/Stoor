@@ -61,11 +61,12 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   spacing: screenSizeHelper.screenHeight * 0.02,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomLogo(),
+                    const CustomLogo(),
                     Center(
                       child: Column(
                         children: [
-                          Text('Create an Account', style: Styles.textStyle40),
+                          const Text('Create an Account',
+                              style: Styles.textStyle40),
                           Text('Start Your Reading Journey',
                               style: Styles.textStyle24.copyWith(
                                 fontFamily: 'DancingScript-VariableFont_wght',
@@ -101,7 +102,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     CustomTextFormField(
@@ -113,7 +114,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         return FormValidation.validateEmail(value!);
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     CustomTextFormField(
@@ -149,8 +150,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                           }
                         },
                         buttonChild: buttonChild),
-                    Text('Or', style: Styles.textStyle20),
-                    GoogleButton(),
+                    const Text('Or', style: Styles.textStyle20),
+                    const GoogleButton(),
                     AccountCheckRow(
                       type: 'Login',
                       onPressed: () {

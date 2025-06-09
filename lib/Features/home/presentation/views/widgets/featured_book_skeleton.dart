@@ -26,7 +26,7 @@ class FeaturedBookSkeleton extends StatelessWidget {
                     child: Card(
                       shadowColor: Colors.grey,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(10),
                           bottomRight: Radius.circular(10),
                         ),

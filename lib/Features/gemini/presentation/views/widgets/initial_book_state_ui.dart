@@ -6,6 +6,6 @@ class InitialBookStateUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return QuestionsGridView();
+    return const QuestionsGridView();
   }
 }

@@ -6,7 +6,8 @@ showSnackBar(context, {required String message, required Color color}) =>
         backgroundColor: color,
         content: Text(
           message,
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style:
+              const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
     );

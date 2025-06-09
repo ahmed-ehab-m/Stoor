@@ -25,7 +25,7 @@ class CustomLogoAnimation extends StatelessWidget {
               )
             : ShaderMask(
                 shaderCallback: (bounds) {
-                  return LinearGradient(
+                  return const LinearGradient(
                     colors: [kPrimaryColor, Colors.white],
                     tileMode: TileMode.repeated,
                   ).createShader(bounds);

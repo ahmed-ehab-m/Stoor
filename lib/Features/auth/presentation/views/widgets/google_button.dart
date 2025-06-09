@@ -23,20 +23,20 @@ class GoogleButton extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        Widget buttonChild = ButtonChildIntial();
+        Widget buttonChild = const ButtonChildIntial();
         if (state is LoginWithGoogleLoading) {
-          buttonChild = CircularProgressIndicator();
+          buttonChild = const CircularProgressIndicator();
         }
         if (state is LoginWithGoogleSuccess) {
-          buttonChild = ButtonChildIntial();
+          buttonChild = const ButtonChildIntial();
         }
         if (state is LoginWithGoogleFailure) {
-          buttonChild = ButtonChildIntial();
+          buttonChild = const ButtonChildIntial();
         }
 
         var elevatedButton = ElevatedButton(
           style: ElevatedButton.styleFrom(
-            side: BorderSide(color: Colors.black),
+            side: const BorderSide(color: Colors.black),
             minimumSize: const Size(double.infinity, 50),
             textStyle: Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
             backgroundColor: Colors.white,

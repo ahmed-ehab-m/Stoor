@@ -18,39 +18,41 @@ class NewestBookSkeleton extends StatelessWidget {
                 SizedBox(
                   height: 180,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
                       children: [
-                        Skeleton.leaf(child: NewestBookImage(imageUrl: '')),
-                        SizedBox(width: 20),
+                        const Skeleton.leaf(
+                            child: NewestBookImage(imageUrl: '')),
+                        const SizedBox(width: 20),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.5,
-                                child: Skeleton.leaf(
+                                child: const Skeleton.leaf(
                                   child: Text(
                                     'Book Title Placeholder',
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 3,
                               ),
-                              Skeleton.leaf(
+                              const Skeleton.leaf(
                                 child: Text(
                                   'No author',
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Row(children: [
+                              const Row(children: [
                                 Skeleton.leaf(
                                   child: Text(
                                     'Free      ',
@@ -58,8 +60,8 @@ class NewestBookSkeleton extends StatelessWidget {
                                   ),
                                 ),
                               ]),
-                              Spacer(),
-                              Skeleton.leaf(
+                              const Spacer(),
+                              const Skeleton.leaf(
                                 child: Text(
                                   'No rating yet',
                                 ),

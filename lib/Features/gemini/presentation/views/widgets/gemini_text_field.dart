@@ -69,7 +69,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
                   ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.white),
               ),
               suffixIcon: CustomShaderMask(
                 child: IconButton(
@@ -89,7 +89,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
                   },
                   icon: BlocBuilder<GeminiCubit, GeminiState>(
                     builder: (context, state) {
-                      Widget? sendWidget = Icon(
+                      Widget? sendWidget = const Icon(
                         Icons.send,
                         color: Colors.white,
                       );

@@ -53,8 +53,8 @@ class NoMatchBooks extends StatelessWidget {
                                 color: Colors.redAccent.shade100,
                               ),
                             ),
-                            Icon(
-                              HugeIcons.strokeRoundedAiSearch02,
+                            const Icon(
+                              HugeIcons.strokeRoundedSearchRemove,
                               size: 25,
                               color: Colors.redAccent,
                             ),

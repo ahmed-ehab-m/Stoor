@@ -64,7 +64,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     final signOutResult = await authRepo.signOut();
     signOutResult.fold(
       (failure) => emit(ProfileFailure(failure.errMessage!)),
-      (_) => emit(ProfileSuccess('Signed out successfully')),
+      (_) => emit(const ProfileSuccess('Signed out successfully')),
     );
   }
 }

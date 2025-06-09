@@ -31,7 +31,7 @@ class BookAction extends StatelessWidget {
                   backgroundColor: Colors.grey.withOpacity(0.1),
                 ),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   'Buy Now  19.99\$',
                   textAlign: TextAlign.center,
                 )),
@@ -54,7 +54,7 @@ class BookAction extends StatelessWidget {
                     bookModel?.volumeInfo.previewLink,
                   );
                 },
-                child: Row(
+                child: const Row(
                   spacing: 10,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

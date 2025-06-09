@@ -11,7 +11,7 @@ class UserChatItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.3),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(0),
           topLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),

@@ -14,12 +14,12 @@ class BookMarksViewBody extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: screenSizeHelper.horizontalPadding,
           vertical: screenSizeHelper.homeVerticalPadding),
-      child: Column(
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           LibraryTitle(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Expanded(
             child: Center(
               child: EmptyBooksWidget(),

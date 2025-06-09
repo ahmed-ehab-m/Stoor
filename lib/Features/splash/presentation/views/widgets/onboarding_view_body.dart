@@ -102,7 +102,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                         ? CustomShaderMask(
                             child: Text(
                               pages[index]['title']!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 50,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -111,7 +111,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                           )
                         : Text(
                             pages[index]['title']!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.bold,
                               // color: textColor,
@@ -119,7 +119,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                           ),
                     Text(
                       pages[index]['subtitle']!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         // color: textColor,

@@ -22,7 +22,8 @@ class CustomDropdownMenu extends StatelessWidget {
     return DropdownMenu(
       onSelected: onSelected,
       textAlign: TextAlign.end,
-      inputDecorationTheme: InputDecorationTheme(border: InputBorder.none),
+      inputDecorationTheme:
+          const InputDecorationTheme(border: InputBorder.none),
       textStyle: const TextStyle(fontWeight: FontWeight.bold),
       menuStyle: MenuStyle(
           shape: WidgetStatePropertyAll(
@@ -44,7 +45,7 @@ class CustomDropdownMenu extends StatelessWidget {
     return ButtonStyle(
       shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      textStyle: WidgetStatePropertyAll(
+      textStyle: const WidgetStatePropertyAll(
         TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
       backgroundColor: WidgetStateProperty.all(

@@ -2,8 +2,8 @@ import 'package:bookly_app/Features/settings/presentation/manager/change_setting
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class CusomBookDetailsAppBar extends StatefulWidget {
   const CusomBookDetailsAppBar({super.key});
@@ -24,7 +24,7 @@ class _CusomBookDetailsAppBarState extends State<CusomBookDetailsAppBar> {
             onPressed: () {
               GoRouter.of(context).pop();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios_new,
               size: 30,
             )),
@@ -36,8 +36,8 @@ class _CusomBookDetailsAppBarState extends State<CusomBookDetailsAppBar> {
             },
             icon: Icon(
               isBookmarked
-                  ? FontAwesomeIcons.solidBookmark
-                  : FontAwesomeIcons.bookmark,
+                  ? HugeIcons.strokeRoundedBookmark02
+                  : HugeIcons.strokeRoundedBookmark02,
               color: isBookmarked
                   ? Colors.amber
                   : BlocProvider.of<ChangeSettingsCubit>(context).iconColor,

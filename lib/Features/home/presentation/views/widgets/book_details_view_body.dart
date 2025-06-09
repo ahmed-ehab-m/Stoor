@@ -25,17 +25,17 @@ class BookDetailsViewBody extends StatelessWidget {
                 horizontal: screenSizeHelper.horizontalPadding),
             child: Column(
               children: [
-                CusomBookDetailsAppBar(),
+                const CusomBookDetailsAppBar(),
                 BookDetailsSection(
                   bookModel: bookModel,
                 ),
-                Expanded(
-                  //to make the description take all the available space (Responsive)
-                  child: const SizedBox(
-                    height:
-                        50, ////minimum height between the book action and the description
-                  ),
-                ),
+                // Expanded(
+                //   //to make the description take all the available space (Responsive)
+                //   child: const SizedBox(
+                //     height:
+                //         50, ////minimum height between the book action and the description
+                //   ),
+                // ),
                 // SimilarBooksSection(),
               ],
             ),

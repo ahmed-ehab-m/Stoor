@@ -23,7 +23,7 @@ void createCustomBotttomSheet(BuildContext context) {
               color: BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(''),
+            child: const Text(''),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
