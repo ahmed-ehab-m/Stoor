@@ -6,6 +6,7 @@ import 'package:bookly_app/Features/settings/presentation/manager/change_setting
 import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/Features/settings/presentation/views/settings_view.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -222,7 +223,7 @@ class _MainViewState extends State<MainView> {
                                     HugeIcons.strokeRoundedSettings02,
                                     size: 30,
                                     color: _currentIndex == 3
-                                        ? const Color(0xFFA855F7)
+                                        ? kSecondaryColor
                                         : Colors.grey,
                                   ),
                                   onPressed: () => _onItemTapped(3),

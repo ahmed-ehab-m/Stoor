@@ -39,6 +39,7 @@ class LogoutButton extends StatelessWidget {
               foregroundColor: Colors.white),
           onPressed: () async {
             await BlocProvider.of<AuthCubit>(context).signOut();
+
             // fetchBooks();
             // await fetchBooksWithDio();
           },

@@ -24,7 +24,7 @@ class StyleSection extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.only(left: 20),
               child: Column(
                 children: [
                   Row(

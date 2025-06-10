@@ -41,7 +41,6 @@ final class GeminiLoadedState extends GeminiState {
 final class GeminiErrorState extends GeminiState {
   final String errorMessage;
   final List<ChatMessageModel> chatHistory;
-
   const GeminiErrorState(
       {required this.errorMessage, required this.chatHistory});
   @override

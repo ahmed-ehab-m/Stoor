@@ -22,7 +22,7 @@ class GeminiRepoImpl implements GeminiRepo {
     var cacheResult = await _localDatasource.saveGeminiChatHistory(chatHistory);
     return cacheResult.fold(
       (failure) => Left(failure),
-      (_) => const Right(null),
+      (_) => Right(null),
     );
   }
 

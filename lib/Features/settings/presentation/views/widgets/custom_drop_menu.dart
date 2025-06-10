@@ -43,6 +43,8 @@ class CustomDropdownMenu extends StatelessWidget {
 
   ButtonStyle buttonStyle(int value, Color? color) {
     return ButtonStyle(
+      padding:
+          const WidgetStatePropertyAll(EdgeInsets.only(left: 10, right: 80)),
       shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
       textStyle: const WidgetStatePropertyAll(

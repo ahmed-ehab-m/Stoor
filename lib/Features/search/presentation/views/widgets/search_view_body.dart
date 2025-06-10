@@ -2,6 +2,7 @@ import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart'
 import 'package:bookly_app/Features/search/presentation/views/widgets/custom_search_text_field.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                   Icons.arrow_back_ios_new,
                   size: 30,
                 ),
-                color: const Color(0xFFA855F7),
+                color: kSecondaryColor,
                 onPressed: () {
                   Navigator.pop(context);
                 },

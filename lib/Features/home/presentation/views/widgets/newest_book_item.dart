@@ -5,10 +5,10 @@ import 'package:bookly_app/Features/settings/presentation/manager/change_setting
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class NewestBookItem extends StatefulWidget {
   const NewestBookItem({super.key, this.bookModel, this.searchQuery});
@@ -106,8 +106,8 @@ class _NewestBookItemState extends State<NewestBookItem> {
                 builder: (context, state) {
                   return Icon(
                     isBookmarked
-                        ? HugeIcons.strokeRoundedBookmark02
-                        : HugeIcons.strokeRoundedBookmark02,
+                        ? CupertinoIcons.bookmark_fill
+                        : CupertinoIcons.bookmark,
                     color: isBookmarked
                         ? Colors.amber
                         : BlocProvider.of<ChangeSettingsCubit>(context)

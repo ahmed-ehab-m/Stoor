@@ -1,9 +1,9 @@
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class CusomBookDetailsAppBar extends StatefulWidget {
   const CusomBookDetailsAppBar({super.key});
@@ -20,7 +20,7 @@ class _CusomBookDetailsAppBarState extends State<CusomBookDetailsAppBar> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-            color: kPrimaryColor,
+            color: kSecondaryColor,
             onPressed: () {
               GoRouter.of(context).pop();
             },
@@ -35,9 +35,10 @@ class _CusomBookDetailsAppBarState extends State<CusomBookDetailsAppBar> {
               });
             },
             icon: Icon(
+              size: 25,
               isBookmarked
-                  ? HugeIcons.strokeRoundedBookmark02
-                  : HugeIcons.strokeRoundedBookmark02,
+                  ? CupertinoIcons.bookmark_fill
+                  : CupertinoIcons.bookmark,
               color: isBookmarked
                   ? Colors.amber
                   : BlocProvider.of<ChangeSettingsCubit>(context).iconColor,

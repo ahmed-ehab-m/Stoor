@@ -50,7 +50,7 @@ class CustomNaviagationSection extends StatelessWidget {
                           'Skip',
                           style: Styles.textStyle20.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: const Color(0xFFA855F7)),
+                              color: kSecondaryColor),
                         ),
                       ),
                     ),

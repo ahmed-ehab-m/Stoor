@@ -11,13 +11,14 @@ class GeminiCubit extends Cubit<GeminiState> {
     this._geminiRepo,
   ) : super(GeminiInitial());
   final GeminiRepo _geminiRepo;
-  // String? question;
   List<ChatMessageModel> chatHistory = [];
+
   String userQuestion = '';
 /////////////////////////////////////////////////
   void addMessage({required String type, dynamic message, String? status}) {
     final chatMessage =
         ChatMessageModel(type: type, message: message, status: status);
+
     chatHistory.insert(0, chatMessage);
   }
 
@@ -25,7 +26,7 @@ class GeminiCubit extends Cubit<GeminiState> {
   ///
   Future<void> saveChatHistory(
       {required List<ChatMessageModel> chatHistory}) async {
-    emit(const GeminiMessageLoadingState());
+    emit(GeminiMessageLoadingState());
     var result = await _geminiRepo.saveChatHistory(chatHistory);
     result.fold((failure) {
       emit(
@@ -34,13 +35,13 @@ class GeminiCubit extends Cubit<GeminiState> {
         ),
       );
     }, (success) {
-      emit(const GeminiMessageSavedState());
+      emit(GeminiMessageSavedState());
     });
   }
 
 /////////////////////////////////////////////////
   Future<void> getChatHistory() async {
-    emit(const GeminiChatHistoryLoadingState());
+    emit(GeminiChatHistoryLoadingState());
     var result = await _geminiRepo.getChatHistory();
 
     result.fold((failure) {

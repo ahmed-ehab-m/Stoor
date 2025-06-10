@@ -23,7 +23,7 @@ class CustomImageChoice extends StatelessWidget {
               // color: Colors.white,
               borderRadius: BorderRadius.circular(50),
               border: Border.all(
-                color: kPrimaryColor,
+                color: kSecondaryColor,
                 width: 1,
               ),
             ),
