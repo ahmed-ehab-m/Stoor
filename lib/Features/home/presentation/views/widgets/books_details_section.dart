@@ -5,6 +5,7 @@ import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.
 import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,88 +50,101 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
               ),
             ),
             const SizedBox(
-              height: 20,
-            ),
-            Text(
-              textAlign: TextAlign.center,
-              widget.bookModel?.volumeInfo.title ?? 'Book Title',
-              style: TextStyle(
-                fontSize:
-                    BlocProvider.of<ChangeSettingsCubit>(context).titleFontSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 6,
-            ),
-            Opacity(
-              opacity: 0.7,
-              child: Text(
-                widget.bookModel?.volumeInfo.authors?.first ?? 'Author Name',
-                style: Styles.textStyle18.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 18,
-            ),
-            const BookRating(
-              mainAxisAlignment: MainAxisAlignment.center,
-              rating: '4.5',
-              reviewsCount: 100,
-            ),
-            const SizedBox(
               height: 10,
             ),
-            BlocBuilder<GeminiCubit, GeminiState>(
-              builder: (context, state) {
-                String description = '';
-                bool enabled = false;
-                if (state is GetBookDescriptionLoadingState) {
-                  description = 'Loading...';
-                  enabled = true;
-                }
-                if (state is GetBookDescriptionLoadedState) {
-                  description = state.bookDescription;
-                  enabled = false;
-                }
-                if (state is GetBookDescriptionFailureState) {
-                  description = state.message;
-                  enabled = false;
-                }
-                return Skeletonizer(
-                  enabled: false,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    textAlign: TextAlign.center,
+                    widget.bookModel?.volumeInfo.title ?? 'Book Title',
+                    style: TextStyle(
+                      fontSize: BlocProvider.of<ChangeSettingsCubit>(context)
+                          .titleFontSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  Opacity(
+                    opacity: 0.7,
                     child: Text(
-                      // description,
-                      widget.bookModel?.volumeInfo.description ??
-                          'No description available yet',
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 5,
-                      style: TextStyle(
-                        fontSize: BlocProvider.of<ChangeSettingsCubit>(context)
-                            .descriptionFontSize,
-                        color: Colors.grey[700],
+                      widget.bookModel?.volumeInfo.authors?.first ??
+                          'Author Name',
+                      style: Styles.textStyle18.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.italic,
                       ),
                     ),
                   ),
-                );
-              },
-            ),
-            const SizedBox(
-              height: 30,
-            ),
+                  const SizedBox(
+                    height: 18,
+                  ),
+                  const BookRating(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    rating: '4.5',
+                    reviewsCount: 100,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  BlocBuilder<GeminiCubit, GeminiState>(
+                    builder: (context, state) {
+                      String description = '';
+                      bool enabled = false;
+                      if (state is GetBookDescriptionLoadingState) {
+                        description = 'Loading...';
+                        enabled = true;
+                      }
+                      if (state is GetBookDescriptionLoadedState) {
+                        description = state.bookDescription;
+                        enabled = false;
+                      }
+                      if (state is GetBookDescriptionFailureState) {
+                        description = state.message;
+                        enabled = false;
+                      }
+                      return Skeletonizer(
+                        enabled: false,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            // description,
+                            widget.bookModel?.volumeInfo.description ??
+                                'No description available yet',
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                            style: TextStyle(
+                              fontSize:
+                                  BlocProvider.of<ChangeSettingsCubit>(context)
+                                      .descriptionFontSize,
+                              // color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
 
-            BookAction(
-              bookModel: widget.bookModel,
+                  BookAction(
+                    bookModel: widget.bookModel,
+                  ),
+                  // const SizedBox(
+                  //   height: 30,
+                  // ),
+                ],
+              ),
             ),
-            // const SizedBox(
-            //   height: 30,
-            // ),
           ],
         );
       },

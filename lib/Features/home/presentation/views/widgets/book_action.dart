@@ -1,10 +1,8 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/launch_url.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class BookAction extends StatelessWidget {
@@ -26,9 +24,8 @@ class BookAction extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 60),
                   textStyle:
                       Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
-                  foregroundColor:
-                      BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
-                  backgroundColor: Colors.grey.withOpacity(0.1),
+                  foregroundColor: Colors.white,
+                  backgroundColor: kSecondaryColor,
                 ),
                 onPressed: () {},
                 child: const Text(

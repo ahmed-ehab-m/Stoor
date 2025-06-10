@@ -1,5 +1,5 @@
-import 'package:bookly_app/Features/splash/presentation/views/widgets/ai_ghost_animation.dart';
-import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_naviagation_section.dart';
+import 'package:bookly_app/Features/splash&onboarding/presentation/views/widgets/ai_ghost_animation.dart';
+import 'package:bookly_app/Features/splash&onboarding/presentation/views/widgets/custom_naviagation_section.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/utils/assets_data.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';

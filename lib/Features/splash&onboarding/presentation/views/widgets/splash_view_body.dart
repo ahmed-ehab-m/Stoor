@@ -1,8 +1,8 @@
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
-import 'package:bookly_app/Features/splash/presentation/views/manager/splash_cubit/splash_cubit.dart';
-import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_logo_animation.dart';
-import 'package:bookly_app/Features/splash/presentation/views/widgets/custom_test_animation.dart';
+import 'package:bookly_app/Features/splash&onboarding/presentation/views/manager/splash_cubit/splash_cubit.dart';
+import 'package:bookly_app/Features/splash&onboarding/presentation/views/widgets/custom_logo_animation.dart';
+import 'package:bookly_app/Features/splash&onboarding/presentation/views/widgets/custom_text_animation.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/assets_data.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +94,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
                       logoPositionAnimation: _logoPositionAnimation,
                     ),
                     // النص (يظهر على شمال اللوجو)
-                    CustomTestAnimation(
+                    CustomTextAnimation(
                       textAnimationController: _textAnimationController,
                       textOpacityAnimation: _textOpacityAnimation,
                       logoPositionAnimation: _logoPositionAnimation,
@@ -126,7 +126,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   /////////////////////Trigger App Status//////////////////////////
   void triggerAppStatus() {
-    Future.delayed(const Duration(milliseconds: 3500), () {
+    Future.delayed(const Duration(milliseconds: 3000), () {
       if (mounted) {
         context.read<SplashCubit>().checkAppStatus();
       }
@@ -176,7 +176,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     ));
 
     // بدء الـ animation بعد ثانية واحدة
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       if (mounted) {
         _logoAnimationController.forward();
 

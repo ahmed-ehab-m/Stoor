@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomTestAnimation extends StatelessWidget {
-  const CustomTestAnimation(
+class CustomTextAnimation extends StatelessWidget {
+  const CustomTextAnimation(
       {super.key,
       required this.textAnimationController,
       required this.textOpacityAnimation,
