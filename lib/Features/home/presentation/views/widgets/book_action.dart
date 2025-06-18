@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/launch_url.dart';
 import 'package:bookly_app/core/utils/styles.dart';
@@ -7,7 +8,7 @@ import 'package:hugeicons/hugeicons.dart';
 
 class BookAction extends StatelessWidget {
   const BookAction({super.key, this.bookModel});
-  final BookModel? bookModel;
+  final Apibook? bookModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,8 +29,8 @@ class BookAction extends StatelessWidget {
                   backgroundColor: kSecondaryColor,
                 ),
                 onPressed: () {},
-                child: const Text(
-                  'Buy Now  19.99\$',
+                child: Text(
+                  'Buy Now  ${bookModel?.price} \$',
                   textAlign: TextAlign.center,
                 )),
           ),
@@ -46,10 +47,10 @@ class BookAction extends StatelessWidget {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () async {
-                  await launchCustomUrl(
-                    context,
-                    bookModel?.volumeInfo.previewLink,
-                  );
+                  // await launchCustomUrl(
+                  //   context,
+                  //   bookModel?.volumeInfo.previewLink,
+                  // );
                 },
                 child: const Row(
                   spacing: 10,

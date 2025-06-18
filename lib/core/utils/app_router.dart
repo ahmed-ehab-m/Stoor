@@ -15,6 +15,7 @@ import 'package:bookly_app/Features/splash&onboarding/presentation/views/manager
 import 'package:bookly_app/Features/splash&onboarding/presentation/views/onboarding_view.dart';
 import 'package:bookly_app/Features/splash&onboarding/presentation/views/splash_view.dart';
 import 'package:bookly_app/core/data/data_sources/local_data_source_impl.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:bookly_app/core/utils/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,7 +85,7 @@ abstract class AppRouter {
             child: BlocProvider(
               create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
               child: BookDetailsView(
-                bookModel: state.extra as BookModel?,
+                bookModel: state.extra as Apibook?,
               ),
             ),
             transitionsBuilder:

@@ -172,9 +172,7 @@ class AuthRepoImpl implements AuthRepo {
 
       if (updatedEmail.trim().isNotEmpty && newEmail != currentEmail) {
         String? invalidEmail = FormValidation.validateEmail(updatedEmail);
-        if (invalidEmail != null) {
-          return Left(ServerFailure(invalidEmail));
-        }
+        return Left(ServerFailure(invalidEmail));
         if (newPassword.isEmpty) {
           return Left(ServerFailure('Password Invalid.'));
         }

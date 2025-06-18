@@ -14,7 +14,7 @@ class HomeViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FeaturedBooksCubit, FeaturedBooksState>(
       builder: (context, state) {
-        if (state is FeaturedBooksFailure) {
+        if (state is AllBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         }
         return const CustomScrollView(

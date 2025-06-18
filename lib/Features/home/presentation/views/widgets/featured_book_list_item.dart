@@ -21,7 +21,9 @@ class FeaturedBookListItem extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: isArabic(bookTitle)
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Card(
@@ -76,4 +78,9 @@ class FeaturedBookListItem extends StatelessWidget {
       ),
     );
   }
+}
+
+bool isArabic(String text) {
+  if (text.isEmpty) return false;
+  return text.codeUnits[0] >= 0x600 && text.codeUnits[0] <= 0x6FF;
 }

@@ -5,6 +5,7 @@ import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.
 import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class BookDetailsSection extends StatefulWidget {
   const BookDetailsSection({super.key, required this.bookModel});
-  final BookModel? bookModel;
+  final Apibook? bookModel;
 
   @override
   State<BookDetailsSection> createState() => _BookDetailsSectionState();
@@ -21,14 +22,14 @@ class BookDetailsSection extends StatefulWidget {
 class _BookDetailsSectionState extends State<BookDetailsSection> {
   @override
   void initState() {
-    getBookDescription();
+    // getBookDescription();
     super.initState();
   }
 
-  Future<void> getBookDescription() async {
-    await BlocProvider.of<GeminiCubit>(context)
-        .getBookDescription(book: widget.bookModel!);
-  }
+  // Future<void> getBookDescription() async {
+  //   await BlocProvider.of<GeminiCubit>(context)
+  //       .getBookDescription(book: widget.bookModel!);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,7 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
     return BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
       builder: (context, state) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
               height: 12,
@@ -44,7 +46,7 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 80),
               child: NewestBookImage(
-                imageUrl: widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
+                imageUrl: widget.bookModel?.image ??
                     'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
               ),
             ),
@@ -61,7 +63,7 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                 children: [
                   Text(
                     textAlign: TextAlign.center,
-                    widget.bookModel?.volumeInfo.title ?? 'Book Title',
+                    widget.bookModel?.title ?? 'Book Title',
                     style: TextStyle(
                       fontSize: BlocProvider.of<ChangeSettingsCubit>(context)
                           .titleFontSize,
@@ -74,8 +76,7 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                   Opacity(
                     opacity: 0.7,
                     child: Text(
-                      widget.bookModel?.volumeInfo.authors?.first ??
-                          'Author Name',
+                      widget.bookModel?.author?.name ?? 'Author Name',
                       style: Styles.textStyle18.copyWith(
                         fontWeight: FontWeight.w500,
                         fontStyle: FontStyle.italic,
@@ -115,9 +116,12 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                             // description,
-                            widget.bookModel?.volumeInfo.description ??
+                            widget.bookModel?.description ??
                                 'No description available yet',
-                            textAlign: TextAlign.start,
+                            textAlign: isArabic(widget.bookModel?.description ??
+                                    'No description available yet')
+                                ? TextAlign.end
+                                : TextAlign.start,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 5,
                             style: TextStyle(
@@ -148,5 +152,10 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
         );
       },
     );
+  }
+
+  bool isArabic(String text) {
+    if (text.isEmpty) return false;
+    return text.codeUnits[0] >= 0x600 && text.codeUnits[0] <= 0x6FF;
   }
 }
