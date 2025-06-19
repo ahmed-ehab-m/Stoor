@@ -33,11 +33,11 @@ class _CusomBookDetailsAppBarState extends State<CusomBookDetailsAppBar> {
             )),
         BlocConsumer<BookMarksBooksCubit, BookMarksBooksState>(
           listener: (context, state) {
-            if (state is AddBookMarksBooksSuccess) {
-              setState(() {
-                isBookmarked = true;
-              });
-            }
+            // if (state is AddBookMarksBooksSuccess) {
+            //   setState(() {
+            //     isBookmarked = true;
+            //   });
+            // }
             if (state is AddBookMarksBooksFailure) {
               print('add to book marks failure ${state.errMessage}');
             }
@@ -45,8 +45,11 @@ class _CusomBookDetailsAppBarState extends State<CusomBookDetailsAppBar> {
           builder: (context, state) {
             String uid = BlocProvider.of<ProfileCubit>(context).uid ?? '';
             return IconButton(
-                onPressed: () {
-                  BlocProvider.of<BookMarksBooksCubit>(context)
+                onPressed: () async {
+                  setState(() {
+                    isBookmarked = true;
+                  });
+                  await BlocProvider.of<BookMarksBooksCubit>(context)
                       .addtoBookMarks(uid: uid, bookId: widget.bookId);
                 },
                 icon: Icon(

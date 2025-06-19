@@ -14,4 +14,6 @@ abstract class HomeRepo {
   Future<Either<Failure, void>> addToBookMark(
       {required String uid, required String bookId});
   Future<Either<Failure, List<Apibook>>> fetchBookMark({required String uid});
+  Future<Either<Failure, void>> deleteBookMark(
+      {required String bookId, required String uid});
 }

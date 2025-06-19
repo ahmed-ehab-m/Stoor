@@ -28,7 +28,7 @@ class ProfileImage extends StatelessWidget {
         return Center(
           child: InkWell(
             onTap: () async {
-              imagePath!.isEmpty
+              imagePath.isEmpty
                   ? await BlocProvider.of<PickImageCubit>(context)
                       .pickProfileImage()
                   : createCustomBotttomSheet(context);

@@ -22,6 +22,16 @@ class ApiService {
     );
   }
 
+///////////////////////////////////////////////////////////
+  Future<void> delete({required String bookId, required String userId}) async {
+    var response = await _dio.delete(
+      _favoritebaseurl + bookId,
+      data: {
+        "user_id": userId,
+      },
+    );
+  }
+
 ////////////for test/////////////////////
   Future<Map<String, dynamic>> apiGet({required String endpoint}) async {
     var response = await _dio.get(_apibaseUrl + endpoint);

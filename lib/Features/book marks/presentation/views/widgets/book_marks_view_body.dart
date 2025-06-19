@@ -27,7 +27,6 @@ class _BookMarksViewBodyState extends State<BookMarksViewBody> {
   @override
   Widget build(BuildContext context) {
     ScreenSizeHelper screenSizeHelper = ScreenSizeHelper(context);
-
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: screenSizeHelper.horizontalPadding,
@@ -41,7 +40,13 @@ class _BookMarksViewBodyState extends State<BookMarksViewBody> {
           Expanded(
             child: BlocBuilder<BookMarksBooksCubit, BookMarksBooksState>(
               builder: (context, state) {
-                List<Apibook> books = [];
+                List<Apibook> books =
+                    BlocProvider.of<BookMarksBooksCubit>(context).books;
+
+                if (state is AddBookMarksBooksSuccess) {
+                  print('add to book marks success');
+                  print('books length ${books.length}');
+                }
                 if (state is FetchBookMarksBooksLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
@@ -51,6 +56,7 @@ class _BookMarksViewBodyState extends State<BookMarksViewBody> {
                   return CustomErrorWidget(errorMessage: state.errMessage);
                 }
                 if (state is FetchBookMarksBooksSuccess) {
+                  print('fetch book marks success');
                   books = state.books;
                 }
                 return books.isEmpty
@@ -59,18 +65,17 @@ class _BookMarksViewBodyState extends State<BookMarksViewBody> {
                       )
                     : Expanded(
                         child: ListView.builder(
-                          itemCount: books!.length,
+                          itemCount: books.length,
                           // physics: const NeverScrollableScrollPhysics(),
                           // shrinkWrap: true,
                           itemBuilder: (context, index) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: BookMarksItem(
-                              bookModel: books![index],
+                              bookModel: books[index],
                             ),
                           ),
                         ),
                       );
-                ;
               },
             ),
           ),

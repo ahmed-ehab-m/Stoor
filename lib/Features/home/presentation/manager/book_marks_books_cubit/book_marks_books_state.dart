@@ -9,6 +9,16 @@ sealed class BookMarksBooksState extends Equatable {
 
 final class BookMarksBooksInitial extends BookMarksBooksState {}
 
+///////////////////////DeleteBookMarksBooks/////////////////////////////////
+final class DeleteBookMarksBooksLoading extends BookMarksBooksState {}
+
+final class DeleteBookMarksBooksSuccess extends BookMarksBooksState {}
+
+final class DeleteBookMarksBooksFailure extends BookMarksBooksState {
+  final String errMessage;
+  const DeleteBookMarksBooksFailure(this.errMessage);
+}
+
 ///////////////////////AddBookMarksBooks/////////////////////////////////
 final class AddBookMarksBooksLoading extends BookMarksBooksState {}
 

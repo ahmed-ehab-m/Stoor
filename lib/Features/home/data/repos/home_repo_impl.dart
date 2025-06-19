@@ -12,6 +12,21 @@ class HomeRepoImpl implements HomeRepo {
   HomeRepoImpl(this.apiService);
   /////////////////////////////////////////
   @override
+  Future<Either<Failure, void>> deleteBookMark(
+      {required String bookId, required String uid}) async {
+    try {
+      await apiService.delete(bookId: bookId, userId: uid);
+      return right(null);
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  /////////////////////////////////////////
+  @override
   Future<Either<Failure, List<Apibook>>> fetchBookMark(
       {required String uid}) async {
     try {
