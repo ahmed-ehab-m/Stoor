@@ -6,11 +6,13 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this.authRepo) : super(ProfileInitial());
   final AuthRepo authRepo;
   String userName = 'cubit user';
+  String? uid = '';
   Future<void> loadProfile() async {
     emit(ProfileLoading());
     final userResult = await authRepo.getUserData();
     userResult.fold((failure) => emit(ProfileFailure(failure.errMessage!)),
         (user) {
+      uid = user?.uid;
       return emit(
         ProfileLoaded(user: user!),
       );

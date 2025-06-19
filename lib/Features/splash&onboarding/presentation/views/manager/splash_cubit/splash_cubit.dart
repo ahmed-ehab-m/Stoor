@@ -21,6 +21,8 @@ class SplashCubit extends Cubit<SplashState> {
       } else {
         // Check authentication (implemented in next section)
         final uid = await authRepo.getCurrentUserId();
+        print('user uiddddddddddddddd');
+        print(uid);
         if (uid != null) {
           emit(SplashNavigateToHome());
         } else {

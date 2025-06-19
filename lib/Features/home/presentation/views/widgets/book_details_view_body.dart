@@ -26,7 +26,9 @@ class BookDetailsViewBody extends StatelessWidget {
             ),
             child: Column(
               children: [
-                const CusomBookDetailsAppBar(),
+                CusomBookDetailsAppBar(
+                  bookId: bookModel!.id.toString(),
+                ),
                 BookDetailsSection(
                   bookModel: bookModel,
                 ),

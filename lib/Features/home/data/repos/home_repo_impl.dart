@@ -10,12 +10,45 @@ class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
 
   HomeRepoImpl(this.apiService);
+  /////////////////////////////////////////
+  @override
+  Future<Either<Failure, List<Apibook>>> fetchBookMark(
+      {required String uid}) async {
+    try {
+      var data = await apiService.apiGet(endpoint: 'favorites?user_id=$uid');
+      List<Apibook> books = [];
+      for (var item in data['data']) {
+        books.add(Apibook.fromJson(item));
+      }
+      return right(books);
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  ////////////////////////////////////
+  @override
+  Future<Either<Failure, void>> addToBookMark(
+      {required String uid, required String bookId}) async {
+    try {
+      await apiService.post(bookId: bookId, userId: uid);
+      return right(null);
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  ////////////////////////////////////
   @override
   Future<Either<Failure, List<Apibook>>> fetchAllBooks() async {
     try {
-      var data = await apiService.apiGet(
-          endpoint:
-              'volumes?Filtering=free-ebooks&Sorting=newest&q=subject:Programming');
+      var data = await apiService.apiGet(endpoint: 'books');
       List<Apibook> books = [];
       for (var item in data['data']) {
         books.add(Apibook.fromJson(item));
