@@ -13,12 +13,16 @@ class QuestionsGridView extends StatelessWidget {
     List<Color> colors =
         BlocProvider.of<ChangeSettingsCubit>(context).questionsColors;
     List<String> recentSearches = [
-      'Popular Science ',
-      'AI ',
-      'Programming ',
-      'Android ',
-      'Game Development '
+      'Horror',
+      'Historical Fiction',
+      'Dystopian ',
+      'Fantasy ',
+      'Romance Novels',
+      "Adventure",
+      'Classics',
+      'Science Fiction',
     ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 20,

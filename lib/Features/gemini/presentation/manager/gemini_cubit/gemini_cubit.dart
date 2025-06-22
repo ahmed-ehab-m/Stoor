@@ -1,6 +1,7 @@
 import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
 import 'package:bookly_app/Features/gemini/data/repos/gemini_repo.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -69,7 +70,7 @@ class GeminiCubit extends Cubit<GeminiState> {
   }
 
 //////////////////////////////////////////////
-  Future<void> getBookDescription({required BookModel book}) async {
+  Future<void> getBookDescription({required Apibook book}) async {
     emit(GetBookDescriptionLoadingState());
     var result = await _geminiRepo.getBookDescription(book: book);
     result.fold((failure) {
@@ -86,7 +87,7 @@ class GeminiCubit extends Cubit<GeminiState> {
 /////////////////////////////////////////////
   Future<void> getRecommendedBook({
     required String userDescription,
-    required List<BookModel> books,
+    required List<Apibook> books,
   }) async {
     userQuestion = userDescription;
     addMessage(type: 'user', message: userDescription);

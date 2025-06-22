@@ -1,5 +1,5 @@
 import 'package:bookly_app/Features/home/presentation/views/widgets/books_details_section.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/book_details_app_bar.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class BookDetailsViewBody extends StatelessWidget {
             ),
             child: Column(
               children: [
-                CusomBookDetailsAppBar(
+                BookDetailsAppBar(
                   bookId: bookModel!.id.toString(),
                 ),
                 BookDetailsSection(

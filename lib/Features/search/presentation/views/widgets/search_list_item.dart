@@ -15,7 +15,7 @@ class SearchListItem extends StatefulWidget {
 }
 
 class _SearchListItemState extends State<SearchListItem> {
-  bool isBookmarked = false;
+  // bool isBookmarked = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

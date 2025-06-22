@@ -171,7 +171,8 @@ class LocalDatasourceImpl implements LocalDatasource {
   Future<Either<Failure, List<ChatMessageModel>>> getGeminiChatHistory() async {
     try {
       final jsonString = prefs.getString(KChatHistory);
-      if (jsonString == null || jsonString.isEmpty) return const Right([]);
+      print('jsonString: $jsonString');
+      if (jsonString == null || jsonString.isEmpty) return Right([]);
       final List<dynamic> jsonData = jsonDecode(jsonString);
       final chatHistory = jsonData
           .cast<Map<String, dynamic>>()
@@ -180,6 +181,7 @@ class LocalDatasourceImpl implements LocalDatasource {
           .cast<ChatMessageModel>();
       return Right(chatHistory);
     } catch (e) {
+      print('Error retrieving chat history: $e');
       return Left(CacheFailure.fromCahceError(e.toString()));
     }
   }
@@ -192,7 +194,8 @@ class LocalDatasourceImpl implements LocalDatasource {
       final jsonString =
           jsonEncode(chatHistory.map((msg) => msg.toJson()).toList());
       await prefs.setString(KChatHistory, jsonString);
-      return const Right(null);
+      print('Chat history saved successfully');
+      return Right(null);
     } catch (e) {
       return Left(CacheFailure.fromCahceError(e.toString()));
     }

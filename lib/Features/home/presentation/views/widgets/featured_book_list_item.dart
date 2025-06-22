@@ -18,6 +18,7 @@ class FeaturedBookListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('http://127.0.0.1:8000/storage/$imageUrl');
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
@@ -42,7 +43,7 @@ class FeaturedBookListItem extends StatelessWidget {
                   aspectRatio: 2.6 / 4,
                   child: CachedNetworkImage(
                     fit: BoxFit.fill,
-                    imageUrl: imageUrl,
+                    imageUrl: 'http://10.0.2.2:8000/storage/$imageUrl',
                     errorWidget: (context, url, error) => const Icon(
                       HugeIcons.strokeRoundedImageNotFound01,
                       size: 40,

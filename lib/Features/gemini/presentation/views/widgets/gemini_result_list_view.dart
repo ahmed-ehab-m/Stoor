@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/featured_book_list_item.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +11,16 @@ import 'package:go_router/go_router.dart';
 
 class GeminiResultListView extends StatelessWidget {
   const GeminiResultListView({super.key, required this.books});
-  final List<BookModel?>? books;
+  final List<Apibook?>? books;
 
   @override
   Widget build(BuildContext context) {
     List<String> getRecommendationMessages() {
       return [
         'Here are some amazing books I’ve picked for you!',
-        'Check out these fantastic I recommend!',
+        'Check out these fantastic books I recommend!',
         'Dive into these wonderful books I selected just for you!',
-        'Explore these top picks I think you’ll love!',
+        'Explore these top picks of books I think you’ll love!',
       ];
     }
 
@@ -113,9 +113,9 @@ class GeminiResultListView extends StatelessWidget {
                 );
               },
               child: FeaturedBookListItem(
-                author: books![index]!.volumeInfo.authors?[0] ?? '',
-                bookTitle: books![index]!.volumeInfo.title ?? '',
-                imageUrl: books![index]!.volumeInfo.imageLinks.thumbnail,
+                author: books![index]!.author?.name ?? '',
+                bookTitle: books![index]!.title ?? '',
+                imageUrl: books![index]!.image ?? '',
               ),
             ),
             //  BookRecommended(

@@ -30,7 +30,7 @@ final class GeminiLoadingState extends GeminiState {
 }
 
 final class GeminiLoadedState extends GeminiState {
-  final List<BookModel?> recommendedBook;
+  final List<Apibook?> recommendedBook;
   final List<ChatMessageModel> chatHistory;
 
   const GeminiLoadedState(this.recommendedBook, this.chatHistory);

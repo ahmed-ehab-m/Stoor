@@ -13,7 +13,7 @@ class CustomQuestion extends StatelessWidget {
     return InkWell(
       onTap: () async {
         await BlocProvider.of<GeminiCubit>(context).getRecommendedBook(
-          books: BlocProvider.of<FeaturedBooksCubit>(context).featuredBooks,
+          books: BlocProvider.of<FeaturedBooksCubit>(context).AllBooks,
           userDescription: question,
         );
       },

@@ -36,7 +36,7 @@ class ApiService {
   Future<Map<String, dynamic>> apiGet({required String endpoint}) async {
     var response = await _dio.get(_apibaseUrl + endpoint);
 
-    print(response.data);
+    // print(response.data);
     return response.data;
   }
 }

@@ -5,10 +5,13 @@ import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/utils/assets_data.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:lottie/lottie.dart';
 
 class BookDetailsSection extends StatefulWidget {
   const BookDetailsSection({super.key, required this.bookModel});
@@ -21,14 +24,14 @@ class BookDetailsSection extends StatefulWidget {
 class _BookDetailsSectionState extends State<BookDetailsSection> {
   @override
   void initState() {
-    // getBookDescription();
+    getBookDescription();
     super.initState();
   }
 
-  // Future<void> getBookDescription() async {
-  //   await BlocProvider.of<GeminiCubit>(context)
-  //       .getBookDescription(book: widget.bookModel!);
-  // }
+  Future<void> getBookDescription() async {
+    await BlocProvider.of<GeminiCubit>(context)
+        .getBookDescription(book: widget.bookModel!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,17 +46,18 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
               height: 12,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 80),
+              padding: const EdgeInsets.symmetric(horizontal: 100),
               child: NewestBookImage(
-                imageUrl: widget.bookModel?.image ??
-                    'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
+                imageUrl:
+                    'http://10.0.2.2:8000/storage/${widget.bookModel?.image}' ??
+                        'https://www.freecodecamp.org/news/content/images/2023/01/Untitled-design-1.png',
               ),
             ),
             const SizedBox(
               height: 10,
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(20),
@@ -83,7 +87,7 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                     ),
                   ),
                   const SizedBox(
-                    height: 18,
+                    height: 5,
                   ),
                   const BookRating(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -93,57 +97,152 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                   const SizedBox(
                     height: 10,
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      // description,
+                      widget.bookModel?.description ??
+                          'No description available yet',
+                      textAlign: isArabic(widget.bookModel?.description ??
+                              'No description available yet')
+                          ? TextAlign.end
+                          : TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 5,
+                      style: TextStyle(
+                        fontSize: BlocProvider.of<ChangeSettingsCubit>(context)
+                            .descriptionFontSize,
+                        // color: Colors.grey[700],
+                      ),
+                    ),
+                  ),
                   BlocBuilder<GeminiCubit, GeminiState>(
                     builder: (context, state) {
                       String description = '';
                       bool enabled = false;
                       if (state is GetBookDescriptionLoadingState) {
                         description = 'Loading...';
+                        print('description: $description');
                         enabled = true;
                       }
                       if (state is GetBookDescriptionLoadedState) {
                         description = state.bookDescription;
+                        print('description: $description');
+
                         enabled = false;
                       }
                       if (state is GetBookDescriptionFailureState) {
                         description = state.message;
+                        print('description: $description');
                         enabled = false;
                       }
-                      return Skeletonizer(
-                        enabled: false,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(
-                            // description,
-                            widget.bookModel?.description ??
-                                'No description available yet',
-                            textAlign: isArabic(widget.bookModel?.description ??
-                                    'No description available yet')
-                                ? TextAlign.end
-                                : TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 5,
-                            style: TextStyle(
-                              fontSize:
-                                  BlocProvider.of<ChangeSettingsCubit>(context)
-                                      .descriptionFontSize,
-                              // color: Colors.grey[700],
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          children: [
+                            const CustomShaderMask(
+                              child: Icon(
+                                HugeIcons.strokeRoundedRobot01,
+                                color: Colors.white,
+                                size: 35,
+                              ),
                             ),
-                          ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: enabled
+                                  ? Lottie.asset(
+                                      AssetsData.typingAnimation2,
+                                      width: 50,
+                                      height: 50,
+                                      // fit: BoxFit.cover,
+                                    )
+                                  : Container(
+                                      margin: const EdgeInsets.only(
+                                          top: 10, bottom: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.1),
+                                        borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          topLeft: Radius.circular(0),
+                                          bottomRight: Radius.circular(20),
+                                          bottomLeft: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        description,
+                                        // widget.bookModel?.description ??
+                                        //     'No description available yet',
+                                        textAlign: isArabic(widget
+                                                    .bookModel?.description ??
+                                                'No description available yet')
+                                            ? TextAlign.end
+                                            : TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 6,
+                                        style: TextStyle(
+                                          fontSize: BlocProvider.of<
+                                                  ChangeSettingsCubit>(context)
+                                              .descriptionFontSize,
+                                          // color: Colors.grey[700],
+                                        ),
+                                      ),
+                                    ),
+                              //  Skeletonizer(
+                              //   enabled: enabled,
+                              //   child: Container(
+                              //     margin: const EdgeInsets.only(
+                              //         top: 10, bottom: 10),
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 20, vertical: 10),
+                              //     decoration: BoxDecoration(
+                              //       color: Colors.grey.withOpacity(0.1),
+                              //       borderRadius: const BorderRadius.only(
+                              //         topRight: Radius.circular(20),
+                              //         topLeft: Radius.circular(0),
+                              //         bottomRight: Radius.circular(20),
+                              //         bottomLeft: Radius.circular(20),
+                              //       ),
+                              //     ),
+                              //     child: Text(
+                              //       description,
+                              //       // widget.bookModel?.description ??
+                              //       //     'No description available yet',
+                              //       textAlign: isArabic(
+                              //               widget.bookModel?.description ??
+                              //                   'No description available yet')
+                              //           ? TextAlign.end
+                              //           : TextAlign.start,
+                              //       overflow: TextOverflow.ellipsis,
+                              //       maxLines: 6,
+                              //       style: TextStyle(
+                              //         fontSize:
+                              //             BlocProvider.of<ChangeSettingsCubit>(
+                              //                     context)
+                              //                 .descriptionFontSize,
+                              //         // color: Colors.grey[700],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                            ),
+                          ],
                         ),
                       );
                     },
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 5,
                   ),
-
                   BookAction(
                     bookModel: widget.bookModel,
                   ),
-                  // const SizedBox(
-                  //   height: 30,
-                  // ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             ),

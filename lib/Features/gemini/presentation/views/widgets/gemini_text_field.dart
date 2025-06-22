@@ -82,8 +82,8 @@ class _GeminiTextFieldState extends State<GeminiTextField>
                     // onSend(widget.controller.text);
                     await BlocProvider.of<GeminiCubit>(context)
                         .getRecommendedBook(
-                      books: BlocProvider.of<FeaturedBooksCubit>(context)
-                          .featuredBooks,
+                      books:
+                          BlocProvider.of<FeaturedBooksCubit>(context).AllBooks,
                       userDescription: question!,
                     );
                   },

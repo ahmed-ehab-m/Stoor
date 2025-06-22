@@ -15,7 +15,9 @@ class BookMarksBooksCubit extends Cubit<BookMarksBooksState> {
   /////////////////////////////////
   Future<void> deleteBookMark(
       {required String uid, required String bookId}) async {
-    emit(DeleteBookMarksBooksLoading());
+    emit(DeleteBookMarksBooksLoading(
+      bookId,
+    ));
     var result = await homeRepo.deleteBookMark(bookId: bookId, uid: uid);
     result.fold(
       (failure) => emit(DeleteBookMarksBooksFailure(failure.errMessage!)),

@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
 import 'package:bookly_app/Features/gemini/data/repos/gemini_repo.dart';
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:bookly_app/core/errors/failures.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -22,7 +22,7 @@ class GeminiRepoImpl implements GeminiRepo {
     var cacheResult = await _localDatasource.saveGeminiChatHistory(chatHistory);
     return cacheResult.fold(
       (failure) => Left(failure),
-      (_) => const Right(null),
+      (_) => Right(null),
     );
   }
 
@@ -38,9 +38,9 @@ class GeminiRepoImpl implements GeminiRepo {
 
 /////////////////////////////////////////////////
   @override
-  Future<Either<Failure, List<BookModel?>>> getRecommendedBook({
+  Future<Either<Failure, List<Apibook?>>> getRecommendedBook({
     required String userDescription,
-    required List<BookModel> books,
+    required List<Apibook> books,
   }) async {
     try {
       final connectivityResult = await connectivity.checkConnectivity();
@@ -63,10 +63,11 @@ class GeminiRepoImpl implements GeminiRepo {
       cleanedResponse = cleanedResponse.trim();
 
       final jsonData = jsonDecode(cleanedResponse);
-      final selectedIds = jsonData.map((item) => item['id'] as String).toList();
+      final selectedIds = jsonData.map((item) => item['id']).toList();
 
-      final selectedBooks =
-          books.where((book) => selectedIds.contains(book.id)).toList();
+      final selectedBooks = books
+          .where((book) => selectedIds.contains(book.id.toString()))
+          .toList();
       if (selectedBooks.isEmpty) {
         return left(ServerFailure(
             'No relevant books found ,try with different description.'));
@@ -82,16 +83,16 @@ class GeminiRepoImpl implements GeminiRepo {
 
   ////////////////////////////////////////////////////
   static String _buildSystemPromtRecommendation(
-      {required List<BookModel> books, required String userDescription}) {
+      {required List<Apibook> books, required String userDescription}) {
     final buffer = StringBuffer();
 
     buffer.write(
         'You are a book recommendation assistant. Based on the user\'s description, recommend  one or more books from the following list:\n\n');
 
     for (var book in books) {
-      buffer.write('- Title: ${book.volumeInfo.title}\n');
+      buffer.write('- Title: ${book.title}\n');
       buffer.write(
-          '  Description: ${book.volumeInfo.description ?? "No description available"}\n');
+          '  Description: ${book.description ?? "No description available"}\n');
       buffer.write('  ID: ${book.id}\n\n');
     }
     buffer.write('User description: "$userDescription"\n\n');
@@ -108,7 +109,7 @@ class GeminiRepoImpl implements GeminiRepo {
 ////////////////////////////////////////////////
   @override
   Future<Either<Failure, String>> getBookDescription(
-      {required BookModel book}) async {
+      {required Apibook book}) async {
     try {
       final connectivityResult = await connectivity.checkConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
@@ -117,8 +118,7 @@ class GeminiRepoImpl implements GeminiRepo {
       }
       final promt = _buildSystemPromtBookDescription(book: book);
       final response = await gemini.prompt(parts: [Part.text(promt)]);
-      final cleanedResponse =
-          response!.output!.substring(1, response.output!.length - 1).trim();
+      final cleanedResponse = response!.output!;
       if (cleanedResponse.isEmpty) {
         return left(ServerFailure('There is no description for this book.'));
       }
@@ -132,19 +132,18 @@ class GeminiRepoImpl implements GeminiRepo {
   }
 
   ///////////////////////////////////////////
-  static String _buildSystemPromtBookDescription({required BookModel book}) {
+  static String _buildSystemPromtBookDescription({required Apibook book}) {
     final buffer = StringBuffer();
 
     buffer.write(
         'You are a book recommendation assistant. Based on this book Details, search first and then create a new description (summary) for the following book:\n\n');
 
-    buffer.write('- Title: ${book.volumeInfo.title}\n');
+    buffer.write('- Title: ${book.title}\n');
     buffer.write(
-        '  Description: ${book.volumeInfo.description ?? "No description available"}\n');
+        '  Description: ${book.description ?? "No description available"}\n');
+    buffer.write('  Author: ${book.author?.name ?? "No author available"}\n');
     buffer.write(
-        '  Author: ${book.volumeInfo.authors?.join(", ") ?? "No author available"}\n');
-    buffer.write(
-        'The summary should be a concise paragraph, limited to a maximum of 5 lines. ');
+        'The summary should be a concise paragraph should be same language of description, limited to a maximum of 4 lines. ');
 
     buffer.write(
         'Return only the new summary as a plain text string, with no additional text or formatting (e.g., no JSON, no labels).');

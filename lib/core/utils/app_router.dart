@@ -3,7 +3,6 @@ import 'package:bookly_app/Features/auth/presentation/views/login_view.dart';
 import 'package:bookly_app/Features/auth/presentation/views/signup_view.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/book_marks_view.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly_app/Features/home/presentation/manager/similar_books_cubit.dart/similar_books_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/book_details_view.dart';
@@ -110,7 +109,7 @@ abstract class AppRouter {
           return CustomTransitionPage(
             key: state.pageKey,
             child: SearchView(
-              books: state.extra as List<BookModel>,
+              books: state.extra as List<Apibook>,
             ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {

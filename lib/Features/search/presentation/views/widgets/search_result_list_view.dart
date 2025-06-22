@@ -1,13 +1,13 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_item.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/search_item.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchResultListView extends StatelessWidget {
   const SearchResultListView(
       {super.key, required this.books, required this.searchQuery});
-  final List<BookModel?>? books;
+  final List<Apibook?>? books;
   final String searchQuery;
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SearchResultListView extends StatelessWidget {
           // shrinkWrap: true,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: NewestBookItem(
+            child: SearchItem(
               bookModel: books![index],
               searchQuery: searchQuery,
             ),

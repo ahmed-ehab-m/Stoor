@@ -10,7 +10,10 @@ sealed class BookMarksBooksState extends Equatable {
 final class BookMarksBooksInitial extends BookMarksBooksState {}
 
 ///////////////////////DeleteBookMarksBooks/////////////////////////////////
-final class DeleteBookMarksBooksLoading extends BookMarksBooksState {}
+final class DeleteBookMarksBooksLoading extends BookMarksBooksState {
+  final String bookId;
+  const DeleteBookMarksBooksLoading(this.bookId);
+}
 
 final class DeleteBookMarksBooksSuccess extends BookMarksBooksState {}
 

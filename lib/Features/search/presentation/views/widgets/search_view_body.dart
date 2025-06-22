@@ -1,21 +1,21 @@
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/custom_search_text_field.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class SearchViewBody extends StatefulWidget {
   const SearchViewBody({super.key, required this.books});
-  final List<BookModel> books;
+  final List<Apibook> books;
 
   @override
   State<SearchViewBody> createState() => _SearchViewBodyState();
 }
 
 class _SearchViewBodyState extends State<SearchViewBody> {
-  List<BookModel> searchResult = [];
+  List<Apibook> searchResult = [];
   String searchQuery = '';
 
   @override
@@ -77,13 +77,12 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   }
 }
 
-List<BookModel> searchBooks(List<BookModel> books, String name) {
+List<Apibook> searchBooks(List<Apibook> books, String name) {
   if (name.isEmpty) {
     return books;
   } else {
     return books
-        .where((book) =>
-            book.volumeInfo.title!.toLowerCase().contains(name.toLowerCase()))
+        .where((book) => book.title!.toLowerCase().contains(name.toLowerCase()))
         .toList();
   }
 }

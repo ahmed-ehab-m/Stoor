@@ -28,9 +28,17 @@ class BookAction extends StatelessWidget {
                   backgroundColor: kSecondaryColor,
                 ),
                 onPressed: () {},
-                child: Text(
-                  'Buy Now  ${bookModel?.price} \$',
-                  textAlign: TextAlign.center,
+                child: Column(
+                  children: [
+                    const Text(
+                      'Buy Now',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '${bookModel?.price} EGP',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 )),
           ),
           Expanded(

@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_state.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class HomeAppBar extends StatefulWidget {
 }
 
 class _HomeAppBarState extends State<HomeAppBar> {
-  List<BookModel> searchResult = [];
+  List<Apibook> searchResult = [];
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
                         onPressed: () {
                           searchResult =
                               BlocProvider.of<FeaturedBooksCubit>(context)
-                                  .featuredBooks;
+                                  .AllBooks;
                           GoRouter.of(context)
                               .push(AppRouter.KSearchView, extra: searchResult);
                         },

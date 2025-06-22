@@ -2,7 +2,6 @@ import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/book
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/empty_books_widget.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/library_title.dart';
 import 'package:bookly_app/Features/home/presentation/manager/book_marks_books_cubit/book_marks_books_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
 import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
