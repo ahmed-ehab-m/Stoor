@@ -28,11 +28,11 @@ class HomeViewBody extends StatelessWidget {
                   children: <Widget>[
                     HomeAppBar(),
                     SizedBox(height: 10),
-                    BooksTitle(title: 'Popular Books'),
+                    BooksTitle(title: 'All Books'),
                     SizedBox(height: 15),
                     FeaturedBooksListView(),
                     SizedBox(height: 20),
-                    BooksTitle(title: 'Newest'),
+                    BooksTitle(title: 'Highest Rated'),
                   ],
                 ),
               ),

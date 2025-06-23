@@ -16,6 +16,7 @@ import 'package:bookly_app/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -28,8 +29,16 @@ void main() async {
   final settingsRepo = getIt.get<SettingsRepoImpl>();
   final savedThemeIndex = await settingsRepo.getThemeIndex();
 
-  runApp(BooklyApp(
-    savedThemeIndex: savedThemeIndex,
+  runApp(SkeletonizerConfig(
+    data: const SkeletonizerConfigData(
+      effect: ShimmerEffect(
+        baseColor: Colors.grey,
+        highlightColor: Color(0xFFD3D3D3),
+      ),
+    ),
+    child: BooklyApp(
+      savedThemeIndex: savedThemeIndex,
+    ),
   ));
 }
 

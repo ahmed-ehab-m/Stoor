@@ -30,7 +30,7 @@ class CustomErrorWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min, // لضبط الحجم حسب المحتوى
               children: [
                 SvgPicture.asset(
-                  AssetsData.errorRobot,
+                  'assets/images/generated-7577945_1280.svg',
                   height: 250,
                   width: 250,
                 ),

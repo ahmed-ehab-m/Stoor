@@ -23,23 +23,39 @@ class BookDetailsViewBody extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               vertical: screenSizeHelper.homeVerticalPadding,
             ),
-            child: Column(
-              children: [
-                BookDetailsAppBar(
-                  bookId: bookModel!.id.toString(),
+            child: Container(
+              // height: MediaQuery.of(context).size.height * 0.5,
+              decoration: BoxDecoration(
+                // color: Colors.red,
+                // borderRadius: BorderRadius.circular(50),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      'http://10.0.2.2:8000/storage/${bookModel?.image}'),
+                  fit: BoxFit.fitWidth,
+                  alignment: Alignment.topCenter,
                 ),
-                BookDetailsSection(
-                  bookModel: bookModel,
-                ),
-                // Expanded(
-                //   //to make the description take all the available space (Responsive)
-                //   child: const SizedBox(
-                //     height:
-                //         50, ////minimum height between the book action and the description
-                //   ),
-                // ),
-                // SimilarBooksSection(),
-              ],
+              ),
+              child: Column(
+                children: [
+                  SafeArea(
+                    child: BookDetailsAppBar(
+                      bookId: bookModel!.id.toString(),
+                    ),
+                  ),
+                  Spacer(),
+                  BookDetailsSection(
+                    bookModel: bookModel,
+                  ),
+                  // Expanded(
+                  //   //to make the description take all the available space (Responsive)
+                  //   child: const SizedBox(
+                  //     height:
+                  //         50, ////minimum height between the book action and the description
+                  //   ),
+                  // ),
+                  // SimilarBooksSection(),
+                ],
+              ),
             ),
           ),
         )
