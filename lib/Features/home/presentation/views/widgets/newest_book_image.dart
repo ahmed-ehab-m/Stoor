@@ -21,7 +21,7 @@ class NewestBookImage extends StatelessWidget {
           aspectRatio: 2.8 / 4,
           child: CachedNetworkImage(
             fit: BoxFit.fill,
-            imageUrl: imageUrl,
+            imageUrl: 'http://10.0.2.2:8000/storage/${imageUrl}',
             errorWidget: (context, url, error) => const Icon(
               HugeIcons.strokeRoundedImageNotFound01,
               size: 40,

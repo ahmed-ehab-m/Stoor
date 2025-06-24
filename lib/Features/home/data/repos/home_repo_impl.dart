@@ -59,6 +59,48 @@ class HomeRepoImpl implements HomeRepo {
     }
   }
 
+  /////////////////////////////////////////////
+  @override
+  Future<Either<Failure, List<Apibook>>> fetchLowestRatedBooks() async {
+    try {
+      var data = await apiService.apiGet(endpoint: 'books/lowest-rated');
+      List<Apibook> books = [];
+      for (var item in data['data']) {
+        books.add(Apibook.fromJson(item));
+      }
+      return right(books);
+    } on Exception catch (e) {
+      //dio error happen if status code is not 200
+      // dio error holds status code and response data
+      // dio error => server failure
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  /////////////////////////////////////////////
+  @override
+  Future<Either<Failure, List<Apibook>>> fetchHighestRatedBooks() async {
+    try {
+      var data = await apiService.apiGet(endpoint: 'books/highest-rated');
+      List<Apibook> books = [];
+      for (var item in data['data']) {
+        books.add(Apibook.fromJson(item));
+      }
+      return right(books);
+    } on Exception catch (e) {
+      //dio error happen if status code is not 200
+      // dio error holds status code and response data
+      // dio error => server failure
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
   ////////////////////////////////////
   @override
   Future<Either<Failure, List<Apibook>>> fetchAllBooks() async {

@@ -85,7 +85,6 @@ class _SearchListItemState extends State<SearchListItem> {
                     const Spacer(),
                     const BookRating(
                       rating: '0.0',
-                      reviewsCount: 0,
                     ),
                   ],
                 ),

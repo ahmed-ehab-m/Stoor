@@ -4,6 +4,8 @@ import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly_app/Features/home/presentation/manager/book_marks_books_cubit/book_marks_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/rated_books_cubit/rated_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/lowest_rated_cubit/lowest_rated_cubit.dart';
 import 'package:bookly_app/Features/settings/data/repos/settings_repo_impl.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
@@ -30,10 +32,10 @@ void main() async {
   final savedThemeIndex = await settingsRepo.getThemeIndex();
 
   runApp(SkeletonizerConfig(
-    data: const SkeletonizerConfigData(
+    data: SkeletonizerConfigData(
       effect: ShimmerEffect(
-        baseColor: Colors.grey,
-        highlightColor: Color(0xFFD3D3D3),
+        baseColor: Colors.grey.withOpacity(0.5),
+        highlightColor: const Color(0xFFD3D3D3),
       ),
     ),
     child: BooklyApp(
@@ -85,6 +87,14 @@ class BooklyApp extends StatelessWidget {
             create: (context) => FeaturedBooksCubit(
                   getIt.get<HomeRepoImpl>(),
                 )..fetchAllBooks()),
+        BlocProvider(
+            create: (context) => RatedBooksCubit(
+                  getIt.get<HomeRepoImpl>(),
+                )..fetcHighestRatedBooks()),
+        BlocProvider(
+            create: (context) => LowestRatedCubit(
+                  getIt.get<HomeRepoImpl>(),
+                )..fetchLowestRatedBooks()),
         BlocProvider(
           create: (context) => NewestBooksCubit(
             getIt.get<HomeRepoImpl>(),

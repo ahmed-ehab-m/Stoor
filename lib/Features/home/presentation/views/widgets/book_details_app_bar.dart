@@ -25,13 +25,13 @@ class _BookDetailsAppBarState extends State<BookDetailsAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    String uid = BlocProvider.of<ProfileCubit>(context).uid ?? '';
-    bool isBookmarked = BlocProvider.of<BookMarksBooksCubit>(context)
-        .books
-        .any((book) => book.id.toString() == widget.bookId);
+    // String uid = BlocProvider.of<ProfileCubit>(context).uid ?? '';
+    // bool isBookmarked = BlocProvider.of<BookMarksBooksCubit>(context)
+    //     .books
+    //     .any((book) => book.id.toString() == widget.bookId);
     return Padding(
       // padding: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -54,66 +54,66 @@ class _BookDetailsAppBarState extends State<BookDetailsAppBar> {
               ),
             ),
           ),
-          BlocConsumer<BookMarksBooksCubit, BookMarksBooksState>(
-            listener: (context, state) {
-              // if (state is AddBookMarksBooksFailure) {
-              //   print('add to book marks failure ${state.errMessage}');
-              // } else if (state is DeleteBookMarksBooksFailure) {
-              //   print('delete from book marks failure ${state.errMessage}');
-              // }
-              // } else if (state is DeleteBookMarksBooksSuccess ||
-              //     state is AddBookMarksBooksSuccess) {
-              //   // إعادة تحميل القائمة بعد النجاح
-              //   BlocProvider.of<BookMarksBooksCubit>(context).fetchBookMark();
-              // }
-            },
-            builder: (context, state) {
-              // تحقق من القائمة المفضلة
-              // تحويل id لـ String
-              print('isBookmarked in first builder: $isBookmarked'); // للتحقق
-              if (state is AddBookMarksBooksLoading ||
-                  state is DeleteBookMarksBooksLoading) {
-                isBookmarked = !isBookmarked;
-                print('in loading isBookmarked: $isBookmarked'); // للتحقق
-              }
-              if (state is AddBookMarksBooksSuccess) {
-                isBookmarked = true;
-                print('in add success isBookmarked: $isBookmarked'); // للتحقق
-              }
-              if (state is DeleteBookMarksBooksSuccess) {
-                isBookmarked = false;
+          // BlocConsumer<BookMarksBooksCubit, BookMarksBooksState>(
+          //   listener: (context, state) {
+          //     // if (state is AddBookMarksBooksFailure) {
+          //     //   print('add to book marks failure ${state.errMessage}');
+          //     // } else if (state is DeleteBookMarksBooksFailure) {
+          //     //   print('delete from book marks failure ${state.errMessage}');
+          //     // }
+          //     // } else if (state is DeleteBookMarksBooksSuccess ||
+          //     //     state is AddBookMarksBooksSuccess) {
+          //     //   // إعادة تحميل القائمة بعد النجاح
+          //     //   BlocProvider.of<BookMarksBooksCubit>(context).fetchBookMark();
+          //     // }
+          //   },
+          //   builder: (context, state) {
+          //     // تحقق من القائمة المفضلة
+          //     // تحويل id لـ String
+          //     print('isBookmarked in first builder: $isBookmarked'); // للتحقق
+          //     if (state is AddBookMarksBooksLoading ||
+          //         state is DeleteBookMarksBooksLoading) {
+          //       isBookmarked = !isBookmarked;
+          //       print('in loading isBookmarked: $isBookmarked'); // للتحقق
+          //     }
+          //     if (state is AddBookMarksBooksSuccess) {
+          //       isBookmarked = true;
+          //       print('in add success isBookmarked: $isBookmarked'); // للتحقق
+          //     }
+          //     if (state is DeleteBookMarksBooksSuccess) {
+          //       isBookmarked = false;
 
-                print(
-                    'in delete success isBookmarked: $isBookmarked'); // للتحقق
-              }
+          //       print(
+          //           'in delete success isBookmarked: $isBookmarked'); // للتحقق
+          //     }
 
-              return IconButton(
-                onPressed: () async {
-                  if (isBookmarked) {
-                    // إذا موجود، احذفه
-                    await BlocProvider.of<BookMarksBooksCubit>(context)
-                        .deleteBookMark(uid: uid, bookId: widget.bookId);
-                  } else {
-                    // إذا مش موجود، أضفه
-                    await BlocProvider.of<BookMarksBooksCubit>(context)
-                        .addtoBookMarks(uid: uid, bookId: widget.bookId);
-                  }
-                  // تحديث القائمة بعد العملية
-                  await BlocProvider.of<BookMarksBooksCubit>(context)
-                      .fetchBookMark();
-                },
-                icon: Icon(
-                  size: 25,
-                  isBookmarked
-                      ? CupertinoIcons.bookmark_fill
-                      : CupertinoIcons.bookmark,
-                  color: isBookmarked
-                      ? Colors.amber
-                      : BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
-                ),
-              );
-            },
-          ),
+          //     return IconButton(
+          //       onPressed: () async {
+          //         if (isBookmarked) {
+          //           // إذا موجود، احذفه
+          //           await BlocProvider.of<BookMarksBooksCubit>(context)
+          //               .deleteBookMark(uid: uid, bookId: widget.bookId);
+          //         } else {
+          //           // إذا مش موجود، أضفه
+          //           await BlocProvider.of<BookMarksBooksCubit>(context)
+          //               .addtoBookMarks(uid: uid, bookId: widget.bookId);
+          //         }
+          //         // تحديث القائمة بعد العملية
+          //         await BlocProvider.of<BookMarksBooksCubit>(context)
+          //             .fetchBookMark();
+          //       },
+          //       icon: Icon(
+          //         size: 25,
+          //         isBookmarked
+          //             ? CupertinoIcons.bookmark_fill
+          //             : CupertinoIcons.bookmark,
+          //         color: isBookmarked
+          //             ? Colors.amber
+          //             : BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );

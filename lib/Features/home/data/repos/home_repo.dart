@@ -10,6 +10,10 @@ abstract class HomeRepo {
   Future<Either<Failure, List<BookModel>>> fetchNewestBooks();
   Future<Either<Failure, List<BookModel>>> fetchSimilarBooks(
       {required String category});
+  ////////////////////////////////////////////////////
+  Future<Either<Failure, List<Apibook>>> fetchHighestRatedBooks();
+  Future<Either<Failure, List<Apibook>>> fetchLowestRatedBooks();
+
   /////////////////////////////////////////////////
   Future<Either<Failure, void>> addToBookMark(
       {required String uid, required String bookId});

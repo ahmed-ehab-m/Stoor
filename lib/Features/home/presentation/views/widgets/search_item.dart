@@ -70,16 +70,15 @@ class _SearchItemState extends State<SearchItem> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Row(children: [
+                        Row(children: [
                           Text(
-                            'Free',
+                            widget.bookModel?.price ?? 'No category',
                             style: Styles.textStyle20,
                           ),
                         ]),
                         const Spacer(),
-                        const BookRating(
-                          rating: '0.0',
-                          reviewsCount: 0,
+                        BookRating(
+                          rating: widget.bookModel?.rating ?? '0',
                         ),
                       ],
                     ),

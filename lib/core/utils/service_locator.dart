@@ -30,7 +30,7 @@ Future<void> setupServiceLocator() async {
   ));
   getIt.registerLazySingleton(() => Connectivity());
   getIt.registerSingleton<GeminiRepoImpl>(GeminiRepoImpl(
-      Gemini.init(apiKey: 'AIzaSyCfLCKPziTSPaMPQAEyjP6INBHZlBUE47A'),
+      Gemini.init(apiKey: 'AIzaSyAdxOXYIiicU5SMK787h_9r9NoB70Y5ccQ'),
       getIt.get<LocalDatasourceImpl>(),
       getIt.get<Connectivity>()));
 

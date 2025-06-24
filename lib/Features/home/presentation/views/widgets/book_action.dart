@@ -25,7 +25,7 @@ class BookAction extends StatelessWidget {
                   textStyle:
                       Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
                   foregroundColor: Colors.white,
-                  backgroundColor: kSecondaryColor,
+                  backgroundColor: Colors.grey.withOpacity(0.1),
                 ),
                 onPressed: () {},
                 child: Column(

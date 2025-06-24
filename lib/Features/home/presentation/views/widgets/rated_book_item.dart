@@ -3,6 +3,7 @@ import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.
 import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
+import 'package:bookly_app/core/models/apibook/apibook.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,16 +11,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class NewestBookItem extends StatefulWidget {
-  const NewestBookItem({super.key, this.bookModel, this.searchQuery});
-  final BookModel? bookModel;
-  final String? searchQuery;
+class RatedBookItem extends StatefulWidget {
+  const RatedBookItem({
+    super.key,
+    this.bookModel,
+  });
+  final Apibook? bookModel;
 
   @override
-  State<NewestBookItem> createState() => _NewestBookItemState();
+  State<RatedBookItem> createState() => _RatedBookItemState();
 }
 
-class _NewestBookItemState extends State<NewestBookItem> {
+class _RatedBookItemState extends State<RatedBookItem> {
   bool isBookmarked = false;
   @override
   Widget build(BuildContext context) {
@@ -40,10 +43,7 @@ class _NewestBookItemState extends State<NewestBookItem> {
               ),
               child: Row(
                 children: [
-                  NewestBookImage(
-                      imageUrl:
-                          widget.bookModel?.volumeInfo.imageLinks.thumbnail ??
-                              ''),
+                  NewestBookImage(imageUrl: widget.bookModel?.image ?? ''),
                   const SizedBox(width: 15),
                   Expanded(
                     child: Column(
@@ -54,11 +54,9 @@ class _NewestBookItemState extends State<NewestBookItem> {
                           child: Row(
                             children: [
                               Expanded(
-                                child: highlightText(
-                                  text: widget.bookModel!.volumeInfo.title ??
-                                      'No title',
-                                  searchQuery: widget.searchQuery ?? '',
-                                  baseStyle: Styles.textStyle18,
+                                child: Text(
+                                  widget.bookModel!.title ?? 'No title',
+                                  style: Styles.textStyle18,
                                 ),
                               ),
                             ],
@@ -68,23 +66,21 @@ class _NewestBookItemState extends State<NewestBookItem> {
                           height: 3,
                         ),
                         Text(
-                          widget.bookModel?.volumeInfo.authors![0] ??
-                              'No author',
+                          widget.bookModel?.author?.name ?? 'No author',
                           style: Styles.textStyle14,
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        const Row(children: [
+                        Row(children: [
                           Text(
-                            'Free',
+                            widget.bookModel?.price ?? 'free',
                             style: Styles.textStyle20,
                           ),
                         ]),
                         const Spacer(),
-                        const BookRating(
-                          rating: '0.0',
-                          reviewsCount: 0,
+                        BookRating(
+                          rating: widget.bookModel?.rating ?? '0.0',
                         ),
                       ],
                     ),

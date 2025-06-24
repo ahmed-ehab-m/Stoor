@@ -21,8 +21,8 @@ class BookDetailsViewBody extends StatelessWidget {
           hasScrollBody: false,
           child: Padding(
             padding: EdgeInsets.symmetric(
-              vertical: screenSizeHelper.homeVerticalPadding,
-            ),
+                // vertical: screenSizeHelper.homeVerticalPadding,
+                ),
             child: Container(
               // height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class BookDetailsViewBody extends StatelessWidget {
                       bookId: bookModel!.id.toString(),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   BookDetailsSection(
                     bookModel: bookModel,
                   ),

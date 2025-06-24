@@ -1,8 +1,9 @@
 import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/books_title.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/newest_list_view.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/rated_books_title.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/rated_list_view.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/home_app_bar.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/featured_books_list_view.dart';
+import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,29 +18,33 @@ class HomeViewBody extends StatelessWidget {
         if (state is AllBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         }
-        return const CustomScrollView(
+        return CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    HomeAppBar(),
-                    SizedBox(height: 10),
-                    BooksTitle(title: 'All Books'),
-                    SizedBox(height: 15),
-                    FeaturedBooksListView(),
-                    SizedBox(height: 20),
-                    BooksTitle(title: 'Highest Rated'),
+                    const HomeAppBar(),
+                    const SizedBox(height: 10),
+                    Text(
+                      'All Books',
+                      style: Styles.textStyle30
+                          .copyWith(fontWeight: FontWeight.w900),
+                    ),
+                    const SizedBox(height: 15),
+                    const FeaturedBooksListView(),
+                    const SizedBox(height: 20),
+                    const RatedBooksTitle(),
                   ],
                 ),
               ),
             ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              sliver: NewestListView(),
+              sliver: RatedListView(),
             )
           ],
         );

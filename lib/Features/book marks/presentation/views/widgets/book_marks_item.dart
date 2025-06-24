@@ -127,10 +127,10 @@ class _BookMarksItemState extends State<BookMarksItem> {
                                   style: Styles.textStyle20,
                                 ),
                                 const Spacer(),
-                                const BookRating(
+                                BookRating(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  rating: '0.0',
-                                  reviewsCount: 0,
+                                  rating: widget.bookModel?.rating.toString() ??
+                                      '0',
                                 ),
                               ],
                             ),
