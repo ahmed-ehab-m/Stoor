@@ -1,5 +1,5 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
@@ -82,8 +82,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
                     // onSend(widget.controller.text);
                     await BlocProvider.of<GeminiCubit>(context)
                         .getRecommendedBook(
-                      books:
-                          BlocProvider.of<FeaturedBooksCubit>(context).AllBooks,
+                      books: BlocProvider.of<AllBooksCubit>(context).allBooks,
                       userDescription: question!,
                     );
                   },

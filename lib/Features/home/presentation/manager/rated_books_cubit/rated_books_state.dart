@@ -12,7 +12,7 @@ final class RatedBooksInitial extends RatedBooksState {}
 final class HighestRatedBooksLoading extends RatedBooksState {}
 
 final class HighestRatedBooksSuccess extends RatedBooksState {
-  final List<Apibook> books;
+  final List<BookModel> books;
 
   const HighestRatedBooksSuccess(this.books);
 
@@ -33,7 +33,7 @@ final class HighestRatedBooksFailure extends RatedBooksState {
 final class LowestRatedBooksLoading extends RatedBooksState {}
 
 final class LowestRatedBooksSuccess extends RatedBooksState {
-  final List<Apibook> books;
+  final List<BookModel> books;
 
   const LowestRatedBooksSuccess(this.books);
 

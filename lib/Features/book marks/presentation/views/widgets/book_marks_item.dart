@@ -1,9 +1,9 @@
-import 'package:bookly_app/Features/home/presentation/manager/book_marks_books_cubit/book_marks_books_cubit.dart';
+import 'package:bookly_app/Features/book%20marks/presentation/manager/book_marks_cubit/book_marks_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:confetti/confetti.dart';
@@ -14,7 +14,7 @@ import 'package:go_router/go_router.dart';
 
 class BookMarksItem extends StatefulWidget {
   const BookMarksItem({super.key, required this.bookModel});
-  final Apibook? bookModel;
+  final BookModel? bookModel;
 
   @override
   State<BookMarksItem> createState() => _BookMarksItemState();
@@ -37,28 +37,6 @@ class _BookMarksItemState extends State<BookMarksItem> {
     super.dispose();
   }
 
-  /// A custom Path to paint stars.
-  // Path drawStar(Size size) {
-  //   double degToRad(double deg) => deg * (pi / 180.0);
-  //   const numberOfPoints = 5;
-  //   final halfWidth = size.width / 2;
-  //   final externalRadius = halfWidth;
-  //   final internalRadius = halfWidth / 2.5;
-  //   final degreesPerStep = degToRad(360 / numberOfPoints);
-  //   final halfDegreesPerStep = degreesPerStep / 2;
-  //   final path = Path();
-  //   final fullAngle = degToRad(360);
-  //   path.moveTo(size.width, halfWidth);
-  //   for (double step = 0; step < fullAngle; step += degreesPerStep) {
-  //     path.lineTo(halfWidth + externalRadius * cos(step),
-  //         halfWidth + externalRadius * sin(step));
-  //     path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
-  //         halfWidth + internalRadius * sin(step + halfDegreesPerStep));
-  //   }
-  //   path.close();
-  //   return path;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -68,15 +46,15 @@ class _BookMarksItemState extends State<BookMarksItem> {
               .push(AppRouter.KBookDetailsView, extra: widget.bookModel);
         }
       },
-      child: BlocBuilder<BookMarksBooksCubit, BookMarksBooksState>(
+      child: BlocBuilder<BookMarksBooksCubit, BookMarksState>(
         builder: (context, state) {
-          if (state is DeleteBookMarksBooksLoading) {
+          if (state is DeleteBookMarksLoading) {
             _isDeleting = state.bookId == widget.bookModel?.id.toString();
             if (_isDeleting) {
               _controllerBottomCenter.play(); // بدء الانميشن هنا
             }
-          } else if (state is DeleteBookMarksBooksSuccess ||
-              state is DeleteBookMarksBooksFailure) {
+          } else if (state is DeleteBookMarksSuccess ||
+              state is DeleteBookMarksFailure) {
             _isDeleting = false;
             _controllerBottomCenter.stop(); // إيقاف الانميشن
           }
@@ -103,7 +81,7 @@ class _BookMarksItemState extends State<BookMarksItem> {
                       ),
                       child: Row(
                         children: [
-                          NewestBookImage(
+                          CustomBookImage(
                               imageUrl: widget.bookModel?.image ?? ''),
                           const SizedBox(width: 10),
                           Expanded(
@@ -141,30 +119,6 @@ class _BookMarksItemState extends State<BookMarksItem> {
                   ),
                 ),
               ),
-              // if (_isDeleting)
-              //   Stack(
-              //     children: [
-              //       BackdropFilter(
-              //         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(20),
-              //           ),
-              //         ),
-              //       ),
-              //       Container(
-              //         width: double.infinity,
-              //         height: 180,
-              //         decoration: BoxDecoration(
-              //           color: Colors.black.withOpacity(0.5),
-              //           borderRadius: BorderRadius.circular(20),
-              //         ),
-              //         child: const Center(
-              //           child: CircularProgressIndicator(color: Colors.white),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
               Positioned(
                 right: -1,
                 child: IconButton(

@@ -34,7 +34,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         reverse: true,
         child: Padding(
           padding: EdgeInsets.symmetric(
-              // vertical: screenSizeHelper.authVerticalPadding,
               horizontal: screenSizeHelper.horizontalPadding),
           child: Form(
             key: formkey,

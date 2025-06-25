@@ -1,21 +1,21 @@
 import 'package:bookly_app/Features/search/presentation/views/widgets/custom_search_text_field.dart';
 import 'package:bookly_app/Features/search/presentation/views/widgets/search_result_list_view.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class SearchViewBody extends StatefulWidget {
   const SearchViewBody({super.key, required this.books});
-  final List<Apibook> books;
+  final List<BookModel> books;
 
   @override
   State<SearchViewBody> createState() => _SearchViewBodyState();
 }
 
 class _SearchViewBodyState extends State<SearchViewBody> {
-  List<Apibook> searchResult = [];
+  List<BookModel> searchResult = [];
   String searchQuery = '';
 
   @override
@@ -77,7 +77,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   }
 }
 
-List<Apibook> searchBooks(List<Apibook> books, String name) {
+List<BookModel> searchBooks(List<BookModel> books, String name) {
   if (name.isEmpty) {
     return books;
   } else {

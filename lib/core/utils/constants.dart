@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const String KImagesPath = 'assets/images/';
 const String KAnimationsPath = 'assets/animations/';
+const String KImagesUrl = 'http://10.0.2.2:8000/storage/';
 const Color kPrimaryColor = Color(0xFF9C27B0);
 const Color kSecondaryColor = Color(0xFFA855F7);
 const KTransationDuration = Duration(milliseconds: 300);

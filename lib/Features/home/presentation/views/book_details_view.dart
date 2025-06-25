@@ -1,10 +1,10 @@
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_details_view_body.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsView extends StatefulWidget {
   const BookDetailsView({super.key, required this.bookModel});
-  final Apibook? bookModel;
+  final BookModel? bookModel;
   @override
   State<BookDetailsView> createState() => _BookDetailsViewState();
 }

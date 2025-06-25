@@ -1,8 +1,8 @@
-import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/rated_books_title.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/rated_list_view.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/home_app_bar.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/featured_books_list_view.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/all_books_list_view.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +13,13 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeaturedBooksCubit, FeaturedBooksState>(
+    return BlocBuilder<AllBooksCubit, AllBooksState>(
       builder: (context, state) {
         if (state is AllBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         }
         return CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
@@ -35,14 +35,14 @@ class HomeViewBody extends StatelessWidget {
                           .copyWith(fontWeight: FontWeight.w900),
                     ),
                     const SizedBox(height: 15),
-                    const FeaturedBooksListView(),
+                    const AllBooksListView(),
                     const SizedBox(height: 20),
                     const RatedBooksTitle(),
                   ],
                 ),
               ),
             ),
-            SliverPadding(
+            const SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               sliver: RatedListView(),
             )

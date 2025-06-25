@@ -1,17 +1,19 @@
+import 'package:equatable/equatable.dart';
+
 import 'author.dart';
 import 'category.dart';
 
-class Hbook {
-  int? id;
-  String? title;
-  String? description;
-  String? price;
-  String? rating;
-  String? image;
-  Author? author;
-  Category? category;
+class BookModel extends Equatable {
+  final int? id;
+  final String? title;
+  final String? description;
+  final String? price;
+  final String? rating;
+  final String? image;
+  final Author? author;
+  final Category? category;
 
-  Hbook({
+  const BookModel({
     this.id,
     this.title,
     this.description,
@@ -22,7 +24,7 @@ class Hbook {
     this.category,
   });
 
-  factory Hbook.fromJson(Map<String, dynamic> json) => Hbook(
+  factory BookModel.fromJson(Map<String, dynamic> json) => BookModel(
         id: json['id'] as int?,
         title: json['title'] as String?,
         description: json['description'] as String?,
@@ -47,4 +49,18 @@ class Hbook {
         'author': author?.toJson(),
         'category': category?.toJson(),
       };
+
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      title,
+      description,
+      price,
+      rating,
+      image,
+      author,
+      category,
+    ];
+  }
 }

@@ -17,22 +17,13 @@ class AiGhostAnimation extends StatelessWidget {
           radius: 0.5,
           focalRadius: 0.8,
           colors: [
-            // Color.fromARGB(255, 1, 85, 202),
-
             Color(0xFFA855F7), // Purple
-            // Color(0xFFA855F7), // Purple
             Colors.transparent,
-
-            // BlocProvider.of<ChangeSettingsCubit>(context)
-            //     .backgroundColor!, // أزرق غامق (أعلى)
           ],
-          // stops: [0.0, 0.5, 1.0],
-          // stops: [0.0, 0.4, 0.8, 1.0],
         ),
       ),
       child: LottieBuilder.asset(
         animation,
-        // width: screenSizeHelper.screenWidth * 8,
         height: screenSizeHelper.screenHeight * 0.5,
         fit: BoxFit.contain,
       ),

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
 import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:bookly_app/core/errors/failures.dart';
-import 'package:bookly_app/core/models/user_model.dart';
+import 'package:bookly_app/core/data/models/user_model.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:path_provider/path_provider.dart';
@@ -171,7 +171,6 @@ class LocalDatasourceImpl implements LocalDatasource {
   Future<Either<Failure, List<ChatMessageModel>>> getGeminiChatHistory() async {
     try {
       final jsonString = prefs.getString(KChatHistory);
-      print('jsonString: $jsonString');
       if (jsonString == null || jsonString.isEmpty) return Right([]);
       final List<dynamic> jsonData = jsonDecode(jsonString);
       final chatHistory = jsonData
@@ -181,7 +180,6 @@ class LocalDatasourceImpl implements LocalDatasource {
           .cast<ChatMessageModel>();
       return Right(chatHistory);
     } catch (e) {
-      print('Error retrieving chat history: $e');
       return Left(CacheFailure.fromCahceError(e.toString()));
     }
   }
@@ -194,7 +192,6 @@ class LocalDatasourceImpl implements LocalDatasource {
       final jsonString =
           jsonEncode(chatHistory.map((msg) => msg.toJson()).toList());
       await prefs.setString(KChatHistory, jsonString);
-      print('Chat history saved successfully');
       return Right(null);
     } catch (e) {
       return Left(CacheFailure.fromCahceError(e.toString()));

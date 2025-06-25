@@ -72,8 +72,7 @@ class CustomNaviagationSection extends StatelessWidget {
                   child: Text(
                     currentPage == 1 ? 'Get Started' : 'Next',
                     style: Styles.textStyle20.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFFA855F7)),
+                        fontWeight: FontWeight.bold, color: kSecondaryColor),
                   ),
                 ),
               ),

@@ -1,7 +1,5 @@
 import 'package:bookly_app/Features/book%20marks/presentation/views/book_marks_view.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
@@ -25,7 +23,6 @@ class _MainViewState extends State<MainView> {
   late ScrollController scrollController;
   bool isVisible = true;
   bool _heightCalculated = false; // متغير جديد
-  List<BookModel> books = [];
   List<Widget> screens = [
     const HomeView(),
     const BookMarksView(),
@@ -66,7 +63,6 @@ class _MainViewState extends State<MainView> {
 ////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    books = BlocProvider.of<FeaturedBooksCubit>(context).featuredBooks;
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {

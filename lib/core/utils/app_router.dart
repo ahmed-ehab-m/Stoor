@@ -3,8 +3,6 @@ import 'package:bookly_app/Features/auth/presentation/views/login_view.dart';
 import 'package:bookly_app/Features/auth/presentation/views/signup_view.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/book_marks_view.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/gemini_view.dart';
-import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
-import 'package:bookly_app/Features/home/presentation/manager/similar_books_cubit.dart/similar_books_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/book_details_view.dart';
 import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
 import 'package:bookly_app/Features/home/presentation/views/main_view.dart';
@@ -14,7 +12,7 @@ import 'package:bookly_app/Features/splash&onboarding/presentation/views/manager
 import 'package:bookly_app/Features/splash&onboarding/presentation/views/onboarding_view.dart';
 import 'package:bookly_app/Features/splash&onboarding/presentation/views/splash_view.dart';
 import 'package:bookly_app/core/data/data_sources/local_data_source_impl.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,11 +79,8 @@ abstract class AppRouter {
         pageBuilder: (context, state) {
           return CustomTransitionPage(
             key: state.pageKey,
-            child: BlocProvider(
-              create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>()),
-              child: BookDetailsView(
-                bookModel: state.extra as Apibook?,
-              ),
+            child: BookDetailsView(
+              bookModel: state.extra as BookModel?,
             ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
@@ -109,7 +104,7 @@ abstract class AppRouter {
           return CustomTransitionPage(
             key: state.pageKey,
             child: SearchView(
-              books: state.extra as List<Apibook>,
+              books: state.extra as List<BookModel>,
             ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {

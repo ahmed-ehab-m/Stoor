@@ -3,14 +3,12 @@ import 'package:bookly_app/Features/auth/presentation/manger/auth_cubit/auth_cub
 import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
-import 'package:bookly_app/Features/home/presentation/manager/book_marks_books_cubit/book_marks_books_cubit.dart';
+import 'package:bookly_app/Features/book%20marks/presentation/manager/book_marks_cubit/book_marks_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/manager/rated_books_cubit/rated_books_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/manager/lowest_rated_cubit/lowest_rated_cubit.dart';
 import 'package:bookly_app/Features/settings/data/repos/settings_repo_impl.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
-import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
@@ -84,22 +82,13 @@ class BooklyApp extends StatelessWidget {
         // after create cubit call this function to fetch data
         // best Practice is to call the function in the cubit constructor
         BlocProvider(
-            create: (context) => FeaturedBooksCubit(
+            create: (context) => AllBooksCubit(
                   getIt.get<HomeRepoImpl>(),
                 )..fetchAllBooks()),
         BlocProvider(
             create: (context) => RatedBooksCubit(
                   getIt.get<HomeRepoImpl>(),
                 )..fetcHighestRatedBooks()),
-        BlocProvider(
-            create: (context) => LowestRatedCubit(
-                  getIt.get<HomeRepoImpl>(),
-                )..fetchLowestRatedBooks()),
-        BlocProvider(
-          create: (context) => NewestBooksCubit(
-            getIt.get<HomeRepoImpl>(),
-          )..fetchNewestBooks(),
-        ),
       ],
       child: BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
         builder: (context, state) {

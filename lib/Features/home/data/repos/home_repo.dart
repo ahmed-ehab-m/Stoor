@@ -1,23 +1,17 @@
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/errors/failures.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class HomeRepo {
-  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks();
-  Future<Either<Failure, List<Apibook>>> fetchAllBooks();
-
-  Future<Either<Failure, List<BookModel>>> fetchNewestBooks();
-  Future<Either<Failure, List<BookModel>>> fetchSimilarBooks(
-      {required String category});
-  ////////////////////////////////////////////////////
-  Future<Either<Failure, List<Apibook>>> fetchHighestRatedBooks();
-  Future<Either<Failure, List<Apibook>>> fetchLowestRatedBooks();
-
-  /////////////////////////////////////////////////
+  ///////////////////////FETCH Books/////////////////////////////
+  Future<Either<Failure, List<BookModel>>> fetchAllBooks();
+  Future<Either<Failure, List<BookModel>>> fetchHighestRatedBooks();
+  Future<Either<Failure, List<BookModel>>> fetchLowestRatedBooks();
+  Future<Either<Failure, List<BookModel>>> fetchBookMark({required String uid});
+  /////////////////// ADD and DELETE TO BOOKMARK//////////////////////////////
   Future<Either<Failure, void>> addToBookMark(
       {required String uid, required String bookId});
-  Future<Either<Failure, List<Apibook>>> fetchBookMark({required String uid});
+
   Future<Either<Failure, void>> deleteBookMark(
       {required String bookId, required String uid});
 }

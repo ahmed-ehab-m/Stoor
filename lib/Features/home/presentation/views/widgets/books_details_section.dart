@@ -1,12 +1,13 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/manager/book_marks_books_cubit/book_marks_books_cubit.dart';
+import 'package:bookly_app/Features/book%20marks/presentation/manager/book_marks_cubit/book_marks_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_action.dart';
+import 'package:bookly_app/core/widgets/book_mark_icon.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/assets_data.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
@@ -20,7 +21,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class BookDetailsSection extends StatefulWidget {
   const BookDetailsSection({super.key, required this.bookModel});
-  final Apibook? bookModel;
+  final BookModel? bookModel;
 
   @override
   State<BookDetailsSection> createState() => _BookDetailsSectionState();
@@ -225,18 +226,16 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                           if (state is GetBookDescriptionLoadingState) {
                             description =
                                 'Loading... This is a placeholder text to simulate 5 lines of content. It helps maintain a consistent layout during loading. Please wait while the description is being generated. This ensures the skeleton looks good.';
-                            print('description: $description');
+
                             enabled = true;
                           }
                           if (state is GetBookDescriptionLoadedState) {
                             description = state.bookDescription;
-                            print('description: $description');
 
                             enabled = false;
                           }
                           if (state is GetBookDescriptionFailureState) {
                             description = state.message;
-                            print('description: $description');
                             enabled = false;
                           }
                           return Padding(
@@ -325,70 +324,9 @@ class _BookDetailsSectionState extends State<BookDetailsSection> {
                 ),
                 Positioned(
                   right: -1,
-                  child: BlocConsumer<BookMarksBooksCubit, BookMarksBooksState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      // تحقق من القائمة المفضلة
-                      // تحويل id لـ String
-                      print(
-                          'isBookmarked in first builder: $isBookmarked'); // للتحقق
-                      if (state is AddBookMarksBooksLoading ||
-                          state is DeleteBookMarksBooksLoading) {
-                        isBookmarked = !isBookmarked;
-                        print(
-                            'in loading isBookmarked: $isBookmarked'); // للتحقق
-                      }
-                      if (state is AddBookMarksBooksSuccess) {
-                        isBookmarked = true;
-                        print(
-                            'in add success isBookmarked: $isBookmarked'); // للتحقق
-                      }
-                      if (state is DeleteBookMarksBooksSuccess) {
-                        isBookmarked = false;
-
-                        print(
-                            'in delete success isBookmarked: $isBookmarked'); // للتحقق
-                      }
-
-                      return CircleAvatar(
-                        backgroundColor: kPrimaryColor,
-                        child: IconButton(
-                          onPressed: () async {
-                            if (isBookmarked) {
-                              // إذا موجود، احذفه
-                              await BlocProvider.of<BookMarksBooksCubit>(
-                                      context)
-                                  .deleteBookMark(
-                                      uid: uid,
-                                      bookId: widget.bookModel?.id.toString() ??
-                                          '');
-                            } else {
-                              // إذا مش موجود، أضفه
-                              await BlocProvider.of<BookMarksBooksCubit>(
-                                      context)
-                                  .addtoBookMarks(
-                                      uid: uid,
-                                      bookId: widget.bookModel?.id.toString() ??
-                                          '');
-                            }
-                            // تحديث القائمة بعد العملية
-                            await BlocProvider.of<BookMarksBooksCubit>(context)
-                                .fetchBookMark();
-                          },
-                          icon: Icon(
-                            size: 25,
-                            isBookmarked
-                                ? CupertinoIcons.bookmark_fill
-                                : CupertinoIcons.bookmark,
-                            color: isBookmarked
-                                ? Colors.amber
-                                : BlocProvider.of<ChangeSettingsCubit>(context)
-                                    .iconColor,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                  child: BookMarkIcon(
+                      isBookmarked: isBookmarked,
+                      bookId: widget.bookModel?.id.toString() ?? ''),
                 ),
               ],
             ),

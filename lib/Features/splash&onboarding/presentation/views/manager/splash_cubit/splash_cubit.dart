@@ -19,10 +19,7 @@ class SplashCubit extends Cubit<SplashState> {
         localDatasource.setFirstTimeDone();
         emit(SplashNavigateToOnboarding());
       } else {
-        // Check authentication (implemented in next section)
         final uid = await authRepo.getCurrentUserId();
-        print('user uiddddddddddddddd');
-        print(uid);
         if (uid != null) {
           emit(SplashNavigateToHome());
         } else {
@@ -32,5 +29,12 @@ class SplashCubit extends Cubit<SplashState> {
     } catch (e) {
       emit(const SplashError('Failed to check app status'));
     }
+  }
+
+  ////////////////////////////////////////////////////////////////
+  void triggerAppStatus() {
+    Future.delayed(const Duration(milliseconds: 3000), () {
+      checkAppStatus();
+    });
   }
 }

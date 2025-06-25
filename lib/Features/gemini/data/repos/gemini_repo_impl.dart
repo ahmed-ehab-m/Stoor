@@ -4,7 +4,7 @@ import 'package:bookly_app/Features/gemini/data/models/chat_message_model.dart';
 import 'package:bookly_app/Features/gemini/data/repos/gemini_repo.dart';
 import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
 import 'package:bookly_app/core/errors/failures.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -38,9 +38,9 @@ class GeminiRepoImpl implements GeminiRepo {
 
 /////////////////////////////////////////////////
   @override
-  Future<Either<Failure, List<Apibook?>>> getRecommendedBook({
+  Future<Either<Failure, List<BookModel?>>> getRecommendedBook({
     required String userDescription,
-    required List<Apibook> books,
+    required List<BookModel> books,
   }) async {
     try {
       final connectivityResult = await connectivity.checkConnectivity();
@@ -83,7 +83,7 @@ class GeminiRepoImpl implements GeminiRepo {
 
   ////////////////////////////////////////////////////
   static String _buildSystemPromtRecommendation(
-      {required List<Apibook> books, required String userDescription}) {
+      {required List<BookModel> books, required String userDescription}) {
     final buffer = StringBuffer();
 
     buffer.write(
@@ -109,7 +109,7 @@ class GeminiRepoImpl implements GeminiRepo {
 ////////////////////////////////////////////////
   @override
   Future<Either<Failure, String>> getBookDescription(
-      {required Apibook book}) async {
+      {required BookModel book}) async {
     try {
       final connectivityResult = await connectivity.checkConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
@@ -132,7 +132,7 @@ class GeminiRepoImpl implements GeminiRepo {
   }
 
   ///////////////////////////////////////////
-  static String _buildSystemPromtBookDescription({required Apibook book}) {
+  static String _buildSystemPromtBookDescription({required BookModel book}) {
     final buffer = StringBuffer();
 
     buffer.write(

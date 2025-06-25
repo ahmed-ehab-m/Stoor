@@ -1,10 +1,10 @@
-import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_image.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class NewestBookSkeleton extends StatelessWidget {
-  const NewestBookSkeleton({super.key});
+class RatedBookSkeleton extends StatelessWidget {
+  const RatedBookSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class NewestBookSkeleton extends StatelessWidget {
                     child: Row(
                       children: [
                         const Skeleton.leaf(
-                            child: NewestBookImage(imageUrl: '')),
+                            child: CustomBookImage(imageUrl: '')),
                         const SizedBox(width: 20),
                         Expanded(
                           child: Column(

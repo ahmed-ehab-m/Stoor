@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/get_short_title.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 
-class FeaturedBookListItem extends StatelessWidget {
-  const FeaturedBookListItem(
+class AllBooksListItem extends StatelessWidget {
+  const AllBooksListItem(
       {super.key,
       required this.imageUrl,
       required this.bookTitle,
@@ -18,7 +19,6 @@ class FeaturedBookListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('http://127.0.0.1:8000/storage/$imageUrl');
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
@@ -43,7 +43,7 @@ class FeaturedBookListItem extends StatelessWidget {
                   aspectRatio: 2.6 / 4,
                   child: CachedNetworkImage(
                     fit: BoxFit.fill,
-                    imageUrl: 'http://10.0.2.2:8000/storage/$imageUrl',
+                    imageUrl: KImagesUrl + imageUrl,
                     errorWidget: (context, url, error) => const Icon(
                       HugeIcons.strokeRoundedImageNotFound01,
                       size: 40,

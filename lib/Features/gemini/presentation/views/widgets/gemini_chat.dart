@@ -3,7 +3,7 @@ import 'package:bookly_app/Features/gemini/presentation/views/widgets/custom_loa
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/no_match_books.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/user_chat_item.dart';
 import 'package:bookly_app/Features/gemini/presentation/views/widgets/gemini_result_list_view.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/functions/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,13 +57,8 @@ class _GeminiChatState extends State<GeminiChat> {
             showSnackBar(context,
                 message: state.errorMessage, color: Colors.red);
           }
-          // if (state is GeminiErrorState) {
-          //   showSnackBar(context,
-          //       message: state.errorMessage, color: Colors.red);
-          // }
         },
         builder: (context, state) {
-          // دايمًا استخدم chatHistory من GeminiCubit
           final chatHistory = context.read<GeminiCubit>().chatHistory;
 
           return ListView.builder(
@@ -77,12 +72,11 @@ class _GeminiChatState extends State<GeminiChat> {
               final message = chatHistory[index];
               if (message.type == 'bot') {
                 if (message.status == 'loading') {
-                  print('Loading message: ${message.message}');
                   return const CustomLoadingAnimation();
                 } else if (message.message ==
                     'No relevant books found ,try with different description.') {
                   return NoMatchBooks(errorMessage: message.message ?? '');
-                } else if (message.message is List<Apibook>) {
+                } else if (message.message is List<BookModel>) {
                   return GeminiResultListView(books: message.message);
                 } else {
                   return const SizedBox.shrink();

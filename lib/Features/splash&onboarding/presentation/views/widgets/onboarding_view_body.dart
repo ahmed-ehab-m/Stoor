@@ -32,7 +32,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
             'Discover your next favorite book and find books from various genres and authors.',
       },
       {
-        'image': AssetsData.aiGhostAnimation,
+        'image': AssetsData.onBoardingImageTwo,
         'title': 'AI-Powered Book Picks',
         'subtitle':
             'Let AI Bot suggest your next read from our collection, tailored just for you.',
@@ -57,28 +57,8 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
               },
               itemBuilder: (context, index) {
                 return Column(
-                  // spacing: 20,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(bottom: 10),
-                    //   child: Row(
-                    //     spacing: 5,
-                    //     children: [
-                    //       Icon(
-                    //         HugeIcons.strokeRoundedBookOpen02,
-                    //         size: 30,
-                    //       ),
-                    //       Text(
-                    //         'Stoor',
-                    //         style: Styles.textStyle30.copyWith(
-                    //           fontFamily: 'DancingScript-VariableFont_wght',
-                    //           // color: kPrimaryColor,
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    pages[index]['image'] == AssetsData.aiGhostAnimation
+                    pages[index]['image'] == AssetsData.onBoardingImageTwo
                         ? AiGhostAnimation(
                             screenSizeHelper: screenSizeHelper,
                             animation: pages[index]['image']!,
@@ -98,7 +78,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                               ),
                             ],
                           ),
-                    pages[index]['image'] == AssetsData.aiGhostAnimation
+                    pages[index]['image'] == AssetsData.onBoardingImageTwo
                         ? CustomShaderMask(
                             child: Text(
                               pages[index]['title']!,
@@ -114,7 +94,6 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                             style: const TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.bold,
-                              // color: textColor,
                             ),
                           ),
                     Text(
@@ -122,7 +101,6 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        // color: textColor,
                       ),
                     ),
                     const Spacer(),

@@ -1,9 +1,6 @@
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/Features/home/data/models/book_model/image_links.dart';
-import 'package:bookly_app/Features/home/data/models/book_model/volume_info.dart';
 import 'package:bookly_app/Features/home/presentation/manager/rated_books_cubit/rated_books_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/rated_book_item.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/newest_book_skeleton.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/rated_book_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -45,24 +42,11 @@ class RatedListView extends StatelessWidget {
           );
         } else {
           return const Skeletonizer.sliver(
-            // effect:ShimmerEffect() ,
             enabled: true,
-            child: NewestBookSkeleton(),
+            child: RatedBookSkeleton(),
           );
         }
       },
     );
   }
 }
-
-BookModel mockupBookModel = const BookModel(
-  id: '1',
-  volumeInfo: VolumeInfo(
-    title: 'Sample Book Title',
-    authors: ['Author Name'],
-    imageLinks: ImageLinks(
-      thumbnail: 'https://example.com/sample-book-cover.jpg',
-      smallThumbnail: '',
-    ),
-  ),
-);

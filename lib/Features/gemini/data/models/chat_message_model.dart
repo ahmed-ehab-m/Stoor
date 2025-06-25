@@ -1,5 +1,4 @@
-import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 
 class ChatMessageModel {
   final dynamic message;
@@ -17,7 +16,7 @@ class ChatMessageModel {
   dynamic _encodeMessage(dynamic message) {
     if (message is String) {
       return {'type': 'text', 'data': message};
-    } else if (message is List<Apibook>) {
+    } else if (message is List<BookModel>) {
       return {
         'type': 'book',
         'data': message.map((book) => book.toJson()).toList()
@@ -38,8 +37,8 @@ class ChatMessageModel {
       );
     } else if (messageType == 'book') {
       final List<dynamic> bookJsonList = messageContent as List<dynamic>;
-      final List<Apibook> books =
-          bookJsonList.map((json) => Apibook.fromJson(json)).toList();
+      final List<BookModel> books =
+          bookJsonList.map((json) => BookModel.fromJson(json)).toList();
       return ChatMessageModel(
         message: books,
         type: json['type'],

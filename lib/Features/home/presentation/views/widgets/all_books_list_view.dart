@@ -1,18 +1,18 @@
-import 'package:bookly_app/Features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/featured_book_list_item.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/featured_book_skeleton.dart';
+import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
+import 'package:bookly_app/core/widgets/all_books_list_item.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/all_books_skeleton.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class FeaturedBooksListView extends StatelessWidget {
-  const FeaturedBooksListView({super.key});
+class AllBooksListView extends StatelessWidget {
+  const AllBooksListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeaturedBooksCubit, FeaturedBooksState>(
+    return BlocBuilder<AllBooksCubit, AllBooksState>(
       builder: (context, state) {
         if (state is AllBooksSuccess) {
           return SizedBox(
@@ -30,7 +30,7 @@ class FeaturedBooksListView extends StatelessWidget {
                         extra: state.books[index],
                       );
                     },
-                    child: FeaturedBookListItem(
+                    child: AllBooksListItem(
                       author: state.books[index].author?.name ?? '',
                       bookTitle: state.books[index].title ?? '',
                       imageUrl: state.books[index].image ?? '',

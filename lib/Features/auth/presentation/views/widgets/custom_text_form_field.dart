@@ -29,10 +29,6 @@ class CustomTextFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Text(
-        //   hintText,
-        //   style: Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
-        // ),
         TextFormField(
           controller: controller,
           cursorColor: kPrimaryColor,

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:bookly_app/core/models/user_model.dart';
+import 'package:bookly_app/core/data/models/user_model.dart';
 
 abstract class ProfileState extends Equatable {
   const ProfileState();

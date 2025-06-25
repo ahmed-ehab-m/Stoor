@@ -1,5 +1,5 @@
 import 'package:bookly_app/core/data/data_sources/local_data_source.dart';
-import 'package:bookly_app/core/models/user_model.dart';
+import 'package:bookly_app/core/data/models/user_model.dart';
 import 'package:bookly_app/Features/auth/data/repos/auth_repo.dart';
 import 'package:bookly_app/core/errors/failures.dart';
 import 'package:bookly_app/core/utils/validation.dart';
@@ -173,19 +173,19 @@ class AuthRepoImpl implements AuthRepo {
       if (updatedEmail.trim().isNotEmpty && newEmail != currentEmail) {
         String? invalidEmail = FormValidation.validateEmail(updatedEmail);
         return Left(ServerFailure(invalidEmail));
-        if (newPassword.isEmpty) {
-          return Left(ServerFailure('Password Invalid.'));
-        }
+      }
+      if (newPassword.isEmpty) {
+        return Left(ServerFailure('Password Invalid.'));
+      }
 
-        final credential = EmailAuthProvider.credential(
-          email: user.email!,
-          password: newPassword,
-        );
-        try {
-          await user.reauthenticateWithCredential(credential);
-        } on FirebaseAuthException catch (e) {
-          return Left(ServerFailure.fromFirebaseAuthError(e.code));
-        }
+      final credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: newPassword,
+      );
+      try {
+        await user.reauthenticateWithCredential(credential);
+      } on FirebaseAuthException catch (e) {
+        return Left(ServerFailure.fromFirebaseAuthError(e.code));
       }
 
       await user.updateEmail(newEmail);

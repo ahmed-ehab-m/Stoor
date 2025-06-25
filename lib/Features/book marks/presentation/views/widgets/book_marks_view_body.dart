@@ -1,9 +1,9 @@
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/book_marks_item.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/empty_books_widget.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/library_title.dart';
-import 'package:bookly_app/Features/home/presentation/manager/book_marks_books_cubit/book_marks_books_cubit.dart';
+import 'package:bookly_app/Features/book%20marks/presentation/manager/book_marks_cubit/book_marks_cubit.dart';
 import 'package:bookly_app/core/helper/screen_size_helper.dart';
-import 'package:bookly_app/core/models/apibook/apibook.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,25 +37,21 @@ class _BookMarksViewBodyState extends State<BookMarksViewBody> {
           const LibraryTitle(),
           const SizedBox(height: 20),
           Expanded(
-            child: BlocBuilder<BookMarksBooksCubit, BookMarksBooksState>(
+            child: BlocBuilder<BookMarksBooksCubit, BookMarksState>(
               builder: (context, state) {
-                List<Apibook> books =
+                List<BookModel> books =
                     BlocProvider.of<BookMarksBooksCubit>(context).books;
 
-                if (state is AddBookMarksBooksSuccess) {
-                  print('add to book marks success');
-                  print('books length ${books.length}');
-                }
-                if (state is FetchBookMarksBooksLoading) {
+                if (state is AddBookMarksSuccess) {}
+                if (state is FetchBookMarksLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (state is FetchBookMarksBooksFailure) {
+                if (state is FetchBookMarksFailure) {
                   return CustomErrorWidget(errorMessage: state.errMessage);
                 }
-                if (state is FetchBookMarksBooksSuccess) {
-                  print('fetch book marks success');
+                if (state is FetchBookMarksSuccess) {
                   books = state.books;
                 }
                 return books.isEmpty
