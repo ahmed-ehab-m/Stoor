@@ -87,7 +87,7 @@ class HomeRepoImpl implements HomeRepo {
   //////////////Book Mark Functions//////////////////////
   @override
   Future<Either<Failure, void>> addToBookMark(
-      {required String uid, required String bookId}) async {
+      {required String uid, required int bookId}) async {
     try {
       await apiService.post(bookId: bookId, userId: uid);
       return right(null);
@@ -102,7 +102,7 @@ class HomeRepoImpl implements HomeRepo {
   /////////////////////////////////////////////
   @override
   Future<Either<Failure, void>> deleteBookMark(
-      {required String bookId, required String uid}) async {
+      {required int bookId, required String uid}) async {
     try {
       await apiService.delete(bookId: bookId, userId: uid);
       return right(null);

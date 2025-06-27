@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
+import 'package:bookly_app/core/widgets/custom_book_image.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';

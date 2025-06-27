@@ -4,11 +4,11 @@ import 'package:bookly_app/Features/gemini/data/repos/gemini_repo_impl.dart';
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/manager/book_marks_cubit/book_marks_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/manager/rated_books_cubit/rated_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/fetch_rated_books_cubit/fetch_rated_books_cubit.dart';
 import 'package:bookly_app/Features/settings/data/repos/settings_repo_impl.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
-import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/fetch_all_books_cubit/fetch_all_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
@@ -50,7 +50,7 @@ class BooklyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => BookMarksBooksCubit(
+          create: (context) => BookMarksCubit(
             getIt.get<HomeRepoImpl>(),
             getIt.get<AuthRepoImpl>(),
           ),
@@ -82,11 +82,11 @@ class BooklyApp extends StatelessWidget {
         // after create cubit call this function to fetch data
         // best Practice is to call the function in the cubit constructor
         BlocProvider(
-            create: (context) => AllBooksCubit(
+            create: (context) => FetchAllBooksCubit(
                   getIt.get<HomeRepoImpl>(),
                 )..fetchAllBooks()),
         BlocProvider(
-            create: (context) => RatedBooksCubit(
+            create: (context) => FetchRatedBooksCubit(
                   getIt.get<HomeRepoImpl>(),
                 )..fetcHighestRatedBooks()),
       ],
@@ -97,8 +97,8 @@ class BooklyApp extends StatelessWidget {
             title: 'Stoor',
             theme: ThemeData(
               brightness: BlocProvider.of<ChangeSettingsCubit>(context).theme,
-              // scaffoldBackgroundColor:
-              //     BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor,
+              scaffoldBackgroundColor:
+                  BlocProvider.of<ChangeSettingsCubit>(context).backgroundColor,
             ),
             debugShowCheckedModeBanner: false,
           );

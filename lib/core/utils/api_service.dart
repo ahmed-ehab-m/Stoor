@@ -15,9 +15,9 @@ class ApiService {
   }
 
 //////////////////////////////////////////////////
-  Future<void> post({required String bookId, required String userId}) async {
+  Future<void> post({required int bookId, required String userId}) async {
     await _dio.post(
-      _favoritebaseurl + bookId,
+      _favoritebaseurl + bookId.toString(),
       data: {
         "user_id": userId,
       },
@@ -25,9 +25,9 @@ class ApiService {
   }
 
 ///////////////////////////////////////////////////////////
-  Future<void> delete({required String bookId, required String userId}) async {
+  Future<void> delete({required int bookId, required String userId}) async {
     await _dio.delete(
-      _favoritebaseurl + bookId,
+      _favoritebaseurl + bookId.toString(),
       data: {
         "user_id": userId,
       },

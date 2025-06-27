@@ -1,49 +1,44 @@
 import 'package:bookly_app/Features/book%20marks/presentation/manager/book_marks_cubit/book_marks_cubit.dart';
-import 'package:bookly_app/core/widgets/book_mark_icon.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
+import 'package:bookly_app/core/widgets/custom_book_image.dart';
+import 'package:bookly_app/core/widgets/book_mark_icon.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bookly_app/core/widgets/book_price.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class RatedBookItem extends StatefulWidget {
-  const RatedBookItem({
+class VerticalListBookItem extends StatefulWidget {
+  const VerticalListBookItem({
     super.key,
     this.bookModel,
   });
   final BookModel? bookModel;
   @override
-  State<RatedBookItem> createState() => _RatedBookItemState();
+  State<VerticalListBookItem> createState() => _VerticalListBookItemState();
 }
 
-class _RatedBookItemState extends State<RatedBookItem> {
-  bool _isDeleting = false;
-
+class _VerticalListBookItemState extends State<VerticalListBookItem> {
   @override
   Widget build(BuildContext context) {
-    bool isBookmarked = BlocProvider.of<BookMarksBooksCubit>(context)
-        .books
-        .any((book) => book.id.toString() == widget.bookModel?.id.toString());
+    String uid = BlocProvider.of<ProfileCubit>(context).uid ?? '';
 
     return GestureDetector(
       onTap: () {
         GoRouter.of(context)
             .push(AppRouter.KBookDetailsView, extra: widget.bookModel);
       },
-      child: BlocBuilder<BookMarksBooksCubit, BookMarksState>(
+      child: BlocBuilder<BookMarksCubit, BookMarksState>(
         builder: (context, state) {
           if (state is AddBookMarksLoading) {
             // إظهار مؤشر التحميل
           }
           if (state is DeleteBookMarksLoading) {
-            _isDeleting = state.bookId == widget.bookModel?.id.toString();
           } else if (state is DeleteBookMarksSuccess ||
               state is DeleteBookMarksFailure) {
-            _isDeleting = false;
             // إيقاف الانميشن
           }
           return Stack(
@@ -54,7 +49,7 @@ class _RatedBookItemState extends State<RatedBookItem> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.2),
+                    color: Colors.grey.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -72,7 +67,9 @@ class _RatedBookItemState extends State<RatedBookItem> {
                                   Expanded(
                                     child: Text(
                                       widget.bookModel!.title ?? 'No title',
-                                      style: Styles.textStyle18,
+                                      style: Styles.textStyle18.copyWith(
+                                        fontWeight: FontWeight.w900,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -88,12 +85,9 @@ class _RatedBookItemState extends State<RatedBookItem> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Row(children: [
-                              Text(
-                                widget.bookModel?.price ?? 'free',
-                                style: Styles.textStyle20,
-                              ),
-                            ]),
+                            BookPrice(
+                              price: widget.bookModel?.price ?? '0.0',
+                            ),
                             const Spacer(),
                             BookRating(
                               rating: widget.bookModel?.rating ?? '0.0',
@@ -108,8 +102,10 @@ class _RatedBookItemState extends State<RatedBookItem> {
               Positioned(
                 right: -1,
                 child: BookMarkIcon(
-                    isBookmarked: isBookmarked,
-                    bookId: widget.bookModel?.id.toString() ?? ''),
+                  isRated: true,
+                  bookModel: widget.bookModel,
+                  uid: uid,
+                ),
               ),
             ],
           );

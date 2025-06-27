@@ -60,8 +60,7 @@ dependencies:
   carousel_slider: ^5.0.0
   dynamic_background: ^0.5.0
   dio: ^5.8.0+1
-
-  confetti: ^0.8.0
+ 
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:

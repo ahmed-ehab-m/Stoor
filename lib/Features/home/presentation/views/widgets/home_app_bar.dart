@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/fetch_all_books_cubit/fetch_all_books_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_state.dart';
@@ -66,7 +66,8 @@ class _HomeAppBarState extends State<HomeAppBar> {
                     IconButton(
                         onPressed: () {
                           searchResult =
-                              BlocProvider.of<AllBooksCubit>(context).allBooks;
+                              BlocProvider.of<FetchAllBooksCubit>(context)
+                                  .allBooks;
                           GoRouter.of(context)
                               .push(AppRouter.KSearchView, extra: searchResult);
                         },

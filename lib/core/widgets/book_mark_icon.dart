@@ -1,17 +1,22 @@
 import 'package:bookly_app/Features/book%20marks/presentation/manager/book_marks_cubit/book_marks_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
+import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookMarkIcon extends StatefulWidget {
   const BookMarkIcon(
-      {super.key, required this.isBookmarked, required this.bookId});
-  final bool isBookmarked;
-  final String bookId;
-
+      {super.key,
+      this.bookModel,
+      required this.uid,
+      required this.isRated,
+      this.color});
+  final String uid;
+  final BookModel? bookModel;
+  final bool isRated;
+  final Color? color;
   @override
   State<BookMarkIcon> createState() => _BookMarkIconState();
 }
@@ -19,57 +24,40 @@ class BookMarkIcon extends StatefulWidget {
 class _BookMarkIconState extends State<BookMarkIcon> {
   @override
   Widget build(BuildContext context) {
-    String uid = BlocProvider.of<ProfileCubit>(context).uid ?? '';
-    bool isBookmarked = widget.isBookmarked;
-    return BlocConsumer<BookMarksBooksCubit, BookMarksState>(
-      listener: (context, state) {},
+    return BlocBuilder<BookMarksCubit, BookMarksState>(
       builder: (context, state) {
-        print('first isBookmarked: $isBookmarked');
-        // تحقق من القائمة المفضلة
-        // تحويل id لـ String
-
+        final cubit = BlocProvider.of<BookMarksCubit>(context);
+        bool isPressed = cubit.isBookBookmarked(widget.bookModel?.id ?? 0);
         if (state is AddBookMarksLoading) {
-          isBookmarked = state.bookId == widget.bookId;
-          print('isBookmarked IN Loading: $isBookmarked');
+          state.bookId == widget.bookModel?.id
+              ? isPressed = true
+              : isPressed = isPressed;
         }
-        if (state is AddBookMarksSuccess) {
-          isBookmarked = true;
-          print('isBookmarked IN Success: $isBookmarked');
-        }
-        if (state is DeleteBookMarksSuccess) {
-          isBookmarked = false;
-          print('isBookmarked IN Delete Success: $isBookmarked');
+        if (state is DeleteBookMarksLoading) {
+          state.bookId == widget.bookModel?.id
+              ? isPressed = false
+              : isPressed = isPressed;
         }
         return CircleAvatar(
-          backgroundColor: kPrimaryColor,
+          backgroundColor: widget.isRated ? Colors.transparent : kPrimaryColor,
           child: IconButton(
-            onPressed: () async {
-              if (widget.isBookmarked) {
-                // إذا موجود، احذفه
-                await BlocProvider.of<BookMarksBooksCubit>(context)
-                    .deleteBookMark(uid: uid, bookId: widget.bookId);
-              } else {
-                // إذا مش موجود، أضفه
-                await BlocProvider.of<BookMarksBooksCubit>(context)
-                    .addtoBookMarks(
-                  uid: uid,
-                  bookId: widget.bookId,
-                );
-              }
-              // تحديث القائمة بعد العملية
-              await BlocProvider.of<BookMarksBooksCubit>(context)
-                  .fetchBookMark();
-            },
-            icon: Icon(
-              size: 25,
-              isBookmarked
-                  ? CupertinoIcons.bookmark_fill
-                  : CupertinoIcons.bookmark,
-              color: isBookmarked
-                  ? Colors.amber
-                  : BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
-            ),
-          ),
+              onPressed: () async {
+                isPressed = !isPressed;
+                // setState(() {});
+                if (!isPressed) {
+                  cubit.deleteBookMark(
+                      uid: widget.uid, bookId: widget.bookModel?.id ?? 0);
+                } else {
+                  cubit.addtoBookMarks(
+                      uid: widget.uid, bookId: widget.bookModel?.id ?? 0);
+                }
+              },
+              icon: Icon(
+                isPressed
+                    ? CupertinoIcons.bookmark_fill
+                    : CupertinoIcons.bookmark,
+                color: isPressed ? Color(0xffFFD400) : widget.color,
+              )),
         );
       },
     );

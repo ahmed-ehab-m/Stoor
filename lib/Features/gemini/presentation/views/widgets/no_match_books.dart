@@ -41,33 +41,51 @@ class NoMatchBooks extends StatelessWidget {
                 child: Row(
                   // mainAxisSize: MainAxisSize.min,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              errorMessage.split(',')[0], // First sentence
-                              style: Styles.textStyle20.copyWith(
-                                fontWeight: FontWeight.w900,
-                                color: Colors.redAccent.shade100,
+                    errorMessage.contains(',') == true
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    errorMessage
+                                        .split(',')[0], // First sentence
+                                    style: Styles.textStyle20.copyWith(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.redAccent.shade100,
+                                    ),
+                                  ),
+                                  const Icon(
+                                    HugeIcons.strokeRoundedSearchRemove,
+                                    size: 25,
+                                    color: Colors.redAccent,
+                                  ),
+                                ],
                               ),
-                            ),
-                            const Icon(
-                              HugeIcons.strokeRoundedSearchRemove,
-                              size: 25,
-                              color: Colors.redAccent,
-                            ),
-                          ],
-                        ),
-                        Text(
-                          errorMessage.split(',')[1], // Second sentence
-                          style: Styles.textStyle18.copyWith(
-                            fontWeight: FontWeight.w900,
+                              Text(
+                                errorMessage.split(',')[1], // Second sentence
+                                style: Styles.textStyle18.copyWith(
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                errorMessage, // First sentence
+                                style: Styles.textStyle20.copyWith(
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.redAccent.shade100,
+                                ),
+                              ),
+                              const Icon(
+                                HugeIcons.strokeRoundedSearchRemove,
+                                size: 25,
+                                color: Colors.redAccent,
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
                     // const SizedBox(width: 8),
                   ],
                 ),

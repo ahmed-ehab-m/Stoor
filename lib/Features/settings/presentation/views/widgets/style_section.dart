@@ -21,7 +21,7 @@ class StyleSection extends StatelessWidget {
                 BlocProvider.of<ChangeSettingsCubit>(context).themeIndex;
             return Container(
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.only(left: 20),

@@ -10,8 +10,8 @@ abstract class HomeRepo {
   Future<Either<Failure, List<BookModel>>> fetchBookMark({required String uid});
   /////////////////// ADD and DELETE TO BOOKMARK//////////////////////////////
   Future<Either<Failure, void>> addToBookMark(
-      {required String uid, required String bookId});
+      {required String uid, required int bookId});
 
   Future<Either<Failure, void>> deleteBookMark(
-      {required String bookId, required String uid});
+      {required int bookId, required String uid});
 }

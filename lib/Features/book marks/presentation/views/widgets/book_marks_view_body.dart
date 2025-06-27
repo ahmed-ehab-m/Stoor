@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/book_marks_item.dart';
+import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/book_marks_list_view.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/empty_books_widget.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/views/widgets/library_title.dart';
 import 'package:bookly_app/Features/book%20marks/presentation/manager/book_marks_cubit/book_marks_cubit.dart';
@@ -20,7 +20,7 @@ class _BookMarksViewBodyState extends State<BookMarksViewBody> {
   void initState() {
     super.initState();
 
-    BlocProvider.of<BookMarksBooksCubit>(context).fetchBookMark();
+    BlocProvider.of<BookMarksCubit>(context).fetchBookMark();
   }
 
   @override
@@ -37,10 +37,10 @@ class _BookMarksViewBodyState extends State<BookMarksViewBody> {
           const LibraryTitle(),
           const SizedBox(height: 20),
           Expanded(
-            child: BlocBuilder<BookMarksBooksCubit, BookMarksState>(
+            child: BlocBuilder<BookMarksCubit, BookMarksState>(
               builder: (context, state) {
                 List<BookModel> books =
-                    BlocProvider.of<BookMarksBooksCubit>(context).books;
+                    BlocProvider.of<BookMarksCubit>(context).books;
 
                 if (state is AddBookMarksSuccess) {}
                 if (state is FetchBookMarksLoading) {
@@ -58,19 +58,7 @@ class _BookMarksViewBodyState extends State<BookMarksViewBody> {
                     ? const Center(
                         child: EmptyBooksWidget(),
                       )
-                    : Expanded(
-                        child: ListView.builder(
-                          itemCount: books.length,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          // shrinkWrap: true,
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: BookMarksItem(
-                              bookModel: books[index],
-                            ),
-                          ),
-                        ),
-                      );
+                    : BookMarksListView(books: books);
               },
             ),
           ),

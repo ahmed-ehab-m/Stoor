@@ -131,6 +131,31 @@ class GeminiRepoImpl implements GeminiRepo {
     }
   }
 
+  ////////////////////////////////////////////////
+  // @override
+  // Future<Either<Failure, String>> getBookPreview(
+  //     {required BookModel book}) async {
+  //   try {
+  //     final connectivityResult = await connectivity.checkConnectivity();
+  //     if (connectivityResult == ConnectivityResult.none) {
+  //       return left(
+  //           ServerFailure('Check your Internet connection , and try again'));
+  //     }
+  //     final promt = _buildSystemPromtBookPreview(book: book);
+  //     final response = await gemini.prompt(parts: [Part.text(promt)]);
+  //     final cleanedResponse = response!.output!;
+  //     if (cleanedResponse.isEmpty) {
+  //       return left(ServerFailure('There is no Preview for this book.'));
+  //     }
+  //     return right(cleanedResponse);
+  //   } catch (e) {
+  //     if (e is DioException) {
+  //       return left(ServerFailure.fromDioError(e));
+  //     }
+  //     return left(ServerFailure(e.toString()));
+  //   }
+  // }
+
   ///////////////////////////////////////////
   static String _buildSystemPromtBookDescription({required BookModel book}) {
     final buffer = StringBuffer();
@@ -149,4 +174,23 @@ class GeminiRepoImpl implements GeminiRepo {
         'Return only the new summary as a plain text string, with no additional text or formatting (e.g., no JSON, no labels).');
     return buffer.toString();
   }
+
+  ///////////////////////////////////////////////////////
+  // static String _buildSystemPromtBookPreview({required BookModel book}) {
+  //   final buffer = StringBuffer();
+
+  //   buffer.write(
+  //       'You are a book recommendation assistant. Based on this book Details, search the web to find an existing preview or summary for the following book:\n\n');
+
+  //   buffer.write('- Title: ${book.title}\n');
+  //   buffer.write(
+  //       '  Description: ${book.description ?? "No description available"}\n');
+  //   buffer.write('  Author: ${book.author?.name ?? "No author available"}\n');
+  //   buffer.write(
+  //       'The preview should be a concise paragraph extracted from a reliable web source, and in the same language as the description if available. ');
+
+  //   buffer.write(
+  //       'Return only the found preview as a plain text string, with no additional text or formatting (e.g., no JSON, no labels). If no preview is found, return "No preview available."');
+  //   return buffer.toString();
+  // }
 }

@@ -83,6 +83,21 @@ class GeminiCubit extends Cubit<GeminiState> {
     });
   }
 
+  //////////////////////////////////////////////
+  // Future<void> getBookPreview({required BookModel book}) async {
+  //   emit(GetBookPreviewLoadingState());
+  //   var result = await _geminiRepo.getBookPreview(book: book);
+  //   result.fold((failure) {
+  //     emit(
+  //       GetBookPreviewFailureState(message: failure.errMessage!),
+  //     );
+  //   }, (description) {
+  //     emit(
+  //       GetBookPreviewLoadedState(bookDescription: description),
+  //     );
+  //   });
+  // }
+
 /////////////////////////////////////////////
   Future<void> getRecommendedBook({
     required String userDescription,

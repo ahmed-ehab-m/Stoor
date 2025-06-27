@@ -11,78 +11,29 @@ class BookAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Row(
-        spacing: 10,
-        children: [
-          Expanded(
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  minimumSize: const Size(double.infinity, 60),
-                  textStyle:
-                      Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.grey.withOpacity(0.1),
-                ),
-                onPressed: () {},
-                child: Column(
-                  children: [
-                    const Text(
-                      'Buy Now',
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      '${bookModel?.price} EGP',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                )),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            minimumSize: const Size(double.infinity, 60),
+            textStyle: Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
+            foregroundColor: Colors.white,
+            backgroundColor: kPrimaryColor,
           ),
-          Expanded(
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  minimumSize: const Size(double.infinity, 60),
-                  textStyle:
-                      Styles.textStyle18.copyWith(fontWeight: FontWeight.bold),
-                  backgroundColor: kPrimaryColor,
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () async {
-                  // await launchCustomUrl(
-                  //   context,
-                  //   bookModel?.volumeInfo.previewLink,
-                  // );
-                },
-                child: const Row(
-                  spacing: 10,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      HugeIcons.strokeRoundedBookOpen02,
-                      size: 25,
-                    ),
-                    Text(
-                      'Read ',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                )),
-          ),
-        ],
-      ),
+          onPressed: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 8,
+            children: [
+              const Icon(HugeIcons.strokeRoundedShoppingCartCheckIn02,
+                  size: 25),
+              Text(
+                'Buy Now ${bookModel?.price} EGP',
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
     );
   }
-
-  // String getText(BookModel? bookModel) {
-  //   if (bookModel?.volumeInfo.previewLink != null) {
-  //     return 'Preview';
-  //   } else {
-  //     return 'Not Available';
-  //   }
-  // }
 }

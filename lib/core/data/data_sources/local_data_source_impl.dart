@@ -164,8 +164,6 @@ class LocalDatasourceImpl implements LocalDatasource {
     await prefs.setBool(kIsFirstTime, false);
   }
 
-//////////////////////////////////////////////////
-
 /////////////////////////////////////////////////////
   @override
   Future<Either<Failure, List<ChatMessageModel>>> getGeminiChatHistory() async {

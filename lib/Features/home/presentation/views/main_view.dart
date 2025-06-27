@@ -72,6 +72,7 @@ class _MainViewState extends State<MainView> {
         }
       },
       child: Scaffold(
+        // extendBody: true,
         //NotificationListener => a widget listen to any notification that child send
         //ScrollNotification => to discover or listen  when the user scroll
         //ScrolLNotification => send a notification when the user scroll

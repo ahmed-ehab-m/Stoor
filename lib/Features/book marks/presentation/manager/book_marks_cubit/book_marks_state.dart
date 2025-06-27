@@ -11,7 +11,7 @@ final class BookMarksInitial extends BookMarksState {}
 
 ///////////////////////DeleteBookMarksBooks/////////////////////////////////
 final class DeleteBookMarksLoading extends BookMarksState {
-  final String bookId;
+  final int bookId;
   const DeleteBookMarksLoading(this.bookId);
 }
 
@@ -24,7 +24,7 @@ final class DeleteBookMarksFailure extends BookMarksState {
 
 ///////////////////////AddBookMarksBooks/////////////////////////////////
 final class AddBookMarksLoading extends BookMarksState {
-  final String bookId;
+  final int bookId;
   const AddBookMarksLoading(this.bookId);
 }
 

@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:bookly_app/core/utils/assets_data.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,6 +10,7 @@ class CustomErrorWidget extends StatelessWidget {
   final String errorMessage;
   @override
   Widget build(BuildContext context) {
+    print('CustomErrorWidget: $errorMessage');
     return Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
@@ -29,28 +31,36 @@ class CustomErrorWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min, // لضبط الحجم حسب المحتوى
               children: [
                 SvgPicture.asset(
-                  'assets/images/generated-7577945_1280.svg',
+                  AssetsData.errorRobot,
                   height: 250,
                   width: 250,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        errorMessage.split(',')[0], // First sentence
-                        style: Styles.textStyle20
-                            .copyWith(fontWeight: FontWeight.w900),
-                      ),
-                      const SizedBox(height: 10), // مسافة صغيرة بين الجملتين
-
-                      Text(
-                        errorMessage.split(',')[1], // Second sentence
-                        style: Styles.textStyle16.copyWith(color: Colors.grey),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
+                  child: errorMessage.contains(',') == true
+                      ? Column(
+                          children: [
+                            Text(
+                              errorMessage.split(',')[0], // First sentence
+                              style: Styles.textStyle20
+                                  .copyWith(fontWeight: FontWeight.w900),
+                            ),
+                            const SizedBox(
+                                height: 10), // مسافة صغيرة بين الجملتين
+                            Text(
+                              errorMessage.split(',')[1], // Second sentence
+                              style: Styles.textStyle16
+                                  .copyWith(color: Colors.grey),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        )
+                      : Text(
+                          errorMessage,
+                          style: Styles.textStyle20
+                              .copyWith(fontWeight: FontWeight.w900),
+                          textAlign: TextAlign.center,
+                        ),
                 ),
               ],
             ),

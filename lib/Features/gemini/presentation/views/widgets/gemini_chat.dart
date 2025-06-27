@@ -79,7 +79,8 @@ class _GeminiChatState extends State<GeminiChat> {
                 } else if (message.message is List<BookModel>) {
                   return GeminiResultListView(books: message.message);
                 } else {
-                  return const SizedBox.shrink();
+                  return const NoMatchBooks(
+                      errorMessage: 'General Error Please Try Again ' ?? '');
                 }
               } else if (message.type == 'user') {
                 return Row(

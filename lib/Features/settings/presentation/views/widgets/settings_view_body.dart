@@ -22,20 +22,24 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         horizontal: screenSizeHelper.horizontalPadding,
         vertical: screenSizeHelper.homeVerticalPadding,
       ),
-      child: ListView(
-        children: const [
-          SettingsTitle(),
-          SizedBox(
-            height: 20,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: const [
+                SettingsTitle(),
+                SizedBox(
+                  height: 20,
+                ),
+                ProfileDataSection(),
+                StyleSection(),
+              ],
+            ),
           ),
-          ProfileDataSection(),
-          StyleSection(),
-          SizedBox(
-            height: 10,
-          ),
+          // Spacer(),
           LogoutButton(),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
         ],
       ),

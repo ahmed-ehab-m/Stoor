@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/fetch_all_books_cubit/fetch_all_books_cubit.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/rated_books_title.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/rated_list_view.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/home_app_bar.dart';
@@ -13,9 +13,9 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AllBooksCubit, AllBooksState>(
+    return BlocBuilder<FetchAllBooksCubit, FetchAllBooksState>(
       builder: (context, state) {
-        if (state is AllBooksFailure) {
+        if (state is FetchAllBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         }
         return CustomScrollView(

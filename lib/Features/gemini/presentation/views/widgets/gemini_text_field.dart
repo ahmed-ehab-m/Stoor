@@ -1,5 +1,5 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/fetch_all_books_cubit/fetch_all_books_cubit.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
@@ -17,8 +17,7 @@ class GeminiTextField extends StatefulWidget {
 class _GeminiTextFieldState extends State<GeminiTextField>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  // late Animation<Alignment> _beginAnimation;
-  // late Animation<Alignment> _endAnimation;
+
   String? question;
   final FocusNode _focusNode = FocusNode();
 
@@ -28,13 +27,7 @@ class _GeminiTextFieldState extends State<GeminiTextField>
       vsync: this,
       duration: const Duration(seconds: 3),
     )..repeat();
-    // _beginAnimation =
-    //     Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.bottomRight)
-    //         .animate(_controller);
-    // _endAnimation = Tween<Alignment>(
-    //   begin: Alignment.bottomRight,
-    //   end: Alignment.topLeft,
-    // ).animate(_controller);
+
     super.initState();
   }
 
@@ -79,10 +72,10 @@ class _GeminiTextFieldState extends State<GeminiTextField>
                     if (widget.controller.text.isEmpty) return;
                     widget.controller.clear();
                     _focusNode.unfocus();
-                    // onSend(widget.controller.text);
                     await BlocProvider.of<GeminiCubit>(context)
                         .getRecommendedBook(
-                      books: BlocProvider.of<AllBooksCubit>(context).allBooks,
+                      books:
+                          BlocProvider.of<FetchAllBooksCubit>(context).allBooks,
                       userDescription: question!,
                     );
                   },

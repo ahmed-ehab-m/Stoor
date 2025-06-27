@@ -23,11 +23,13 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
           Colors.grey.shade700.withOpacity(0.5), // رمادي شفاف
           const Color(0xFFa23757), // أحمر كشميري
           Colors.blue.withOpacity(0.5), // أزرق رمادي
+          Colors.purple.shade700.withOpacity(0.5),
         ]
       : [
           const Color(0xFFE0E0E0), // رمادي فاتح
           const Color(0xFFF06292), // وردي ناعم
           const Color(0xFF90CAF9), //
+          // const Color.fromARGB(255, 236, 220, 172),
         ];
 //////////Change Font Size//////////
   double descriptionFontSize = 16;
@@ -43,12 +45,12 @@ class ChangeSettingsCubit extends Cubit<ChangeSettingsState> {
     switch (fontNumber) {
       case 1:
         fontIndex = 1;
-        descriptionFontSize = 12;
+        descriptionFontSize = 14;
         titleFontSize = 24;
         break;
       case 2:
         fontIndex = 2;
-        descriptionFontSize = 16;
+        descriptionFontSize = 18;
         titleFontSize = 30;
         break;
       case 3:

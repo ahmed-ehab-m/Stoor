@@ -1,11 +1,8 @@
-import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
-import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/functions/get_short_title.dart';
+import 'package:bookly_app/core/utils/functions/is_arabic.dart';
 import 'package:bookly_app/core/utils/styles.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:bookly_app/core/widgets/custom_book_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class AllBooksListItem extends StatelessWidget {
   const AllBooksListItem(
@@ -26,37 +23,11 @@ class AllBooksListItem extends StatelessWidget {
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Card(
-              shadowColor: BlocProvider.of<ChangeSettingsCubit>(context)
-                          .backgroundColor ==
-                      Colors.black
-                  ? Colors.grey
-                  : Colors.black,
-              // elevation: 10,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                ),
-                child: AspectRatio(
-                  aspectRatio: 2.6 / 4,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.fill,
-                    imageUrl: KImagesUrl + imageUrl,
-                    errorWidget: (context, url, error) => const Icon(
-                      HugeIcons.strokeRoundedImageNotFound01,
-                      size: 40,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          Expanded(child: CustomBookImage(imageUrl: imageUrl)),
           const SizedBox(height: 8),
           Text(
             getShortTitle(bookTitle),
-            style: Styles.textStyle18.copyWith(
+            style: Styles.textStyle20.copyWith(
               fontWeight: FontWeight.w900,
               // color: kPrimaryColor,
             ),
@@ -68,9 +39,9 @@ class AllBooksListItem extends StatelessWidget {
           Text(
             getShortTitle(author),
             style: Styles.textStyle14.copyWith(
-              color: Colors.grey,
-              // color: kPrimaryColor,
-            ),
+                // color: Colors.grey,
+                // color: kPrimaryColor,
+                ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -79,9 +50,4 @@ class AllBooksListItem extends StatelessWidget {
       ),
     );
   }
-}
-
-bool isArabic(String text) {
-  if (text.isEmpty) return false;
-  return text.codeUnits[0] >= 0x600 && text.codeUnits[0] <= 0x6FF;
 }

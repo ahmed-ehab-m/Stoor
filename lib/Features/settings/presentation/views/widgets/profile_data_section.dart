@@ -58,7 +58,7 @@ class _ProfileDataSectionState extends State<ProfileDataSection> {
             const CustomSectionTitle(title: 'Profile'),
             Container(
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

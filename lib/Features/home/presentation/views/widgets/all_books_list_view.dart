@@ -1,4 +1,4 @@
-import 'package:bookly_app/Features/home/presentation/manager/all_books_cubit/all_books_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/manager/fetch_all_books_cubit/fetch_all_books_cubit.dart';
 import 'package:bookly_app/core/widgets/all_books_list_item.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/all_books_skeleton.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
@@ -12,9 +12,9 @@ class AllBooksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AllBooksCubit, AllBooksState>(
+    return BlocBuilder<FetchAllBooksCubit, FetchAllBooksState>(
       builder: (context, state) {
-        if (state is AllBooksSuccess) {
+        if (state is FetchAllBooksSuccess) {
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.34,
             child: ListView.separated(
@@ -38,7 +38,7 @@ class AllBooksListView extends StatelessWidget {
                   );
                 }),
           );
-        } else if (state is AllBooksFailure) {
+        } else if (state is FetchAllBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         } else {
           return const FeaturedBookSkeleton();

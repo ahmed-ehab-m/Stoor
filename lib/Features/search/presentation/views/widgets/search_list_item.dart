@@ -1,5 +1,5 @@
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
+import 'package:bookly_app/core/widgets/custom_book_image.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/data/models/book_model/book_model.dart';

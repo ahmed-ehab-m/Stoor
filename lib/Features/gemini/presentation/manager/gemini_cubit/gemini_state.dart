@@ -22,6 +22,19 @@ final class GetBookDescriptionFailureState extends GeminiState {
   const GetBookDescriptionFailureState({required this.message});
 }
 
+////////////////////////////////////////////////
+// final class GetBookPreviewLoadingState extends GeminiState {}
+
+// final class GetBookPreviewLoadedState extends GeminiState {
+//   final String bookDescription;
+//   const GetBookPreviewLoadedState({required this.bookDescription});
+// }
+
+// final class GetBookPreviewFailureState extends GeminiState {
+//   final String message;
+//   const GetBookPreviewFailureState({required this.message});
+// }
+
 /////////////////////////////////////////////////////
 final class GeminiLoadingState extends GeminiState {
   final List<ChatMessageModel> chatHistory;
