@@ -3,7 +3,6 @@ import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookMarkIcon extends StatefulWidget {
@@ -56,7 +55,7 @@ class _BookMarkIconState extends State<BookMarkIcon> {
                 isPressed
                     ? CupertinoIcons.bookmark_fill
                     : CupertinoIcons.bookmark,
-                color: isPressed ? Color(0xffFFD400) : widget.color,
+                color: isPressed ? const Color(0xffFFD400) : widget.color,
               )),
         );
       },

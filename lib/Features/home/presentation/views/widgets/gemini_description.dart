@@ -1,5 +1,7 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/gemini_description_dialog.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
+import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -57,34 +59,43 @@ class GeminiDescription extends StatelessWidget {
               Flexible(
                 child: Skeletonizer(
                   enabled: enabled,
-                  child: Container(
-                    // margin: const EdgeInsets.only(top: 10, bottom: 10),
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 10, top: 10, bottom: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.4),
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
+                  child: InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => GeminiDescriptionDialog(
+                            geminiDescription: description),
+                      );
+                    },
+                    child: Container(
+                      // margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 10, top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.4),
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          topLeft: Radius.circular(0),
+                          bottomRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                        ),
                       ),
-                    ),
-                    child: Skeleton.leaf(
-                      child: Text(
-                        description,
+                      child: Skeleton.leaf(
+                        child: Text(
+                          description,
 
-                        // widget.bookModel?.description ??
-                        //     'No description available yet',
-                        textAlign: isArabic ? TextAlign.end : TextAlign.start,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 6,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize:
-                              BlocProvider.of<ChangeSettingsCubit>(context)
-                                  .descriptionFontSize,
-                          // color: Colors.grey[700],
+                          // widget.bookModel?.description ??
+                          //     'No description available yet',
+                          textAlign: isArabic ? TextAlign.end : TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 6,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize:
+                                BlocProvider.of<ChangeSettingsCubit>(context)
+                                    .descriptionFontSize,
+                            // color: Colors.grey[700],
+                          ),
                         ),
                       ),
                     ),

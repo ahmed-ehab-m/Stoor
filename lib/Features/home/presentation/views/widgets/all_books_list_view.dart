@@ -41,7 +41,7 @@ class AllBooksListView extends StatelessWidget {
         } else if (state is FetchAllBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         } else {
-          return const FeaturedBookSkeleton();
+          return const AllBookSkeleton();
         }
       },
     );

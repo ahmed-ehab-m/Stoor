@@ -2,8 +2,8 @@ import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class FeaturedBookSkeleton extends StatelessWidget {
-  const FeaturedBookSkeleton({super.key});
+class AllBookSkeleton extends StatelessWidget {
+  const AllBookSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class FeaturedBookSkeleton extends StatelessWidget {
                   Expanded(
                     child: Skeleton.leaf(
                       child: Card(
-                        shadowColor: Colors.grey,
+                        shadowColor: Colors.white,
                         child: ClipRRect(
                           borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(50),
@@ -35,7 +35,7 @@ class FeaturedBookSkeleton extends StatelessWidget {
                             aspectRatio: 2.6 / 4,
                             child: Skeleton.leaf(
                                 child: Container(
-                              color: Colors.grey,
+                              color: Colors.white,
                             )),
                           ),
                         ),

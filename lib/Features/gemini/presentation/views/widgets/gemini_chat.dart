@@ -80,7 +80,7 @@ class _GeminiChatState extends State<GeminiChat> {
                   return GeminiResultListView(books: message.message);
                 } else {
                   return const NoMatchBooks(
-                      errorMessage: 'General Error Please Try Again ' ?? '');
+                      errorMessage: 'General Error Please Try Again ');
                 }
               } else if (message.type == 'user') {
                 return Row(

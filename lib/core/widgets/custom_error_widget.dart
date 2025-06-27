@@ -10,7 +10,6 @@ class CustomErrorWidget extends StatelessWidget {
   final String errorMessage;
   @override
   Widget build(BuildContext context) {
-    print('CustomErrorWidget: $errorMessage');
     return Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),

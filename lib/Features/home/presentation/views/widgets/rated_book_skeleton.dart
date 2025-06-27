@@ -1,4 +1,3 @@
-import 'package:bookly_app/core/widgets/custom_book_image.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -21,13 +20,26 @@ class RatedBookSkeleton extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 10),
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.2),
+                      color: Colors.grey.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
                       children: [
-                        const Skeleton.leaf(
-                            child: CustomBookImage(imageUrl: '')),
+                        Skeleton.leaf(
+                          child: AspectRatio(
+                            aspectRatio: 2.6 / 4,
+                            child: Skeleton.leaf(
+                                child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                            )),
+                          ),
+                        ),
                         const SizedBox(width: 20),
                         Expanded(
                           child: Column(
