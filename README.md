@@ -49,7 +49,9 @@ http://10.0.2.2:5001/predict
 ## Main packages used
 
 -[cached_network_image] (https://pub.dev/packages/cached_network_image) for efficiently loading and caching images from the network
+
 -[cloud_firestore] (https://pub.dev/packages/cloud_firestore) for real-time database access using Firebase Cloud Firestore
+
 -[cupertino_icons] (https://pub.dev/packages/cupertino_icons) for using iOS-style Cupertino icons
 -[dartz] (https://pub.dev/packages/dartz) for functional programming tools like Either and Option
 -[equatable] (https://pub.dev/packages/equatable) for making Dart objects comparable, useful in Bloc
