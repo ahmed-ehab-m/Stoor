@@ -53,32 +53,59 @@ http://10.0.2.2:5001/predict
 -[cloud_firestore] (https://pub.dev/packages/cloud_firestore) for real-time database access using Firebase Cloud Firestore
 
 -[cupertino_icons] (https://pub.dev/packages/cupertino_icons) for using iOS-style Cupertino icons
+
 -[dartz] (https://pub.dev/packages/dartz) for functional programming tools like Either and Option
+
 -[equatable] (https://pub.dev/packages/equatable) for making Dart objects comparable, useful in Bloc
+
 -[firebase_auth] (https://pub.dev/packages/firebase_auth) for Firebase authentication like email & Google sign-in
+
 -[firebase_core] (https://pub.dev/packages/firebase_core) for initializing Firebase in your Flutter app
+
 -[flutter_bloc] (https://pub.dev/packages/flutter_bloc) for implementing Bloc state management pattern
+
 -[flutter_gemini] (https://pub.dev/packages/flutter_gemini) for integrating Google Gemini AI API (text/image gen)
+
 -[get_it] (https://pub.dev/packages/get_it) for dependency injection using a service locator
+
 -[go_router] (https://pub.dev/packages/go_router) for managing routing and deep linking in Flutter
+
 -[google_sign_in] (https://pub.dev/packages/google_sign_in) for Google login integration
+
 -[hugeicons] (https://pub.dev/packages/hugeicons) for a collection of beautifully designed icons
+
 -[image_picker] (https://pub.dev/packages/image_picker) for picking images/videos from gallery or camera
+
 -[lottie] (https://pub.dev/packages/lottie) for rendering animations from Lottie JSON files
+
 -[path_provider] (https://pub.dev/packages/path_provider) to access temp & documents directory
+
 -[permission_handler] (https://pub.dev/packages/permission_handler) for requesting runtime permissions
+
 -[shared_preferences] (https://pub.dev/packages/shared_preferences) for storing key-value pairs locally
+
 -[skeletonizer] (https://pub.dev/packages/skeletonizer) for showing skeleton screens while loading
+
 -[smooth_page_indicator] (https://pub.dev/packages/smooth_page_indicator) for animated page indicators
+
 -[url_launcher] (https://pub.dev/packages/url_launcher) for opening URLs, phone, SMS, and email apps
+
 -[webview_flutter] (https://pub.dev/packages/webview_flutter) for displaying web pages inside your app
+
 -[email_validator] (https://pub.dev/packages/email_validator) for validating email addresses
+
 -[flutter_staggered_grid_view] (https://pub.dev/packages/flutter_staggered_grid_view) for creating staggered grid layouts
+
 -[connectivity_plus] (https://pub.dev/packages/connectivity_plus) for checking network connectivity
+
 -[modal_bottom_sheet] (https://pub.dev/packages/modal_bottom_sheet) for customizable bottom sheet UI
+
 -[flutter_svg] (https://pub.dev/packages/flutter_svg) for rendering SVG images in Flutter
+
 -[carousel_slider] (https://pub.dev/packages/carousel_slider) for image/content sliders
+
 -[dynamic_background] (https://pub.dev/packages/dynamic_background) for animated/live app backgrounds
+
 -[dio] (https://pub.dev/packages/dio) for handling HTTP requests and APIs efficiently
 
 ## Folder structure
