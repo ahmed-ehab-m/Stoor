@@ -1,11 +1,10 @@
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
+import 'package:bookly_app/core/widgets/book_mark_icon.dart';
 import 'package:bookly_app/core/widgets/custom_book_image.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_state.dart';
 import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -21,8 +20,11 @@ class SearchListItem extends StatefulWidget {
 
 class _SearchListItemState extends State<SearchListItem> {
   bool isBookmarked = false;
+
   @override
   Widget build(BuildContext context) {
+    String uid = BlocProvider.of<ProfileCubit>(context).uid ?? '';
+
     return GestureDetector(
       onTap: () {
         GoRouter.of(context)
@@ -54,7 +56,9 @@ class _SearchListItemState extends State<SearchListItem> {
                                 child: highlightText(
                                   text: widget.bookModel!.title ?? 'No title',
                                   searchQuery: widget.searchQuery ?? '',
-                                  baseStyle: Styles.textStyle18,
+                                  baseStyle: Styles.textStyle18.copyWith(
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ],
@@ -89,27 +93,10 @@ class _SearchListItemState extends State<SearchListItem> {
           ),
           Positioned(
             right: -1,
-            // bottom:,
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  isBookmarked = !isBookmarked;
-                });
-              },
-              icon: BlocBuilder<ChangeSettingsCubit, ChangeSettingsState>(
-                builder: (context, state) {
-                  return Icon(
-                    isBookmarked
-                        ? CupertinoIcons.bookmark_fill
-                        : CupertinoIcons.bookmark,
-                    color: isBookmarked
-                        ? Colors.amber
-                        : BlocProvider.of<ChangeSettingsCubit>(context)
-                            .iconColor,
-                    size: 20,
-                  );
-                },
-              ),
+            child: BookMarkIcon(
+              isRated: true,
+              bookModel: widget.bookModel,
+              uid: uid,
             ),
           ),
         ],

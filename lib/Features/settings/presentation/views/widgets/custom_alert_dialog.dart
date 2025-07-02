@@ -6,6 +6,7 @@ import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/
 import 'package:bookly_app/core/utils/constants.dart';
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/core/utils/validation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -35,7 +36,7 @@ class CustomAlertDialog extends StatelessWidget {
                 color: BlocProvider.of<ChangeSettingsCubit>(context).iconColor),
             Text('Update',
                 style: Styles.textStyle18.copyWith(
-                  color: kPrimaryColor,
+                  color: kSecondaryColor,
                 )),
           ],
         );
@@ -74,7 +75,7 @@ class CustomAlertDialog extends StatelessWidget {
           title: Text(
             'Update Email',
             style: Styles.textStyle24
-                .copyWith(fontWeight: FontWeight.w900, color: kPrimaryColor),
+                .copyWith(fontWeight: FontWeight.w900, color: kSecondaryColor),
           ),
           content: BlocBuilder<AuthCubit, AuthState>(
             builder: (context, state) {

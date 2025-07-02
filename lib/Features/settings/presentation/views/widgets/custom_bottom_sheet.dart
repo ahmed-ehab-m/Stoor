@@ -2,29 +2,22 @@ import 'package:bookly_app/Features/settings/presentation/manager/change_setting
 import 'package:bookly_app/Features/settings/presentation/manager/pick_image_cubit/pick_image_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_image_choice.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/core/widgets/custom_bottom_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 void createCustomBotttomSheet(BuildContext context) {
-  showMaterialModalBottomSheet(
+  showModalBottomSheet(
     // backgroundColor: Colors.black,
     context: context,
     builder: (context) => SizedBox(
       height: 200,
       child: Column(
         children: [
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            width: 50,
-            height: 5,
-            decoration: BoxDecoration(
-              color: BlocProvider.of<ChangeSettingsCubit>(context).iconColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Text(''),
-          ),
+          const CustomBottomBar(),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(

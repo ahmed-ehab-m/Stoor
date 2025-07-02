@@ -2,6 +2,7 @@ import 'package:bookly_app/Features/home/presentation/views/widgets/books_detail
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_details_app_bar.dart';
 import 'package:bookly_app/core/data/models/book_model/book_model.dart';
 import 'package:bookly_app/core/utils/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
@@ -22,7 +23,8 @@ class BookDetailsViewBody extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(KImagesUrl + (bookModel!.image ?? '')),
+                  image: CachedNetworkImageProvider(
+                      KImagesUrl + (bookModel!.image ?? '')),
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.topCenter,
                 ),

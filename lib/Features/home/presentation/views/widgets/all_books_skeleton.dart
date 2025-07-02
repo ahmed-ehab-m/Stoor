@@ -24,21 +24,19 @@ class AllBookSkeleton extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Skeleton.leaf(
-                      child: Card(
-                        shadowColor: Colors.white,
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
+                      child: AspectRatio(
+                        aspectRatio: 2.6 / 4,
+                        child: Skeleton.leaf(
+                            child: Container(
+                                decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
                           ),
-                          child: AspectRatio(
-                            aspectRatio: 2.6 / 4,
-                            child: Skeleton.leaf(
-                                child: Container(
-                              color: Colors.white,
-                            )),
-                          ),
-                        ),
+                        )
+                                // color: Colors.green,
+                                )),
                       ),
                     ),
                   ),

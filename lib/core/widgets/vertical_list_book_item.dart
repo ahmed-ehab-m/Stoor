@@ -67,7 +67,7 @@ class _VerticalListBookItemState extends State<VerticalListBookItem> {
                                   Expanded(
                                     child: Text(
                                       widget.bookModel!.title ?? 'No title',
-                                      style: Styles.textStyle18.copyWith(
+                                      style: Styles.textStyle20.copyWith(
                                         fontWeight: FontWeight.w900,
                                       ),
                                     ),

@@ -17,6 +17,10 @@ class RatedListView extends StatelessWidget {
           final books = (state is FetchHighestRatedBooksSuccess)
               ? state.books
               : (state as FetchLowestRatedBooksSuccess).books;
+          // return const Skeletonizer.sliver(
+          //   enabled: true,
+          //   child: RatedBookSkeleton(),
+          // );
           return SliverList(
               delegate: SliverChildBuilderDelegate(
             (context, index) {

@@ -1,10 +1,11 @@
 import 'package:bookly_app/Features/gemini/presentation/manager/gemini_cubit/gemini_cubit.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/gemini_description_dialog.dart';
+import 'package:bookly_app/Features/gemini/presentation/views/widgets/bot_icon.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/custom_bot_icon.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
-import 'package:bookly_app/Features/settings/presentation/views/widgets/custom_alert_dialog.dart';
+import 'package:bookly_app/core/widgets/custom_bottom_bar.dart';
+import 'package:bookly_app/core/widgets/custom_shader_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class GeminiDescription extends StatelessWidget {
@@ -36,23 +37,7 @@ class GeminiDescription extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Row(
             children: [
-              ShaderMask(
-                shaderCallback: (bounds) {
-                  return const LinearGradient(
-                    colors: [
-                      Colors.white,
-                      Color(0xffFFD400),
-                      // Blue
-                    ],
-                    tileMode: TileMode.repeated,
-                  ).createShader(bounds);
-                },
-                child: const Icon(
-                  HugeIcons.strokeRoundedRobot01,
-                  color: Colors.white,
-                  size: 35,
-                ),
-              ),
+              const CustomBotIcon(),
               const SizedBox(
                 width: 5,
               ),
@@ -61,14 +46,10 @@ class GeminiDescription extends StatelessWidget {
                   enabled: enabled,
                   child: InkWell(
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => GeminiDescriptionDialog(
-                            geminiDescription: description),
-                      );
+                      showDescriptionBottomSheet(
+                          context, description, isArabic);
                     },
                     child: Container(
-                      // margin: const EdgeInsets.only(top: 10, bottom: 10),
                       padding: const EdgeInsets.only(
                           left: 20, right: 10, top: 10, bottom: 10),
                       decoration: BoxDecoration(
@@ -83,9 +64,6 @@ class GeminiDescription extends StatelessWidget {
                       child: Skeleton.leaf(
                         child: Text(
                           description,
-
-                          // widget.bookModel?.description ??
-                          //     'No description available yet',
                           textAlign: isArabic ? TextAlign.end : TextAlign.start,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 6,
@@ -94,7 +72,6 @@ class GeminiDescription extends StatelessWidget {
                             fontSize:
                                 BlocProvider.of<ChangeSettingsCubit>(context)
                                     .descriptionFontSize,
-                            // color: Colors.grey[700],
                           ),
                         ),
                       ),
@@ -108,4 +85,64 @@ class GeminiDescription extends StatelessWidget {
       },
     );
   }
+}
+
+void showDescriptionBottomSheet(
+    BuildContext context, String description, bool isArabic) {
+  showModalBottomSheet(
+    elevation: 0.8,
+    context: context,
+    builder: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const CustomBottomBar(),
+        const SizedBox(
+          height: 10,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const BotIcon(),
+              CustomShaderMask(
+                child: Text(
+                  ' Message',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: BlocProvider.of<ChangeSettingsCubit>(context)
+                        .descriptionFontSize,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              textAlign: isArabic ? TextAlign.end : TextAlign.start,
+              description,
+              style: TextStyle(
+                fontSize: BlocProvider.of<ChangeSettingsCubit>(context)
+                    .descriptionFontSize,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+      ],
+    ),
+  );
 }

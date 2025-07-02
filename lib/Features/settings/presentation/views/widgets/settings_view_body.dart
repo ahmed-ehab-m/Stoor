@@ -36,6 +36,9 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
               ],
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
           // Spacer(),
           const LogoutButton(),
           const SizedBox(

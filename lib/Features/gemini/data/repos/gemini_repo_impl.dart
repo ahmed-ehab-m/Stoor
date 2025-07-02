@@ -168,6 +168,8 @@ class GeminiRepoImpl implements GeminiRepo {
         '  Description: ${book.description ?? "No description available"}\n');
     buffer.write('  Author: ${book.author?.name ?? "No author available"}\n');
     buffer.write(
+        '- Category: ${book.category?.name ?? "No category available"}\n');
+    buffer.write(
         'The summary should be a concise paragraph should be same language of description, limited to a maximum of 4 lines. ');
 
     buffer.write(

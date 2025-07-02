@@ -15,6 +15,7 @@ class AllBooksListView extends StatelessWidget {
     return BlocBuilder<FetchAllBooksCubit, FetchAllBooksState>(
       builder: (context, state) {
         if (state is FetchAllBooksSuccess) {
+          // return const AllBookSkeleton();
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.34,
             child: ListView.separated(
