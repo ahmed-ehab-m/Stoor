@@ -163,6 +163,8 @@ Here are some screeshots for the application:
 ![WhatsApp Image 2025-07-03 at 1 16 18 AM-portrait](https://github.com/user-attachments/assets/600f31b5-db75-4609-8d37-32d66b6877c0)
 ![WhatsApp Image 2025-07-03 at 1 30 30 AM-portrait](https://github.com/user-attachments/assets/a6509e29-2c17-4945-8564-a63e3abbb888)
 
+![Stoor](https://github.com/user-attachments/assets/d0230fc7-64e1-465c-a159-d91287cb44ee)
+
 
 ## Demo Video
 https://github.com/user-attachments/assets/9ddd4164-3d5c-4c98-a830-40814e2d52ba
