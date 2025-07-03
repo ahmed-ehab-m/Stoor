@@ -5,14 +5,14 @@
 🤖 The app integrates an AI-powered Gemini Bot to help users discover the perfect book based on their preferences, making your reading journey easier and more enjoyable!
 
 ## Table of contents
-- ### [Setting Up The Local Server =>](#setting-up-the-php-api-(bookstore)-locally)
+- ### [Setting Up The Local Server =>](#setting-up-the-local-server)
 - ### [main packages used =>](#main-packages-used)
 - ### [Folder structure =>](#folder-structure)
 - ### [Screenshots =>](#screenshots)
 - ### [Demo video =>](#demo-video)
 
 
-## Setting Up the PHP API (Bookstore) Locally
+## Setting Up The Local Server
 Follow these steps to set up and run the PHP Laravel API on your local machine:
 Run These Comands in your Terminal
 
