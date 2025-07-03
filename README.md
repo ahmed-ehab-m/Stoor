@@ -154,7 +154,8 @@ presentation
 
 ## Screenshots
 Here are some screeshots for the application:
-![Stoor (4)](https://github.com/user-attachments/assets/f2157d4e-1217-4dc5-9798-9ab0aaacc0a1)
+
 ![Stoor (1)](https://github.com/user-attachments/assets/4c4d8574-e9a4-45a6-ae3a-1b0940941ab3)
+![Stoor (4)](https://github.com/user-attachments/assets/f2157d4e-1217-4dc5-9798-9ab0aaacc0a1)
 
 ## Demo Video
