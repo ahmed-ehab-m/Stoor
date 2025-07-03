@@ -5,46 +5,56 @@
 🤖 The app integrates an AI-powered Gemini Bot to help users discover the perfect book based on their preferences, making your reading journey easier and more enjoyable!
 
 ## Table of contents
-- ### [Setting Up The Local Server =>](#setting-up-the-local-server)
+- ### [Setting Up The Local Server =>](#setting-up-the-php-api-(bookstore)-locally)
 - ### [main packages used =>](#main-packages-used)
 - ### [Folder structure =>](#folder-structure)
 - ### [Screenshots =>](#screenshots)
 - ### [Demo video =>](#demo-video)
 
 
-## Setting Up The Local Server
-Follow these steps to set up the local server:
+## Setting Up the PHP API (Bookstore) Locally
+Follow these steps to set up and run the PHP Laravel API on your local machine:
 Run These Comands in your Terminal
-### 1️⃣ Create a Virtual Environment
-#### 🖥️ **Windows**
+
+### 1️⃣ Download and Install XAMPP
+#### 🧰 Download XAMPP for your OS (Windows/macOS/Linux).
+During installation, make sure Apache and MySQL are selected.
+After installation, start both services from the XAMPP Control Panel.
+
+### 2️⃣ Add PHP to System Environment Variables (Windows):
+To make PHP accessible from the terminal:
 ```sh
-python -m venv venv
-venv\Scripts\activate.bat
-Set-ExecutionPolicy Unrestricted -Scope Process
-venv\Scripts\Activate.ps1
+Control Panel → System → Advanced system settings → Environment Variables
 ```
-#### 🖥️ **Mac**
+In the Path variable (under System Variables), add:
 ```sh
-python3 -m venv venv
-source venv/bin/activate
+C:\xampp\php
 ```
-### 2️⃣ Install the required packages:
+### 3️⃣ Install Composer:
+Download Composer and install it
+Make sure it's added to your system PATH automatically during installation.
+You can verify by running:
 ```sh
-pip install Flask
-pip install numpy
-pip install scikit-learn==1.3.2
+composer --version
 ```
-### 3️⃣ Run the server:
+### 4️⃣ Add the API Project Files:
+Place the bookstore_api project folder inside:
 ```sh
-python app.py // to host the AI model and access it through your local host on port 5001.
+\xampp\htdocs\
 ```
-### 4️⃣ Check if the server is running:
+### 5️⃣ Link Storage for Images:
+Place the bookstore_api project folder inside:
 ```sh
-http://127.0.0.1:5001
+php artisan storage:link
 ```
-### 5️⃣ Send data to the model using the POST method:
+### 6️⃣ Run Laravel Migrations:
+in bookstoreapi folder cmd/ 
 ```sh
-http://10.0.2.2:5001/predict
+php artisan migrate
+```
+This will host your API at:
+```sh
+http://127.0.0.1:8000
 ```
 ## Main packages used
 
