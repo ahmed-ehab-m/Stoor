@@ -159,3 +159,4 @@ Here are some screeshots for the application:
 ![Stoor (4)](https://github.com/user-attachments/assets/f2157d4e-1217-4dc5-9798-9ab0aaacc0a1)
 
 ## Demo Video
+https://drive.google.com/file/d/19MtDc0f7H8etIeL6XAgVQUlRelrvDHPa/view?usp=drive_link
