@@ -1,4 +1,3 @@
-
 # Stoor
 📚 Stoor is a smart Book Store App that offers a vast collection of books with real-time browsing, including book summaries, ratings, and personalized recommendations, along with a curated reading list.
 
