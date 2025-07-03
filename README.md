@@ -154,17 +154,7 @@ presentation
 
 ## Screenshots
 Here are some screeshots for the application:
-
-![WhatsApp Image 2025-06-30 at 11 43 24 PM (1)-portrait](https://github.com/user-attachments/assets/e7d0da21-93b2-4e24-8e65-70e814998195)
-![WhatsApp Image 2025-06-30 at 11 43 24 PM-portrait](https://github.com/user-attachments/assets/db69003b-1b9a-4e15-88f0-abdd4ac9b0a8)
-![WhatsApp Image 2025-07-03 at 1 16 17 AM (2)-portrait](https://github.com/user-attachments/assets/f0ea6542-edb9-4904-8741-c5242882d7bf)
-![WhatsApp Image 2025-07-03 at 1 16 17 AM (3)-portrait](https://github.com/user-attachments/assets/0fd2bfbd-56fc-4b03-b8a5-adefdac1730c)
-![WhatsApp Image 2025-07-03 at 1 16 18 AM (2)-portrait](https://github.com/user-attachments/assets/7a958ff1-6d0e-4173-8b91-3e1ca6844450)
-![WhatsApp Image 2025-07-03 at 1 16 18 AM-portrait](https://github.com/user-attachments/assets/600f31b5-db75-4609-8d37-32d66b6877c0)
-![WhatsApp Image 2025-07-03 at 1 30 30 AM-portrait](https://github.com/user-attachments/assets/a6509e29-2c17-4945-8564-a63e3abbb888)
-
-![Stoor](https://github.com/user-attachments/assets/d0230fc7-64e1-465c-a159-d91287cb44ee)
-
+![Stoor (4)](https://github.com/user-attachments/assets/f2157d4e-1217-4dc5-9798-9ab0aaacc0a1)
+![Stoor (1)](https://github.com/user-attachments/assets/4c4d8574-e9a4-45a6-ae3a-1b0940941ab3)
 
 ## Demo Video
-https://github.com/user-attachments/assets/9ddd4164-3d5c-4c98-a830-40814e2d52ba
