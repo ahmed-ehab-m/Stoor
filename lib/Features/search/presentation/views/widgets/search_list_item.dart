@@ -1,4 +1,5 @@
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating.dart';
+import 'package:bookly_app/Features/settings/presentation/manager/change_settings_cubit/change_settings_cubit.dart';
 import 'package:bookly_app/Features/settings/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:bookly_app/core/widgets/book_mark_icon.dart';
 import 'package:bookly_app/core/widgets/custom_book_image.dart';
@@ -57,8 +58,10 @@ class _SearchListItemState extends State<SearchListItem> {
                                   text: widget.bookModel!.title ?? 'No title',
                                   searchQuery: widget.searchQuery ?? '',
                                   baseStyle: Styles.textStyle18.copyWith(
-                                    color: Colors.black,
-                                  ),
+                                      color:
+                                          BlocProvider.of<ChangeSettingsCubit>(
+                                                  context)
+                                              .backgroundColor),
                                 ),
                               ),
                             ],
