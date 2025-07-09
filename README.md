@@ -5,6 +5,7 @@
 
 ## Table of contents
 - ### [Setting Up The Local Server =>](#setting-up-the-local-server)
+- ### [Gemini Setup (AI Integration) =>](#gemini-setup-ai-integration)
 - ### [main packages used =>](#main-packages-used)
 - ### [Folder structure =>](#folder-structure)
 - ### [Screenshots =>](#screenshots)
@@ -55,6 +56,23 @@ This will host your API at:
 ```sh
 http://127.0.0.1:8000
 ```
+
+## Gemini Setup AI Integration
+### 1️⃣ Get Your API Key
+🔑 Visit https://ai.google.dev/
+Sign in with your Google account and click on "Get API Key" to generate a new Gemini API Key.
+### 2️⃣ Add the API Key to the Project
+There are two options to add your Gemini API Key securely:
+#### Option A: Add it directly using Service Locator
+
+Go to the service locator file (e.g. service_locator.dart) and register the Gemini instance like this:
+```sh
+Gemini gemini = Gemini(apiKey: "YOUR_API_KEY");
+```
+#### Option B: Use the official package documentation
+📚 Visit the flutter_gemini documentation
+Follow the instructions for best practices in securing and using the Gemini API key in Flutter.
+
 ## Main packages used
 
 -[cached_network_image] (https://pub.dev/packages/cached_network_image) for efficiently loading and caching images from the network
