@@ -43,7 +43,7 @@ Place the bookstore_api project folder inside:
 \xampp\htdocs\
 ```
 ### 5️⃣ Link Storage for Images:
-Place the bookstore_api project folder inside:
+in bookstoreapi folder cmd/ 
 ```sh
 php artisan storage:link
 ```
